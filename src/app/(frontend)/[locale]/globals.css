@@ -1,0 +1,127 @@
+@import "tailwindcss";
+
+html {
+  scroll-behavior: smooth;
+}
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+  --cards: #b8cad0;
+  --cards-dark: #859ca3;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-cards: var(--cards);
+  --color-cards-dark: var(--cards-dark);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --font-nunito: var(--nunito);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+@utility my-text-stroke {
+  -webkit-text-stroke: #ffca28;
+  -webkit-text-stroke-width: 1px;
+}
+
+@utility my-text-stroke2 {
+  -webkit-text-stroke: #104e64e6;
+  -webkit-text-stroke-width: 2px;
+}
+
+@utility input {
+  @apply w-full rounded-2xl bg-cyan-200 px-5 py-2 text-cyan-900 outline-cyan-700;
+}
+
+@utility btn-social {
+  @apply flex w-full cursor-pointer items-center justify-center gap-5 rounded-2xl border-[2px] border-transparent bg-cyan-200 px-5 py-2 text-cyan-900 transition-all duration-500 hover:border-cyan-200 hover:bg-cyan-900 hover:text-cyan-200;
+}
+
+@utility icon {
+  @apply absolute top-[50%] right-5 h-8 w-8 translate-y-[-50%] cursor-pointer rounded-full p-1 transition-all hover:bg-slate-400/40;
+}
+
+@utility my-big-breakpoint {
+  @media screen {
+  }
+}
+
+@custom-variant 3xl {
+  @media (width > 1660px) {
+    @slot;
+  }
+}
+
+@custom-variant 1_5xl {
+  @media (width > 1450px) {
+    @slot;
+  }
+}
+
+@custom-variant xsm {
+  @media (width < 430px) {
+    @slot;
+  }
+}
+
+#nav-icon1 {
+  width: 50px;
+  height: 35px;
+  transform: rotate(0deg);
+  transition: 0.5s ease-in-out;
+  cursor: pointer;
+}
+
+#nav-icon1 span {
+  display: block;
+  position: absolute;
+  height: 5px;
+  width: 100%;
+  border-radius: 9px;
+  opacity: 1;
+  left: 0;
+  transform: rotate(0deg);
+  transition: 0.25s ease-in-out;
+}
+
+#nav-icon1 span:nth-child(1) {
+  top: 0px;
+}
+
+#nav-icon1 span:nth-child(2) {
+  top: 15px;
+}
+
+#nav-icon1 span:nth-child(3) {
+  top: 30px;
+}
+
+#nav-icon1.open span:nth-child(1) {
+  top: 18px;
+  transform: rotate(135deg);
+}
+
+#nav-icon1.open span:nth-child(2) {
+  opacity: 0;
+  left: -60px;
+}
+
+#nav-icon1.open span:nth-child(3) {
+  top: 18px;
+  transform: rotate(-135deg);
+}

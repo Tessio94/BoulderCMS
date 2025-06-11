@@ -1,0 +1,131 @@
+{
+  "Header": {
+    "home": "Home",
+    "events": "Events",
+    "gallery": "Gallery",
+    "login": "Login",
+    "linkEvents": "/events",
+    "linkDetails": "/details",
+    "linkGallery": "/gallery",
+    "linkLogin": "/login"
+  },
+  "Landing": {
+    "title": "Let's climb together",
+    "text1": "Register yourself to boulder event",
+    "text2": "Find bouldering competitions in the future and current",
+    "text3": "See overview of bouldering gyms",
+    "button1": "Join Us",
+    "button2": "See Events"
+  },
+  "Cards": {
+    "card1": {
+      "title": "Our Mission:",
+      "text1_1": "At",
+      "strong1": "BoulderApp",
+      "text1_2": ", we are passionate about making the world of bouldering more accessible, exciting, and community-driven.",
+      "text2": "Our mission is to connect climbers with the best competitions, allowing them to register, stay informed, and track their progress all in one place.",
+      "text3": "Whether you're a seasoned pro or just starting, we aim to provide a platform that fosters growth, challenges, and unforgettable experiences."
+    },
+    "card2": {
+      "title": "Discover and Compete:",
+      "text1": "Bouldering is more than just a sport; it's a way to test your limits and push past boundaries.",
+      "text2_1": "Our platform allows you to easily find upcoming competitions and",
+      "strong2": "sign up for events",
+      "text2_2": "that match your skill level and passion.",
+      "text3": "Stay up-to-date on local and global bouldering events and never miss an opportunity to compete, challenge yourself, and meet others who share your love for climbing."
+    },
+    "card3": {
+      "title": "Explore Boulder Halls:",
+      "text1": "We understand that finding the right training environment is essential to improving your climbing skills.",
+      "text2_1": "That's why we offer an extensive overview offer",
+      "strong2": "bouldering gyms",
+      "text2_2": "across the area, helping you find the perfect place to train, meet other climbers, and prepare for your next competition.",
+      "text3": "Whether you're looking for a beginner-friendly space or a gym with challenging routes, we've got you covered."
+    }
+  },
+  "Competition": {
+    "title": "How our app works:",
+    "step1": {
+      "title": "Scan the QR code",
+      "bullet1": "At the entrance of the event you will find the QR code of the app.",
+      "bullet2": "Scan the code and enter the login page"
+    },
+    "step2": {
+      "title": "Login to your account",
+      "bullet1": "The QR code will lead you to the login page of app",
+      "bullet2": "Enter your account details"
+    },
+    "step3": {
+      "title": "Compete and enjoy!",
+      "bullet1": "Start the competition",
+      "bullet2": "Insert your score",
+      "bullet3": "Check your result and ranking"
+    }
+  },
+  "LoginBanner": {
+    "title": "Find your event and login",
+    "text1": "Connect to your boulder app account, register your score and compete with others",
+    "button1": "Join Us",
+    "button2": "See Events"
+  },
+  "Footer": {
+    "text1": "© 2025 BoulderApp. All rights reserved."
+  },
+  "EventsLanding": {
+    "heading": "Last event",
+    "bullet1": "Find events in near future",
+    "bullet2": "Find past events",
+    "bullet3": "Find events close to you",
+    "button": "Find list of events below"
+  },
+  "EventsSection": {
+    "resultsHeading": "Results:",
+    "events": {
+      "event1": {
+        "title": "ISLAND meets HAUS Cup",
+        "date": "24.04. - 24.05.2025",
+        "description": "ISLAND meets HAUS - Fun Cup - We are organizing a fun cup for the Mannheim bouldering community!"
+      },
+      "event2": {
+        "title": "Kräftedreieck 2025",
+        "date": "28.04. - 14.06.2025",
+        "description": "The annual competition at Zenit for teams of three with qualifiers and a final."
+      },
+      "event3": {
+        "title": "Eastercup 2025",
+        "date": "26.04.2025",
+        "description": "Bouldering competition with music & specials"
+      }
+    }
+  },
+  "Gallery": {
+    "heading": "See list of galleries",
+    "searchPlaceholder": "Search galleries...",
+    "button": "All galleries"
+  },
+  "Login": {
+    "heading": "Welcome back",
+    "register": "Register",
+    "help": "Need help?",
+    "email": "Email",
+    "password": "Password",
+    "login": "Login",
+    "facebook": "Facebook login",
+    "google": "Google login"
+  },
+  "Register": {
+    "heading": "Welcome",
+    "login": "Login",
+    "help": "Need help?",
+    "name": "Name",
+    "lastName": "Last name",
+    "email": "Email",
+    "phone": "Phone number",
+    "password": "Password",
+    "repeatPassword": "Repeat password",
+    "terms": "I agree to the terms and conditions.",
+    "register": "Register",
+    "facebook": "Facebook login",
+    "google": "Google login"
+  }
+}
