@@ -7,11 +7,13 @@
 		"dev": "next dev --turbopack",
 		"build": "next build",
 		"start": "next start",
-		"lint": "next lint"
+		"lint": "next lint",
+		"generate:types": "cross-env PAYLOAD_CONFIG_PATH=src/payload.config.ts payload generate:types"
 	},
 	"dependencies": {
 		"@payloadcms/db-postgres": "^3.42.0",
 		"@payloadcms/next": "^3.42.0",
+		"@payloadcms/plugin-seo": "^3.42.0",
 		"@payloadcms/richtext-lexical": "^3.42.0",
 		"clsx": "^2.1.1",
 		"date-fns": "^4.1.0",
@@ -33,6 +35,7 @@
 		"@types/node": "^20",
 		"@types/react": "^19",
 		"@types/react-dom": "^19",
+		"cross-env": "^7.0.3",
 		"eslint": "^9",
 		"eslint-config-next": "15.3.3",
 		"prettier": "^3.5.3",
