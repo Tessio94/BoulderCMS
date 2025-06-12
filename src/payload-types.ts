@@ -161,10 +161,24 @@ export interface Event {
   title: string;
   from: string;
   until: string;
-  /**
-   * Maximum up to 20 words
-   */
   description?: string | null;
+  heroImage?: (number | null) | Media;
+  content: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  slug?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -272,6 +286,9 @@ export interface EventsSelect<T extends boolean = true> {
   from?: T;
   until?: T;
   description?: T;
+  heroImage?: T;
+  content?: T;
+  slug?: T;
   updatedAt?: T;
   createdAt?: T;
 }

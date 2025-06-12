@@ -1,4 +1,13 @@
+import { formatSlugHook } from "@/fields/slug/formatSlug";
 import type { CollectionConfig } from "payload";
+
+import {
+	FixedToolbarFeature,
+	HeadingFeature,
+	HorizontalRuleFeature,
+	InlineToolbarFeature,
+	lexicalEditor,
+} from "@payloadcms/richtext-lexical";
 
 export const Events: CollectionConfig = {
 	slug: "events",
@@ -27,8 +36,55 @@ export const Events: CollectionConfig = {
 		{
 			name: "description",
 			type: "text",
+			// maxLength: 20,
+			// admin: {
+			// 	description: "Maximum up to 20 words",
+			// },
+		},
+		{
+			type: "tabs",
+			tabs: [
+				{
+					fields: [
+						{
+							name: "heroImage",
+							type: "upload",
+							relationTo: "media",
+						},
+						{
+							name: "content",
+							type: "richText",
+							editor: lexicalEditor({
+								features: ({ rootFeatures }) => {
+									return [
+										...rootFeatures,
+										HeadingFeature({
+											enabledHeadingSizes: ["h1", "h2", "h3", "h4"],
+										}),
+										FixedToolbarFeature(),
+										InlineToolbarFeature(),
+										HorizontalRuleFeature(),
+									];
+								},
+							}),
+							label: false,
+							required: true,
+						},
+					],
+					label: "Content",
+				},
+			],
+		},
+		{
+			name: "slug",
+			type: "text",
+			// required: true,
+			unique: true,
 			admin: {
-				description: "Maximum up to 20 words",
+				readOnly: true,
+			},
+			hooks: {
+				beforeValidate: [formatSlugHook("title")],
 			},
 		},
 	],
