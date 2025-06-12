@@ -162,6 +162,7 @@ export interface Event {
   from: string;
   until: string;
   description?: string | null;
+  location?: string | null;
   heroImage?: (number | null) | Media;
   content: {
     root: {
@@ -286,6 +287,7 @@ export interface EventsSelect<T extends boolean = true> {
   from?: T;
   until?: T;
   description?: T;
+  location?: T;
   heroImage?: T;
   content?: T;
   slug?: T;
