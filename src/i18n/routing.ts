@@ -17,6 +17,6 @@ export const routing = defineRouting({
 		"/register": {
 			de: "/registrieren",
 		},
-		"/admin": "/admin",
+		// "/admin": "/admin",
 	},
 });
