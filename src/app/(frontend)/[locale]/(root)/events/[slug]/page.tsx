@@ -1,22 +1,44 @@
+// import Image from "next/image";
+
+import { RenderHTML } from "@/components/RenderHTML";
+import config from "@payload-config";
 import Image from "next/image";
+import { getPayload } from "payload";
+import { cache } from "react";
 
-const page = async ({ params }) => {
-  const { slug } = await params;
-  console.log(slug);
+const Page = async ({ params }) => {
+	const { slug } = await params;
 
-  return (
-    <>
-      <div className="relative z-0 flex h-screen min-h-[800px] w-full items-center justify-center overflow-hidden bg-[url(/homepage/gallery_1024.jpg)] bg-no-repeat lg:block lg:h-fit lg:min-h-[unset] lg:bg-none">
-        {/* <Image
-          className="hidden lg:block lg:h-auto lg:object-contain"
-          src="/homepage/gallery.jpg"
-          alt="climber on boulder"
-          width={1920}
-          height={1080}
-        /> */}
-      </div>
-    </>
-  );
+	const event = await queryEventsBySlug({ slug });
+	console.log("event :", event);
+	return (
+		<>
+			<Image
+				src={event.heroImage ? event.heroImage : "/homepage/gallery.jpg"}
+				alt={event.title}
+				width={1920}
+				height={1080}
+			/>
+			<main>{event.content && <RenderHTML data={event.content} />}</main>
+		</>
+	);
 };
 
-export default page;
+export default Page;
+
+const queryEventsBySlug = cache(async ({ slug }: { slug: string }) => {
+	const payload = await getPayload({ config });
+
+	const result = await payload.find({
+		collection: "events",
+		limit: 1,
+		pagination: false,
+		where: {
+			slug: {
+				equals: slug,
+			},
+		},
+	});
+
+	return result.docs?.[0] || null;
+});

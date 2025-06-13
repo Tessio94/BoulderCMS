@@ -12,7 +12,8 @@ export default async function Events() {
 		collection: "events",
 		sort: "-from",
 	});
-
+	console.log(events);
+	console.log(events[0].content);
 	return (
 		<>
 			<EventsLanding />
