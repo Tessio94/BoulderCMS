@@ -125,3 +125,22 @@ body {
   top: 18px;
   transform: rotate(-135deg);
 }
+
+.payload-richtext {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.payload-richtext h3 {
+  font-size: 18px;
+}
+
+.payload-richtext p {
+  font-size: 16px;
+}
+
+.payload-richtext ul {
+  list-style: disc;
+  margin-left: 1rem;
+}

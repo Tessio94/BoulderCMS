@@ -19,7 +19,8 @@ const Header = () => {
 
   const pathname = usePathname();
   const t = useTranslations("Header");
-
+  console.log(pathname);
+  const eventPage = pathname.split("/").length >= 3;
   const hamb = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -72,7 +73,12 @@ const Header = () => {
   }, [pathname]);
 
   return (
-    <header className="absolute z-10 flex w-full max-w-[1920px] items-center justify-between bg-cyan-100/80 px-[20px] py-3 sm:px-[50px] lg:px-[60px] 2xl:px-[160px]">
+    <header
+      className={cn(
+        "z-10 flex w-full max-w-[1920px] items-center justify-between bg-cyan-100/80 px-[20px] py-3 sm:px-[50px] lg:px-[60px] 2xl:px-[160px]",
+        eventPage ? "relative" : "absolute"
+      )}
+    >
       <Link href="/">
         <Image
           className="logo"
@@ -92,7 +98,7 @@ const Header = () => {
                 "my-text-stroke relative cursor-pointer text-3xl font-extrabold capitalize after:absolute after:top-[100%] after:left-0 after:h-2 after:w-2 after:translate-x-0 after:rounded-full after:bg-amber-400 after:transition-all after:duration-500 after:content-[''] hover:after:translate-x-[89px]",
                 pathname === "/" || pathname === "/de"
                   ? "text-cyan-700/80 after:translate-x-[48px]"
-                  : "text-cyan-900",
+                  : "text-cyan-900"
               )}
             >
               {t("home")}
@@ -105,7 +111,7 @@ const Header = () => {
                 "my-text-stroke relative cursor-pointer text-3xl font-extrabold capitalize after:absolute after:top-[100%] after:left-0 after:h-2 after:w-2 after:translate-x-0 after:rounded-full after:bg-amber-400 after:transition-all after:duration-500 after:content-[''] hover:after:translate-x-[108px]",
                 pathname === "/events" || pathname === "/de/events"
                   ? "text-cyan-700/80 after:translate-x-[54px]"
-                  : "text-cyan-900",
+                  : "text-cyan-900"
               )}
             >
               {t("events")}
@@ -121,7 +127,7 @@ const Header = () => {
                   : "text-cyan-900",
                 pathname === "/de/gallery"
                   ? "text-cyan-700/80 after:translate-x-[60px] hover:after:translate-x-[112px]"
-                  : "",
+                  : ""
               )}
             >
               {t("gallery")}
@@ -166,7 +172,7 @@ const Header = () => {
         className={cn(
           "xsm:w-[260px] fixed top-[125px] bottom-0 left-0 z-50 flex w-[300px] flex-col justify-between bg-gradient-to-b from-cyan-200 to-amber-400 py-12 shadow-lg transition-all duration-300 sm:w-[330px] lg:hidden",
           scrolled ? "top-0" : "top-[125px]",
-          showSidebar ? "translate-x-0" : "translate-x-[-100%]",
+          showSidebar ? "translate-x-0" : "translate-x-[-100%]"
         )}
       >
         <ul className="flex flex-col text-2xl font-bold text-cyan-900">
@@ -175,7 +181,7 @@ const Header = () => {
               href="/"
               className={cn(
                 "flex items-center justify-between pr-12",
-                pathname === "/" ? "text-cyan-700/80" : "text-cyan-900",
+                pathname === "/" ? "text-cyan-700/80" : "text-cyan-900"
               )}
             >
               {t("home")} <IoMdHome className="w-[32px] text-3xl" />
@@ -186,7 +192,7 @@ const Header = () => {
               href="/events"
               className={cn(
                 "flex items-center justify-between pr-12",
-                pathname === "/events" ? "text-cyan-700/80" : "text-cyan-900",
+                pathname === "/events" ? "text-cyan-700/80" : "text-cyan-900"
               )}
             >
               {t("events")} <MdEmojiEvents className="w-[32px] text-3xl" />
@@ -197,7 +203,7 @@ const Header = () => {
               href="/gallery"
               className={cn(
                 "flex items-center justify-between pr-12",
-                pathname === "/gallery" ? "text-cyan-700/80" : "text-cyan-900",
+                pathname === "/gallery" ? "text-cyan-700/80" : "text-cyan-900"
               )}
             >
               {t("gallery")} <GrGallery className="w-[32px] text-2xl" />
@@ -207,7 +213,7 @@ const Header = () => {
             <Link
               className={cn(
                 "flex items-center justify-between pr-12",
-                pathname === "/login" ? "text-cyan-700/80" : "text-cyan-900",
+                pathname === "/login" ? "text-cyan-700/80" : "text-cyan-900"
               )}
               href="/login"
             >

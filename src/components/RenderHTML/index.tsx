@@ -5,11 +5,11 @@ import { convertLexicalToHTML } from "@payloadcms/richtext-lexical/html";
 import React from "react";
 
 export const RenderHTML = ({ data }: { data: SerializedEditorState }) => {
-	const html = convertLexicalToHTML({
-		data,
-		// className,
-		// disableIndent
-	});
+  const html = convertLexicalToHTML({
+    data,
+    // className,
+    // disableIndent
+  });
 
-	return <div dangerouslySetInnerHTML={{ __html: html }} />;
+  return <div dangerouslySetInnerHTML={{ __html: html }} />;
 };

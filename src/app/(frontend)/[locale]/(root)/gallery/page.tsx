@@ -10,15 +10,16 @@ const Gallery = () => {
   return (
     <>
       <div className="relative z-0 flex h-screen min-h-[800px] w-full items-center justify-center overflow-hidden bg-[url(/homepage/gallery_1024.jpg)] bg-no-repeat lg:block lg:h-fit lg:min-h-[unset] lg:bg-none">
+        <div className="absolute top-1/2 left-1/2 translate-y-[-10%] translate-x-[-50%] content-[''] h-[350px] w-[90%] lg:w-[70%] z-10 backdrop-blur-xsm bg-[radial-gradient(circle,_rgba(8,51,68)_0%,_rgba(8,51,68,0)_50%)]"></div>
         <Image
-          className="hidden lg:block lg:h-auto lg:object-contain"
+          className="hidden lg:block lg:h-auto lg:object-contain "
           src="/homepage/gallery.jpg"
           alt="climber on boulder"
           width={1920}
           height={1080}
         />
 
-        <div className="absolute top-[50%] left-[50%] flex w-[800px] max-w-[90%] translate-x-[-50%] flex-col gap-8 rounded-2xl xl:gap-12">
+        <div className="absolute top-[50%] left-[50%] flex w-[800px] max-w-[90%] translate-x-[-50%] flex-col gap-8 rounded-2xl xl:gap-12 z-20">
           <div className="flex flex-col items-center gap-14 sm:gap-10 xl:gap-12">
             <h5 className="my-text-stroke2 amber-400 relative text-center text-5xl font-extrabold text-amber-400 text-shadow-cyan-900 text-shadow-lg after:absolute after:top-[118%] after:left-[50%] after:h-[5px] after:w-[20%] after:translate-x-[-50%] after:rounded-2xl after:border-[1px] after:border-cyan-900 after:bg-amber-400 after:content-[''] sm:after:top-[130%] xl:text-6xl">
               {t("heading")}
@@ -27,7 +28,7 @@ const Gallery = () => {
               <div className="flex h-[68px] shrink-0 basis-[20%] items-center justify-center rounded-tl-2xl rounded-bl-2xl bg-cyan-900 py-4 sm:basis-[10%]">
                 <SlMagnifier className="text-2xl font-extrabold text-amber-400 xl:text-3xl 2xl:text-4xl" />
               </div>
-              <div className="h-[68px] basis-[80%] overflow-hidden rounded-2xl rounded-l-none border-b-[3px] border-cyan-900 bg-amber-400/70 px-[20px] py-4 text-2xl text-nowrap text-cyan-900 sm:basis-[90%] xl:text-3xl 2xl:text-4xl">
+              <div className="h-[68px] basis-[80%] overflow-hidden rounded-2xl rounded-l-none border-b-[3px] border-cyan-900 bg-amber-400 px-[20px] py-4 text-2xl text-nowrap text-cyan-900 sm:basis-[90%] xl:text-3xl 2xl:text-4xl">
                 {t("searchPlaceholder")}
               </div>
             </div>
