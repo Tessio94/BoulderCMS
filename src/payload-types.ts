@@ -179,6 +179,16 @@ export interface Event {
     };
     [k: string]: unknown;
   };
+  cardImage?: (number | null) | Media;
+  timeframe: {
+    start: string;
+    end?: string | null;
+  };
+  registration: {
+    start: string;
+    end?: string | null;
+  };
+  gallery?: (number | Media)[] | null;
   slug?: string | null;
   updatedAt: string;
   createdAt: string;
@@ -290,6 +300,20 @@ export interface EventsSelect<T extends boolean = true> {
   location?: T;
   heroImage?: T;
   content?: T;
+  cardImage?: T;
+  timeframe?:
+    | T
+    | {
+        start?: T;
+        end?: T;
+      };
+  registration?:
+    | T
+    | {
+        start?: T;
+        end?: T;
+      };
+  gallery?: T;
   slug?: T;
   updatedAt?: T;
   createdAt?: T;

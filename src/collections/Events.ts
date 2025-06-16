@@ -5,7 +5,6 @@ import {
 	FixedToolbarFeature,
 	HeadingFeature,
 	HorizontalRuleFeature,
-	HTMLConverterFeature,
 	InlineToolbarFeature,
 	lexicalEditor,
 } from "@payloadcms/richtext-lexical";
@@ -64,7 +63,7 @@ export const Events: CollectionConfig = {
 									return [
 										...rootFeatures,
 										HeadingFeature({
-											enabledHeadingSizes: ["h1", "h2", "h3", "h4"],
+											enabledHeadingSizes: ["h2", "h3", "h4"],
 										}),
 										FixedToolbarFeature(),
 										InlineToolbarFeature(),
@@ -79,6 +78,48 @@ export const Events: CollectionConfig = {
 					label: "Content",
 				},
 			],
+		},
+		{
+			name: "cardImage",
+			type: "upload",
+			relationTo: "media",
+		},
+		{
+			name: "timeframe",
+			type: "group",
+			required: true,
+			fields: [
+				{
+					name: "start",
+					type: "date",
+					required: true,
+				},
+				{
+					name: "end",
+					type: "date",
+					required: false,
+				},
+			],
+		},
+		{
+			name: "registration",
+			type: "group",
+			required: true,
+			fields: [
+				{ name: "start", type: "date", required: true },
+				{
+					name: "end",
+					type: "date",
+					required: false,
+				},
+			],
+		},
+		{
+			name: "gallery",
+			label: "Gallery",
+			type: "upload",
+			relationTo: "media",
+			hasMany: true,
 		},
 		{
 			name: "slug",

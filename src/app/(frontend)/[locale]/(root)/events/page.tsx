@@ -13,7 +13,7 @@ export default async function Events() {
 		sort: "-from",
 	});
 	console.log(events);
-	console.log(events[0].content);
+	console.log(events[0].gallery);
 	return (
 		<>
 			<EventsLanding />
