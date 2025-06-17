@@ -70,6 +70,7 @@ export interface Config {
     users: User;
     media: Media;
     events: Event;
+    gyms: Gym;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -79,6 +80,7 @@ export interface Config {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     events: EventsSelect<false> | EventsSelect<true>;
+    gyms: GymsSelect<false> | GymsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -162,6 +164,7 @@ export interface Event {
   from: string;
   until: string;
   description?: string | null;
+  gym: number | Gym;
   location?: string | null;
   heroImage?: (number | null) | Media;
   content: {
@@ -195,6 +198,33 @@ export interface Event {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "gyms".
+ */
+export interface Gym {
+  id: number;
+  _order?: string | null;
+  name: string;
+  heroImage?: (number | null) | Media;
+  location: string;
+  phone?: string | null;
+  email?: string | null;
+  website?: string | null;
+  information: string;
+  workingHours?:
+    | {
+        days: ('mon' | 'tue' | 'wed' | 'thu' | 'fri' | 'sat' | 'sun')[];
+        from: number;
+        to: number;
+        id?: string | null;
+      }[]
+    | null;
+  gallery?: (number | Media)[] | null;
+  slug?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
@@ -211,6 +241,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'events';
         value: number | Event;
+      } | null)
+    | ({
+        relationTo: 'gyms';
+        value: number | Gym;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -297,6 +331,7 @@ export interface EventsSelect<T extends boolean = true> {
   from?: T;
   until?: T;
   description?: T;
+  gym?: T;
   location?: T;
   heroImage?: T;
   content?: T;
@@ -312,6 +347,32 @@ export interface EventsSelect<T extends boolean = true> {
     | {
         start?: T;
         end?: T;
+      };
+  gallery?: T;
+  slug?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "gyms_select".
+ */
+export interface GymsSelect<T extends boolean = true> {
+  _order?: T;
+  name?: T;
+  heroImage?: T;
+  location?: T;
+  phone?: T;
+  email?: T;
+  website?: T;
+  information?: T;
+  workingHours?:
+    | T
+    | {
+        days?: T;
+        from?: T;
+        to?: T;
+        id?: T;
       };
   gallery?: T;
   slug?: T;

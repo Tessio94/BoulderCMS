@@ -1,23 +1,23 @@
+"use client";
 // import { useTranslations } from "next-intl";
-import EventsLanding from "@/components/EventsLanding";
-import EventsSection from "@/components/EventsSection";
-import config from "@payload-config";
-import { getPayload } from "payload";
+import { useState } from "react";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { EventsContent } from "@/components/EventsContent";
 
-export default async function Events() {
-	// const t = useTranslations("Landing");
-	const payload = await getPayload({ config });
+export default function Events() {
+	const [queryClient] = useState(() => new QueryClient());
 
-	const { docs: events } = await payload.find({
-		collection: "events",
-		sort: "-from",
+	const [filters, setFilters] = useState({
+		from: "",
+		to: "",
+		hall: "",
+		term: "",
+		sort: "desc",
 	});
-	console.log(events);
-	console.log(events[0].gallery);
+
 	return (
-		<>
-			<EventsLanding />
-			<EventsSection events={events} />
-		</>
+		<QueryClientProvider client={queryClient}>
+			<EventsContent filters={filters} setFilters={setFilters} />
+		</QueryClientProvider>
 	);
 }

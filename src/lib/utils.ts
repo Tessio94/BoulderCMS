@@ -6,5 +6,12 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export function eventDateFormat(date: string) {
-	return new Date(date).toISOString().split("T")[0].replaceAll("-", "/");
+	// return new Date(date).toISOString().split("T")[0].replaceAll("-", "/");
+
+	return new Date(date)
+		.toISOString()
+		.split("T")[0]
+		.split("-")
+		.reverse()
+		.join("/");
 }

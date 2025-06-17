@@ -42,6 +42,12 @@ export const Events: CollectionConfig = {
 			// },
 		},
 		{
+			name: "gym",
+			type: "relationship",
+			relationTo: "gyms",
+			required: true,
+		},
+		{
 			name: "location",
 			type: "text",
 		},
