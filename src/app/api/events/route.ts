@@ -6,6 +6,7 @@ export async function GET(req: NextRequest) {
 	const payload = await getPayload({ config });
 
 	const { searchParams } = new URL(req.url);
+
 	const query: any = {
 		where: {},
 		sort: searchParams.get("sort") === "asc" ? "from" : "-from",
@@ -23,7 +24,8 @@ export async function GET(req: NextRequest) {
 	}
 
 	if (searchParams.get("hall")) {
-		query.where.hall = { like: searchParams.get("hall") };
+		console.log(searchParams.get("hall"));
+		query.where.gym = { equals: searchParams.get("hall") };
 	}
 
 	if (searchParams.get("term")) {

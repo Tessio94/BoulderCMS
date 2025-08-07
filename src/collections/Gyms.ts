@@ -3,6 +3,9 @@ import type { CollectionConfig } from "payload";
 
 export const Gyms: CollectionConfig = {
 	slug: "gyms",
+	access: {
+		read: () => true,
+	},
 	admin: {
 		defaultColumns: ["name", "slug"],
 		useAsTitle: "name",

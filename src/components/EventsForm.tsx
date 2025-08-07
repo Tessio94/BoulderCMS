@@ -18,7 +18,7 @@ const EventsForm = ({ filters, onChange }) => {
 			return json.docs;
 		},
 	});
-	// console.log(gyms);
+	console.log(filters);
 	return (
 		<div className="mx-[20px] mb-[50px] flex flex-col gap-12 rounded-2xl bg-cyan-900/10 px-[16px] py-[50px] sm:mx-[50px] md:mb-[80px] md:px-[60px] lg:mx-[60px] 2xl:mx-[160px]">
 			<div>
@@ -114,7 +114,11 @@ const EventsForm = ({ filters, onChange }) => {
 									return (
 										<li
 											key={i}
-											className="px-[20px] py-3 cursor-pointer hover:bg-cards-dark active:bg-cards-dark focus:bg-cards-dark transition-all duration-500 rounded-2xl hover:text-cyan-800 focus:text-cyan-800 active:text-cyan-800 "
+											className="px-[20px] py-3 cursor-pointer hover:bg-cards-dark active:bg-cards-dark focus:bg-cards-dark transition-all duration-500 rounded-2xl hover:text-cyan-800 focus:text-cyan-800 active:text-cyan-800"
+											onClick={() => {
+												onChange({ hall: gym.id });
+												setShowGyms((prev) => !prev);
+											}}
 										>
 											{gym.name}
 										</li>
