@@ -1,132 +1,138 @@
 {
-  "Header": {
-    "home": "Start",
-    "events": "Events",
-    "gallery": "Galerie",
-    "login": "Login",
-    "linkEvents": "/events",
-    "linkDetails": "/details",
-    "linkGallery": "/galerie",
-    "linkLogin": "/login"
-  },
+	"Header": {
+		"home": "Start",
+		"events": "Events",
+		"gyms": "Gyms",
+		"gallery": "Galerie",
+		"login": "Login",
+		"linkEvents": "/events",
+		"linkDetails": "/details",
+		"linkGallery": "/galerie",
+		"linkLogin": "/login"
+	},
 
-  "Landing": {
-    "title": "Lass uns gemeinsam klettern",
-    "text1": "Melde dich für das Boulder-Event an",
-    "text2": "Finde aktuelle und zukünftige Boulder-Wettkämpfe",
-    "text3": "Verschaffe dir einen Überblick über Boulderhallen",
-    "button1": "Mach mit",
-    "button2": "Zu den Events"
-  },
-  "Cards": {
-    "card1": {
-      "title": "Unsere Mission:",
-      "text1_1": "Bei",
-      "strong1": "BoulderApp",
-      "text1_2": "sind wir leidenschaftlich darum bemüht, die Welt des Boulderns zugänglicher, spannender und gemeinschaftlicher zu gestalten.",
-      "text2": "Unsere Mission ist es, Kletternde mit den besten Wettkämpfen zu verbinden – mit einfacher Anmeldung, aktuellen Infos und Fortschrittsverfolgung – alles an einem Ort.",
-      "text3": "Egal ob Profi oder Anfänger: Wir möchten eine Plattform bieten, die Wachstum, Herausforderungen und unvergessliche Erlebnisse fördert."
-    },
-    "card2": {
-      "title": "Entdecken und Teilnehmen:",
-      "text1": "Bouldern ist mehr als nur ein Sport – es ist eine Möglichkeit, deine Grenzen zu testen und über dich hinauszuwachsen.",
-      "text2_1": "Unsere Plattform hilft dir, bevorstehende Wettkämpfe einfach zu finden und dich für",
-      "strong2": "passende Events",
-      "text2_2": "anzumelden – abgestimmt auf dein Können und deine Leidenschaft.",
-      "text3": "Bleibe über lokale und globale Boulder-Wettkämpfe auf dem Laufenden und verpasse keine Gelegenheit, dich zu messen, herauszufordern und Gleichgesinnte zu treffen."
-    },
-    "card3": {
-      "title": "Boulderhallen entdecken:",
-      "text1": "Wir wissen, wie wichtig die richtige Trainingsumgebung für deine Kletterentwicklung ist.",
-      "text2_1": "Deshalb bieten wir dir eine umfassende Übersicht über",
-      "strong2": "Boulderhallen",
-      "text2_2": "in deiner Region – damit du den idealen Ort zum Trainieren, Leute treffen und dich auf deinen nächsten Wettkampf vorbereiten findest.",
-      "text3": "Ob du einen einsteigerfreundlichen Ort suchst oder Hallen mit anspruchsvollen Routen – bei uns wirst du fündig."
-    }
-  },
-  "Competition": {
-    "title": "So funktioniert unsere App:",
-    "step1": {
-      "title": "QR-Code scannen",
-      "bullet1": "Am Eingang der Veranstaltung findest du den QR-Code der App.",
-      "bullet2": "Scanne den Code und gelange zur Login-Seite"
-    },
-    "step2": {
-      "title": "In dein Konto einloggen",
-      "bullet1": "Der QR-Code führt dich zur Login-Seite der App",
-      "bullet2": "Gib deine Kontodaten ein"
-    },
-    "step3": {
-      "title": "Wettkämpfen und Spaß haben!",
-      "bullet1": "Starte den Wettkampf",
-      "bullet2": "Trage deine Punktzahl ein",
-      "bullet3": "Überprüfe dein Ergebnis und Ranking"
-    }
-  },
-  "LoginBanner": {
-    "title": "Finde dein Event und logge dich ein",
-    "text1": "Verbinde dich mit deinem BoulderApp-Konto, registriere deine Punktzahl und tritt gegen andere an",
-    "button1": "Mach mit",
-    "button2": "Zu den Events"
-  },
-  "Footer": {
-    "text1": "© 2025 BoulderApp. Alle Rechte vorbehalten."
-  },
-  "EventsLanding": {
-    "heading": "Letztes Event",
-    "bullet1": "Finde bevorstehende Events",
-    "bullet2": "Finde vergangene Events",
-    "bullet3": "Finde Events in deiner Nähe",
-    "button": "Finde unten die Eventliste"
-  },
-  "EventsSection": {
-    "resultsHeading": "Ergebnisse:",
-    "events": {
-      "event1": {
-        "title": "ISLAND trifft HAUS Cup",
-        "date": "24.04. - 24.05.2025",
-        "description": "ISLAND trifft HAUS - Fun Cup – Wir veranstalten einen Fun Cup für die Mannheimer Boulder-Community!"
-      },
-      "event2": {
-        "title": "Kräftedreieck 2025",
-        "date": "28.04. - 14.06.2025",
-        "description": "Der jährliche Wettkampf im Zenit für Dreier-Teams mit Qualifikation und Finale."
-      },
-      "event3": {
-        "title": "Eastercup 2025",
-        "date": "26.04.2025",
-        "description": "Boulder-Wettkampf mit Musik & Specials"
-      }
-    }
-  },
-  "Gallery": {
-    "heading": "Galerien anzeigen",
-    "searchPlaceholder": "Galerien durchsuchen...",
-    "button": "Alle Galerien"
-  },
-  "Login": {
-    "heading": "Willkommen zurück",
-    "register": "Registrieren",
-    "help": "Brauchst du Hilfe?",
-    "email": "E-Mail",
-    "password": "Passwort",
-    "login": "Anmelden",
-    "facebook": "Mit Facebook anmelden",
-    "google": "Mit Google anmelden"
-  },
-  "Register": {
-    "heading": "Willkommen",
-    "login": "Anmelden",
-    "help": "Brauchst du Hilfe?",
-    "name": "Vorname",
-    "lastName": "Nachname",
-    "email": "E-Mail",
-    "phone": "Telefonnummer",
-    "password": "Passwort",
-    "repeatPassword": "Passwort wiederholen",
-    "terms": "Ich stimme den Geschäftsbedingungen zu.",
-    "register": "Registrieren",
-    "facebook": "Mit Facebook anmelden",
-    "google": "Mit Google anmelden"
-  }
+	"Landing": {
+		"title": "Lass uns gemeinsam klettern",
+		"text1": "Melde dich für das Boulder-Event an",
+		"text2": "Finde aktuelle und zukünftige Boulder-Wettkämpfe",
+		"text3": "Verschaffe dir einen Überblick über Boulderhallen",
+		"button1": "Mach mit",
+		"button2": "Zu den Events"
+	},
+	"Cards": {
+		"card1": {
+			"title": "Unsere Mission:",
+			"text1_1": "Bei",
+			"strong1": "BoulderApp",
+			"text1_2": "sind wir leidenschaftlich darum bemüht, die Welt des Boulderns zugänglicher, spannender und gemeinschaftlicher zu gestalten.",
+			"text2": "Unsere Mission ist es, Kletternde mit den besten Wettkämpfen zu verbinden – mit einfacher Anmeldung, aktuellen Infos und Fortschrittsverfolgung – alles an einem Ort.",
+			"text3": "Egal ob Profi oder Anfänger: Wir möchten eine Plattform bieten, die Wachstum, Herausforderungen und unvergessliche Erlebnisse fördert."
+		},
+		"card2": {
+			"title": "Entdecken und Teilnehmen:",
+			"text1": "Bouldern ist mehr als nur ein Sport – es ist eine Möglichkeit, deine Grenzen zu testen und über dich hinauszuwachsen.",
+			"text2_1": "Unsere Plattform hilft dir, bevorstehende Wettkämpfe einfach zu finden und dich für",
+			"strong2": "passende Events",
+			"text2_2": "anzumelden – abgestimmt auf dein Können und deine Leidenschaft.",
+			"text3": "Bleibe über lokale und globale Boulder-Wettkämpfe auf dem Laufenden und verpasse keine Gelegenheit, dich zu messen, herauszufordern und Gleichgesinnte zu treffen."
+		},
+		"card3": {
+			"title": "Boulderhallen entdecken:",
+			"text1": "Wir wissen, wie wichtig die richtige Trainingsumgebung für deine Kletterentwicklung ist.",
+			"text2_1": "Deshalb bieten wir dir eine umfassende Übersicht über",
+			"strong2": "Boulderhallen",
+			"text2_2": "in deiner Region – damit du den idealen Ort zum Trainieren, Leute treffen und dich auf deinen nächsten Wettkampf vorbereiten findest.",
+			"text3": "Ob du einen einsteigerfreundlichen Ort suchst oder Hallen mit anspruchsvollen Routen – bei uns wirst du fündig."
+		}
+	},
+	"Competition": {
+		"title": "So funktioniert unsere App:",
+		"step1": {
+			"title": "QR-Code scannen",
+			"bullet1": "Am Eingang der Veranstaltung findest du den QR-Code der App.",
+			"bullet2": "Scanne den Code und gelange zur Login-Seite"
+		},
+		"step2": {
+			"title": "In dein Konto einloggen",
+			"bullet1": "Der QR-Code führt dich zur Login-Seite der App",
+			"bullet2": "Gib deine Kontodaten ein"
+		},
+		"step3": {
+			"title": "Wettkämpfen und Spaß haben!",
+			"bullet1": "Starte den Wettkampf",
+			"bullet2": "Trage deine Punktzahl ein",
+			"bullet3": "Überprüfe dein Ergebnis und Ranking"
+		}
+	},
+	"LoginBanner": {
+		"title": "Finde dein Event und logge dich ein",
+		"text1": "Verbinde dich mit deinem BoulderApp-Konto, registriere deine Punktzahl und tritt gegen andere an",
+		"button1": "Mach mit",
+		"button2": "Zu den Events"
+	},
+	"Footer": {
+		"text1": "© 2025 BoulderApp. Alle Rechte vorbehalten."
+	},
+	"EventsLanding": {
+		"heading": "Letztes Event",
+		"bullet1": "Finde bevorstehende Events",
+		"bullet2": "Finde vergangene Events",
+		"bullet3": "Finde Events in deiner Nähe",
+		"button": "Finde unten die Eventliste"
+	},
+	"EventsSection": {
+		"resultsHeading": "Ergebnisse:",
+		"events": {
+			"event1": {
+				"title": "ISLAND trifft HAUS Cup",
+				"date": "24.04. - 24.05.2025",
+				"description": "ISLAND trifft HAUS - Fun Cup – Wir veranstalten einen Fun Cup für die Mannheimer Boulder-Community!"
+			},
+			"event2": {
+				"title": "Kräftedreieck 2025",
+				"date": "28.04. - 14.06.2025",
+				"description": "Der jährliche Wettkampf im Zenit für Dreier-Teams mit Qualifikation und Finale."
+			},
+			"event3": {
+				"title": "Eastercup 2025",
+				"date": "26.04.2025",
+				"description": "Boulder-Wettkampf mit Musik & Specials"
+			}
+		}
+	},
+	"Gallery": {
+		"heading": "Galerien anzeigen",
+		"searchPlaceholder": "Galerien durchsuchen...",
+		"button": "Alle Galerien"
+	},
+	"Gym": {
+		"heading": "Liste der Boulderhallen ansehen",
+		"searchPlaceholder": "Hallen suchen...",
+		"button": "Alle Hallen"
+	},
+	"Login": {
+		"heading": "Willkommen zurück",
+		"register": "Registrieren",
+		"help": "Brauchst du Hilfe?",
+		"email": "E-Mail",
+		"password": "Passwort",
+		"login": "Anmelden",
+		"facebook": "Mit Facebook anmelden",
+		"google": "Mit Google anmelden"
+	},
+	"Register": {
+		"heading": "Willkommen",
+		"login": "Anmelden",
+		"help": "Brauchst du Hilfe?",
+		"name": "Vorname",
+		"lastName": "Nachname",
+		"email": "E-Mail",
+		"phone": "Telefonnummer",
+		"password": "Passwort",
+		"repeatPassword": "Passwort wiederholen",
+		"terms": "Ich stimme den Geschäftsbedingungen zu.",
+		"register": "Registrieren",
+		"facebook": "Mit Facebook anmelden",
+		"google": "Mit Google anmelden"
+	}
 }

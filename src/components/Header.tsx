@@ -90,12 +90,12 @@ const Header = () => {
 			</Link>
 
 			<nav className="hidden lg:block">
-				<ul className="flex lg:gap-10 xl:gap-20">
+				<ul className="flex lg:gap-10 xl:gap-16 3xl:gap-20">
 					<li>
 						<Link
 							href="/"
 							className={cn(
-								"my-text-stroke relative cursor-pointer text-3xl font-extrabold capitalize after:absolute after:top-[100%] after:left-0 after:h-2 after:w-2 after:translate-x-0 after:rounded-full after:bg-amber-400 after:transition-all after:duration-500 after:content-[''] hover:after:translate-x-[89px]",
+								"my-text-stroke relative cursor-pointer text-2xl xl:text-3xl font-extrabold capitalize after:absolute after:top-[100%] after:left-0 after:h-2 after:w-2 after:translate-x-0 after:rounded-full after:bg-amber-400 after:transition-all after:duration-500 after:content-[''] hover:after:translate-x-[89px]",
 								pathname === "/" || pathname === "/de"
 									? "text-cyan-700/80 after:translate-x-[48px]"
 									: "text-cyan-900"
@@ -108,8 +108,8 @@ const Header = () => {
 						<Link
 							href="/events"
 							className={cn(
-								"my-text-stroke relative cursor-pointer text-3xl font-extrabold capitalize after:absolute after:top-[100%] after:left-0 after:h-2 after:w-2 after:translate-x-0 after:rounded-full after:bg-amber-400 after:transition-all after:duration-500 after:content-[''] hover:after:translate-x-[108px]",
-								pathname === "/events" || pathname === "/de/events"
+								"my-text-stroke relative cursor-pointer text-2xl xl:text-3xl font-extrabold capitalize after:absolute after:top-[100%] after:left-0 after:h-2 after:w-2 after:translate-x-0 after:rounded-full after:bg-amber-400 after:transition-all after:duration-500 after:content-[''] hover:after:translate-x-[108px]",
+								pathname.split("/").includes("events")
 									? "text-cyan-700/80 after:translate-x-[54px]"
 									: "text-cyan-900"
 							)}
@@ -119,13 +119,26 @@ const Header = () => {
 					</li>
 					<li>
 						<Link
+							href="/gyms"
+							className={cn(
+								"my-text-stroke relative cursor-pointer text-2xl xl:text-3xl font-extrabold capitalize after:absolute after:top-[100%] after:left-0 after:h-2 after:w-2 after:translate-x-0 after:rounded-full after:bg-amber-400 after:transition-all after:duration-500 after:content-[''] hover:after:translate-x-[108px]",
+								pathname.split("/").includes("gyms")
+									? "text-cyan-700/80 after:translate-x-[54px]"
+									: "text-cyan-900"
+							)}
+						>
+							{t("gyms")}
+						</Link>
+					</li>
+					<li>
+						<Link
 							href="/gallery"
 							className={cn(
-								"my-text-stroke relative cursor-pointer text-3xl font-extrabold capitalize after:absolute after:top-[100%] after:left-0 after:h-2 after:w-2 after:translate-x-0 after:rounded-full after:bg-amber-400 after:transition-all after:duration-500 after:content-[''] hover:after:translate-x-[114px]",
+								"my-text-stroke relative cursor-pointer text-2xl xl:text-3xl font-extrabold capitalize after:absolute after:top-[100%] after:left-0 after:h-2 after:w-2 after:translate-x-0 after:rounded-full after:bg-amber-400 after:transition-all after:duration-500 after:content-[''] hover:after:translate-x-[114px]",
 								pathname === "/gallery"
 									? "text-cyan-700/80 after:translate-x-[57px]"
 									: "text-cyan-900",
-								pathname === "/de/gallery"
+								pathname === "/de/galerie"
 									? "text-cyan-700/80 after:translate-x-[60px] hover:after:translate-x-[112px]"
 									: ""
 							)}
@@ -138,7 +151,7 @@ const Header = () => {
 
 			<div className="my-text-stroke ml-auto flex items-center lg:ml-0 lg:gap-4 xl:gap-10">
 				<Link
-					className="hidden items-center gap-3 rounded-2xl bg-cyan-900/10 px-2 py-[1px] text-3xl font-extrabold text-cyan-900/90 transition-all duration-500 hover:bg-cyan-900/30 focus:bg-cyan-900/30 active:bg-cyan-900/30 lg:flex"
+					className="hidden items-center gap-3 rounded-2xl bg-cyan-900/10 px-2 py-[1px] text-2xl xl:text-3xl font-extrabold text-cyan-900/90 transition-all duration-500 hover:bg-cyan-900/30 focus:bg-cyan-900/30 active:bg-cyan-900/30 lg:flex"
 					href="/login"
 				>
 					<Image
@@ -181,7 +194,9 @@ const Header = () => {
 							href="/"
 							className={cn(
 								"flex items-center justify-between pr-12",
-								pathname === "/" ? "text-cyan-700/80" : "text-cyan-900"
+								pathname === "/" || pathname === "/de"
+									? "text-cyan-700/80"
+									: "text-cyan-900"
 							)}
 						>
 							{t("home")} <IoMdHome className="w-[32px] text-3xl" />
@@ -192,7 +207,9 @@ const Header = () => {
 							href="/events"
 							className={cn(
 								"flex items-center justify-between pr-12",
-								pathname === "/events" ? "text-cyan-700/80" : "text-cyan-900"
+								pathname.split("/").includes("events")
+									? "text-cyan-700/80"
+									: "text-cyan-900"
 							)}
 						>
 							{t("events")} <MdEmojiEvents className="w-[32px] text-3xl" />
@@ -200,10 +217,31 @@ const Header = () => {
 					</li>
 					<li className="px-6 py-3 transition-all duration-300 hover:bg-cyan-900/10 focus:bg-cyan-900/10 active:bg-cyan-900/10">
 						<Link
+							href="/gyms"
+							className={cn(
+								"flex items-center justify-between pr-12",
+								pathname.split("/").includes("gyms")
+									? "text-cyan-700/80"
+									: "text-cyan-900"
+							)}
+						>
+							{t("gyms")}{" "}
+							<Image
+								src="/homepage/bouldering7.svg"
+								alt="bouldering-icon"
+								width={32}
+								height={30}
+							/>
+						</Link>
+					</li>
+					<li className="px-6 py-3 transition-all duration-300 hover:bg-cyan-900/10 focus:bg-cyan-900/10 active:bg-cyan-900/10">
+						<Link
 							href="/gallery"
 							className={cn(
 								"flex items-center justify-between pr-12",
-								pathname === "/gallery" ? "text-cyan-700/80" : "text-cyan-900"
+								pathname === "/gallery" || pathname === "/de/galerie"
+									? "text-cyan-700/80"
+									: "text-cyan-900"
 							)}
 						>
 							{t("gallery")} <GrGallery className="w-[32px] text-2xl" />
@@ -213,7 +251,9 @@ const Header = () => {
 						<Link
 							className={cn(
 								"flex items-center justify-between pr-12",
-								pathname === "/login" ? "text-cyan-700/80" : "text-cyan-900"
+								pathname === "/login" || pathname === "/de/login"
+									? "text-cyan-700/80"
+									: "text-cyan-900"
 							)}
 							href="/login"
 						>

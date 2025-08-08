@@ -2,8 +2,6 @@ import { getPayload } from "payload";
 import { cache } from "react";
 import config from "@payload-config";
 import Image from "next/image";
-import Link from "next/link";
-import { RenderHTML } from "@/components/RenderHTML";
 import { EventGallery } from "@/components/EventGallery";
 import { FaPhoneAlt } from "react-icons/fa";
 import { IoMdMail } from "react-icons/io";
@@ -38,17 +36,23 @@ const page = async ({ params }) => {
 						</h2>
 					</div>
 					<div className="flex flex-col gap-6 mt-10 text-cyan-900 text-xl">
-						<div className="flex items-center gap-3">
+						<div className="group flex items-center gap-3">
 							<FaPhoneAlt />
-							<a href={`tel:+${gym.phone}`}>{gym.phone}</a>
+							<a href={`tel:+${gym.phone}`} className="group-hover:underline">
+								{gym.phone}
+							</a>
 						</div>
-						<div className="flex items-center gap-3">
+						<div className="group flex items-center gap-3">
 							<IoMdMail />
-							<a href={`mailto:${gym.email}`}>{gym.email}</a>
+							<a href={`mailto:${gym.email}`} className="group-hover:underline">
+								{gym.email}
+							</a>
 						</div>
-						<div className="flex items-center gap-3">
+						<div className="group flex items-center gap-3">
 							<TbWorld />
-							<a href={`${gym.website}`}>{gym.website}</a>
+							<a href={`${gym.website}`} className="group-hover:underline">
+								{gym.website}
+							</a>
 						</div>
 						<div className="flex items-center gap-3">
 							<FaLocationDot />
@@ -59,25 +63,31 @@ const page = async ({ params }) => {
 						<p className="font-nunito text-xl text-cyan-900">
 							{gym.information}
 						</p>
-						<p className="my-text-stroke text-cyan-900 text-2xl font-extrabold mt-8">
-							Working hours:
-						</p>
-						<div className="flex flex-col gap-4 mt-2">
-							{gym.workingHours?.map((day, i) => (
-								<div className="flex gap-3 items-start font-nunito" key={i}>
-									<p className=" text-cyan-900 font-extrabold text-xl underline">
-										{day.days.join(" ")}:
-									</p>
-									<p className=" text-cyan-900 font-extrabold text-xl">
-										{day.from} AM - {day.to} PM
-									</p>
+						{gym.workingHours && gym.workingHours?.length > 0 && (
+							<>
+								<p className="my-text-stroke text-cyan-900 text-2xl font-extrabold mt-8">
+									Working hours:
+								</p>
+								<div className="flex flex-col gap-4 mt-2">
+									{gym.workingHours?.map((day, i) => (
+										<div className="flex gap-3 items-start font-nunito" key={i}>
+											<p className=" text-cyan-900 font-extrabold text-xl underline">
+												{day.days.join(" ")}:
+											</p>
+											<p className=" text-cyan-900 font-extrabold text-xl">
+												{day.from === 0
+													? "Closed"
+													: `${day.from}:00 - ${day.to}:00`}
+											</p>
+										</div>
+									))}
 								</div>
-							))}
-						</div>
+							</>
+						)}
 					</div>
 				</div>
 			</main>
-			{gym.gallery && (
+			{gym.gallery && gym.gallery.length > 0 && (
 				<>
 					<h2 className="mb-5 text-2xl xsm:mx-6 mx-10 sm:mx-20 lg:mx-40 my-text-stroke2 text-amber-400 font-extrabold">
 						Images from {gym.name}:
