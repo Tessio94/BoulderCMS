@@ -24,7 +24,7 @@ const Gallery = () => {
 						<h5 className="my-text-stroke2 amber-400 relative text-center text-5xl font-extrabold text-amber-400 text-shadow-cyan-900 text-shadow-lg after:absolute after:top-[118%] after:left-[50%] after:h-[5px] after:w-[20%] after:translate-x-[-50%] after:rounded-2xl after:border-[1px] after:border-cyan-900 after:bg-amber-400 after:content-[''] sm:after:top-[130%] xl:text-6xl">
 							{t("heading")}
 						</h5>
-						<form className="flex w-full items-center shadow-2xl shadow-cyan-900">
+						<form className="flex w-full items-center shadow-2xl shadow-cyan-900 rounded-2xl">
 							<button className="flex cursor-pointer h-[68px] shrink-0 basis-[20%] items-center justify-center rounded-tl-2xl rounded-bl-2xl bg-cyan-900 py-4 sm:basis-[10%] group">
 								<SlMagnifier className="text-2xl font-extrabold text-amber-400 xl:text-3xl 2xl:text-4xl group-hover:scale-[1.1] transition-all duration-300" />
 							</button>

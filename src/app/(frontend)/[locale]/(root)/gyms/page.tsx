@@ -20,13 +20,20 @@ const Gyms = () => {
 					width={640}
 					height={960}
 				/>
-				<div className="flex xl:w-[900px] max-w-[90%]  flex-col gap-8 rounded-2xl xl:gap-12 z-20 xl:mt-[380px] xl:ml-[160px]">
+				<Image
+					className="hidden xl:block lg:h-auto lg:object-contain absolute left-0 top-[60%] rounded-tr-[40%] z-0"
+					src="/gyms/gyms_2.jpg"
+					alt="climber on boulder"
+					width={640}
+					height={480}
+				/>
+				<div className="flex xl:w-[900px] max-w-[90%]  flex-col gap-8 rounded-2xl xl:gap-12 z-20 xl:mt-[340px] xl:ml-[160px]">
 					<div className="flex flex-col items-center gap-14 sm:gap-10 xl:gap-12 z-20">
 						<h5 className="my-text-stroke2 amber-400 relative text-center text-5xl font-extrabold text-amber-400 text-shadow-cyan-900 text-shadow-lg after:absolute after:top-[118%] after:left-[50%] after:h-[5px] after:w-[20%] after:translate-x-[-50%] after:rounded-2xl after:border-[1px] after:border-cyan-900 after:bg-amber-400 after:content-[''] sm:after:top-[130%] xl:text-6xl">
 							{t("heading")}
 						</h5>
 						<form
-							className="flex w-full items-center shadow-2xl shadow-cyan-900"
+							className="flex w-full items-center shadow-2xl shadow-cyan-900 rounded-2xl"
 							// onSubmit={handleSubmit}
 						>
 							<button className="flex cursor-pointer h-[68px] shrink-0 basis-[20%] items-center justify-center rounded-tl-2xl rounded-bl-2xl bg-cyan-900 py-4 sm:basis-[10%] group">
