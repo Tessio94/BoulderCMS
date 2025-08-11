@@ -1,16 +1,14 @@
-"use client";
-
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import * as motion from "motion/react-client";
 import { containerVariants, listItemVariants } from "@/lib/animation";
 
 const Landing = () => {
   const t = useTranslations("Landing");
 
   return (
-    <div className="relative z-0 h-screen min-h-[800px] w-full overflow-hidden bg-[url(/landing/people_boulder2_1024.jpg)] bg-no-repeat lg:h-fit lg:min-h-[unset] lg:bg-none">
+    <div className="relative z-0 h-screen min-h-[800px] max-h-screen w-full overflow-hidden bg-[url(/landing/people_boulder2_1024.jpg)] bg-no-repeat lg:h-fit lg:min-h-[unset] lg:bg-none">
       <Image
         className="hidden lg:block lg:h-auto lg:object-contain"
         src="/landing/people_boulder2_1920.jpg"
@@ -19,7 +17,8 @@ const Landing = () => {
         height={1080}
       />
       {/* 3xl:top-[450px] */}
-      <motion.div className="3xl:top-[400px] xsm:top-[unset] xsm:bottom-10 absolute top-[45%] left-[50%] z-10 w-[800px] max-w-[90%] translate-x-[-50%] md:top-[50%] lg:top-[220px] lg:w-[unset] xl:top-[270px] xl:left-[100px] xl:translate-x-0 2xl:top-[350px]">
+      {/* <motion.div className="3xl:top-[400px] xsm:top-[unset] xsm:bottom-10 absolute top-[45%] left-[50%] z-10 w-[800px] max-w-[90%] translate-x-[-50%] md:top-[50%] lg:top-[220px] lg:w-[unset] xl:top-[270px] xl:left-[100px] xl:translate-x-0 2xl:top-[350px]"> */}
+      <motion.div className="3xl:bottom-[12%] absolute bottom-[50%] translate-y-[50%] lg:translate-y-0 left-[50%] z-10 w-[800px] max-w-[90%] translate-x-[-50%]  lg:bottom-[8%] lg:w-[unset] xl:bottom-[8%] xl:left-[100px] xl:translate-x-0">
         <div className="absolute inset-0 -z-10 rounded-2xl bg-gradient-to-b from-cyan-200/50 via-cyan-200/60 to-amber-400/50 shadow-2xl shadow-amber-400/40 backdrop-blur-md"></div>
         <div className="flex flex-col gap-4 p-4 xl:gap-8 xl:p-8">
           <motion.h2

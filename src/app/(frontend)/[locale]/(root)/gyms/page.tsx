@@ -10,9 +10,9 @@ const Gyms = () => {
 
   return (
     <>
-      <div className="relative z-0 flex h-screen min-h-[800px] w-full items-center justify-center overflow-hidden bg-[url(/gyms/gyms_1024.jpg)] bg-no-repeat xl:block lg:bg-none">
+      <div className="relative z-0 flex h-screen min-h-[800px] max-h-[calc(100vh-125px)] w-full items-center justify-center overflow-hidden bg-[url(/gyms/gyms_1024.jpg)] bg-no-repeat xl:block lg:bg-none bg-cyan-100/80 border-t-[1px] border-t-cyan-900/40">
         <Image
-          className="hidden lg:block lg:h-auto lg:object-contain absolute right-0 top-0 rounded-bl-[40%] z-0"
+          className="hidden lg:block lg:h-auto lg:object-contain absolute right-0 bottom-0 rounded-bl-[40%] z-0"
           src="/gyms/gyms_1.jpg"
           alt="climber on boulder"
           width={640}
@@ -25,7 +25,7 @@ const Gyms = () => {
           width={640}
           height={480}
         />
-        <div className="flex xl:w-[900px] max-w-[90%]  flex-col gap-8 rounded-2xl xl:gap-12 z-20 xl:mt-[340px] xl:ml-[160px]">
+        <div className="flex xl:w-[900px] max-w-[90%] flex-col gap-8 rounded-2xl xl:gap-12 z-20  left-[9%] absolute bottom-[28%]">
           <div className="flex flex-col items-center gap-14 sm:gap-10 xl:gap-12 z-20">
             <h5 className="my-text-stroke2 amber-400 relative text-center text-5xl font-extrabold text-amber-400 text-shadow-cyan-900 text-shadow-lg after:absolute after:top-[118%] after:left-[50%] after:h-[5px] after:w-[20%] after:translate-x-[-50%] after:rounded-2xl after:border-[1px] after:border-cyan-900 after:bg-amber-400 after:content-[''] sm:after:top-[130%] xl:text-6xl">
               {t("heading")}

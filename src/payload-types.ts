@@ -219,6 +219,7 @@ export interface Gym {
       }[]
     | null;
   gallery?: (number | Media)[] | null;
+  events?: (number | Event)[] | null;
   slug?: string | null;
   updatedAt: string;
   createdAt: string;
@@ -375,6 +376,7 @@ export interface GymsSelect<T extends boolean = true> {
         id?: T;
       };
   gallery?: T;
+  events?: T;
   slug?: T;
   updatedAt?: T;
   createdAt?: T;
