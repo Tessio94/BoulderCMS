@@ -86,33 +86,10 @@ export const Gyms: CollectionConfig = {
       hasMany: true,
     },
     {
-      name: "events",
-      type: "relationship",
-      relationTo: "events",
-      hasMany: true,
-      admin: { readOnly: true },
-      hooks: {
-        afterRead: [
-          async ({ req, data }) => {
-            if (!data?.id) return [];
-            console.log("wowwwww");
-            console.log(data);
-            const events = await req.payload.find({
-              collection: "events",
-              where: {
-                gym: {
-                  equals: data.id,
-                },
-              },
-              limit: 0, // return all
-              req,
-            });
-
-            // Return just the IDs so the relationship field works
-            return events.docs.map((event) => event.id);
-          },
-        ],
-      },
+      name: "relatedEvents",
+      type: "join",
+      collection: "events",
+      on: "gym",
     },
     {
       name: "slug",

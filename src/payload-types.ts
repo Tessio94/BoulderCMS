@@ -75,7 +75,11 @@ export interface Config {
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
-  collectionsJoins: {};
+  collectionsJoins: {
+    gyms: {
+      relatedEvents: 'events';
+    };
+  };
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
@@ -219,7 +223,11 @@ export interface Gym {
       }[]
     | null;
   gallery?: (number | Media)[] | null;
-  events?: (number | Event)[] | null;
+  relatedEvents?: {
+    docs?: (number | Event)[];
+    hasNextPage?: boolean;
+    totalDocs?: number;
+  };
   slug?: string | null;
   updatedAt: string;
   createdAt: string;
@@ -376,7 +384,7 @@ export interface GymsSelect<T extends boolean = true> {
         id?: T;
       };
   gallery?: T;
-  events?: T;
+  relatedEvents?: T;
   slug?: T;
   updatedAt?: T;
   createdAt?: T;

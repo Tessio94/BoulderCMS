@@ -20,7 +20,7 @@ export const EventsContent = ({ initialEvents }) => {
       const query = new URLSearchParams(filters).toString();
       const res = await fetch(`/api/events?${query}`);
       const json = await res.json();
-      console.log(json.docs);
+      // console.log(json.docs);
       return json.docs;
     },
     // enabled: false, // run only when triggered
