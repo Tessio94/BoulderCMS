@@ -2,24 +2,26 @@ import { getPayload } from "payload";
 import { cache } from "react";
 import config from "@payload-config";
 import Image from "next/image";
+import * as motion from "motion/react-client";
 import { EventGallery } from "@/components/EventGallery";
+import Event from "@/components/Event";
 import { FaPhoneAlt } from "react-icons/fa";
 import { IoMdMail } from "react-icons/io";
 import { TbWorld } from "react-icons/tb";
 import { FaLocationDot } from "react-icons/fa6";
 
-const page = async ({ params }) => {
+const Page = async ({ params }) => {
   const { slug } = await params;
 
   const gym = await queryGymsBySlug({ slug });
   // console.log("slug", slug);
-  // console.log("gym", gym);
+  console.log("gym", gym);
 
   return (
     <>
-      <div className="relative max-h-[calc(100vh-125px)] w-full aspect-[16/9] overflow-hidden">
+      <div className="relative aspect-[16/9] max-h-[calc(100vh-125px)] w-full overflow-hidden">
         <div
-          className="absolute inset-0 blur-sm scale-110 z-0"
+          className="absolute inset-0 z-0 scale-110 blur-sm"
           style={{
             backgroundImage:
               typeof gym.heroImage === "object" && gym.heroImage?.url
@@ -30,7 +32,7 @@ const page = async ({ params }) => {
           }}
         />
         <Image
-          className="relative z-10 object-contain max-h-[calc(100vh-125px)]"
+          className="relative z-10 max-h-[calc(100vh-125px)] object-contain"
           src={
             typeof gym.heroImage === "object" && gym.heroImage?.url
               ? gym.heroImage.url
@@ -41,14 +43,14 @@ const page = async ({ params }) => {
           height={955}
         />
       </div>
-      <main className="py-10 pb-20 xsm:px-6 px-10 sm:px-20 lg:px-40 flex flex-col md:gap-0 gap-10 md:flex-row justify-between">
-        <div className="basis-[60%]">
+      <main className="xsm:px-6 flex flex-col justify-between gap-10 px-10 py-10 pb-20 sm:px-20 md:flex-row md:gap-0 lg:px-40">
+        <div className="w-[55%]">
           <div className="mb-5">
-            <h2 className="w-fit text-3xl relative mb-5 my-text-stroke2 font-extrabold text-amber-400 text-shadow-cyan-900 text-shadow-lg after:absolute after:top-[110%] after:left-0 after:h-[5px] after:w-[20%] after:rounded-2xl after:border-[1px] after:border-cyan-900 after:bg-amber-400 after:content-['']">
+            <h2 className="my-text-stroke2 relative mb-5 w-fit text-3xl font-extrabold text-amber-400 text-shadow-cyan-900 text-shadow-lg after:absolute after:top-[110%] after:left-0 after:h-[5px] after:w-[20%] after:rounded-2xl after:border-[1px] after:border-cyan-900 after:bg-amber-400 after:content-['']">
               {gym.name}
             </h2>
           </div>
-          <div className="flex flex-col gap-6 mt-10 text-cyan-900 text-xl">
+          <div className="mt-10 flex flex-col gap-6 text-xl text-cyan-900">
             <div className="group flex items-center gap-3">
               <FaPhoneAlt />
               <a href={`tel:+${gym.phone}`} className="group-hover:underline">
@@ -78,16 +80,16 @@ const page = async ({ params }) => {
             </p>
             {gym.workingHours && gym.workingHours?.length > 0 && (
               <>
-                <p className="my-text-stroke text-cyan-900 text-2xl font-extrabold mt-8">
+                <p className="my-text-stroke mt-8 text-2xl font-extrabold text-cyan-900">
                   Working hours:
                 </p>
-                <div className="flex flex-col gap-4 mt-2">
+                <div className="mt-2 flex flex-col gap-4">
                   {gym.workingHours?.map((day, i) => (
-                    <div className="flex gap-3 items-start font-nunito" key={i}>
-                      <p className=" text-cyan-900 font-extrabold text-xl underline">
+                    <div className="font-nunito flex items-start gap-3" key={i}>
+                      <p className="text-xl font-extrabold text-cyan-900 underline">
                         {day.days.join(" ")}:
                       </p>
-                      <p className=" text-cyan-900 font-extrabold text-xl">
+                      <p className="text-xl font-extrabold text-cyan-900">
                         {day.from === 0
                           ? "Closed"
                           : `${day.from}:00 - ${day.to}:00`}
@@ -98,23 +100,37 @@ const page = async ({ params }) => {
               </>
             )}
           </div>
+          <div className="mt-14">
+            <p className="my-text-stroke mt-8 mb-4 text-2xl font-extrabold text-cyan-900">
+              Events in this gym:
+            </p>
+            {gym.relatedEvents?.docs && gym.relatedEvents?.docs.length > 0 && (
+              <motion.ul className="mb-[50px] flex flex-col gap-12 md:mb-[80px]">
+                {gym.relatedEvents.docs.map((event, index) => {
+                  return <Event key={index} {...event} />;
+                })}
+              </motion.ul>
+            )}
+          </div>
+        </div>
+        <div className="w-[40%]">
+          {gym.gallery && gym.gallery.length > 0 && (
+            <>
+              <h2 className="my-text-stroke2 mb-5 text-2xl font-extrabold text-amber-400">
+                Images from {gym.name}:
+              </h2>
+              <div className="aspect-auto overflow-hidden rounded-xl border-2 border-cyan-900/30 shadow-xl shadow-cyan-900/40">
+                <EventGallery gallery={gym.gallery} />
+              </div>
+            </>
+          )}
         </div>
       </main>
-      {gym.gallery && gym.gallery.length > 0 && (
-        <>
-          <h2 className="mb-5 text-2xl xsm:mx-6 mx-10 sm:mx-20 lg:mx-40 my-text-stroke2 text-amber-400 font-extrabold">
-            Images from {gym.name}:
-          </h2>
-          <div className="border-2 border-cyan-900/30 max-w-full md:max-w-[60%] xl:max-w-[50%] xxl:max-w-[40%] aspect-auto mb-20 xsm:mx-6 mx-10 sm:mx-20 lg:mx-40 shadow-xl shadow-cyan-900/40 rounded-xl overflow-hidden">
-            <EventGallery gallery={gym.gallery} />
-          </div>
-        </>
-      )}
     </>
   );
 };
 
-export default page;
+export default Page;
 
 const queryGymsBySlug = cache(async ({ slug }: { slug: string }) => {
   const payload = await getPayload({ config });
@@ -128,6 +144,7 @@ const queryGymsBySlug = cache(async ({ slug }: { slug: string }) => {
         equals: slug,
       },
     },
+    depth: 2,
   });
 
   return result.docs?.[0] || null;

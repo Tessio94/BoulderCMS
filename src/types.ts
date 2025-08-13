@@ -4,4 +4,5 @@ export type EventType = {
 	until: string;
 	description: string;
 	link: string;
+	slug: string;
 };
