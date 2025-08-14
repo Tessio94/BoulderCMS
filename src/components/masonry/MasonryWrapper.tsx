@@ -10,9 +10,9 @@ export default function MasonryGrid({ event }) {
     <Masonry
       items={items}
       config={{
-        columns: [1, 2, 3],
-        gap: [24, 12, 6],
-        media: [640, 768, 1024],
+        columns: [1, 2, 3, 4],
+        gap: [24, 12, 6, 4],
+        media: [640, 768, 1024, 1600],
       }}
       render={(item, index) => {
         return (

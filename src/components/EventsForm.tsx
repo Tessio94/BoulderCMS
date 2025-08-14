@@ -32,7 +32,7 @@ const EventsForm = ({ filters, onChange }) => {
         {showSort && (
           <div className="">
             <div
-              className="bg-cards px-6 py-2 text-2xl rounded-2xl text-cyan-900 mt-1 hover:bg-cards-dark active:bg-cards-dark focus:bg-cards-dark transition-all duration-500 hover:text-cyan-800 focus:text-cyan-800 active:text-cyan-800 cursor-pointer"
+              className="bg-cards hover:bg-cards-dark active:bg-cards-dark focus:bg-cards-dark mt-1 cursor-pointer rounded-2xl px-6 py-2 text-2xl text-cyan-900 transition-all duration-500 hover:text-cyan-800 focus:text-cyan-800 active:text-cyan-800"
               onClick={() => {
                 onChange({
                   sort: "desc",
@@ -43,7 +43,7 @@ const EventsForm = ({ filters, onChange }) => {
               Newest events first
             </div>
             <div
-              className="bg-cards px-6 py-2 text-2xl rounded-2xl text-cyan-900 mt-1 hover:bg-cards-dark active:bg-cards-dark focus:bg-cards-dark transition-all duration-500 hover:text-cyan-800 focus:text-cyan-800 active:text-cyan-800 cursor-pointer"
+              className="bg-cards hover:bg-cards-dark active:bg-cards-dark focus:bg-cards-dark mt-1 cursor-pointer rounded-2xl px-6 py-2 text-2xl text-cyan-900 transition-all duration-500 hover:text-cyan-800 focus:text-cyan-800 active:text-cyan-800"
               onClick={() => {
                 onChange({
                   sort: "asc",
@@ -100,7 +100,7 @@ const EventsForm = ({ filters, onChange }) => {
           </label>
           <div>
             <div
-              className="flex items-center justify-between cursor-pointer rounded-2xl border-b-[1px] border-cyan-900 bg-cyan-900/10 px-[20px] py-3 text-2xl text-cyan-900"
+              className="flex cursor-pointer items-center justify-between rounded-2xl border-b-[1px] border-cyan-900 bg-cyan-900/10 px-[20px] py-3 text-2xl text-cyan-900"
               onClick={() => setShowGyms((prev) => !prev)}
             >
               <p className="opacity-50">Select the hall</p>
@@ -113,7 +113,7 @@ const EventsForm = ({ filters, onChange }) => {
                   return (
                     <li
                       key={i}
-                      className="px-[20px] py-3 cursor-pointer hover:bg-cards-dark active:bg-cards-dark focus:bg-cards-dark transition-all duration-500 rounded-2xl hover:text-cyan-800 focus:text-cyan-800 active:text-cyan-800"
+                      className="hover:bg-cards-dark active:bg-cards-dark focus:bg-cards-dark cursor-pointer rounded-2xl px-[20px] py-3 transition-all duration-500 hover:text-cyan-800 focus:text-cyan-800 active:text-cyan-800"
                       onClick={() => {
                         onChange({ hall: gym.id });
                         setShowGyms((prev) => !prev);
@@ -142,7 +142,7 @@ const EventsForm = ({ filters, onChange }) => {
               placeholder="Search the term"
               value={filters.term}
               onChange={(e) => onChange({ term: e.target.value })}
-              className="w-full outline-0 border-0"
+              className="w-full border-0 outline-0"
             />
           </div>
         </div>
