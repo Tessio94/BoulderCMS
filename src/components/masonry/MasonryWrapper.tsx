@@ -29,8 +29,7 @@ export default function MasonryGrid({ event }) {
               width={item.width}
               height={item.height}
               style={{ width: "100%", height: "auto" }}
-              data-fancybox="gallery"
-              data-caption={item.alt}
+              className="rounded-xl"
             />
             <svg
               xmlns="http://www.w3.org/2000/svg"
