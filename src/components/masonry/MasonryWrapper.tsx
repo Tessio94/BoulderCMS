@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { Masonry } from "react-plock";
+import { Masonry } from "@/components/lib/Masonry";
 
 export default function MasonryGrid({ event }) {
   const items = event.gallery.map((photo) => photo);

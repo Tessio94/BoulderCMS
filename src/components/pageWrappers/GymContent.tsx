@@ -26,7 +26,14 @@ const GymContent = ({ initialGyms }) => {
   // console.log("gyms", gyms);
   return (
     <>
-      <div className="relative z-0 flex h-screen max-h-screen min-h-[800px] w-full items-center justify-center overflow-hidden bg-[url(/gyms/gyms_1024.jpg)] bg-no-repeat sm:min-h-auto lg:bg-none xl:block">
+      <div className="relative z-0 flex h-screen max-h-screen min-h-[800px] w-full items-center justify-center overflow-hidden xl:block">
+        <Image
+          src="/gyms/gyms_1024.jpg"
+          alt="climber on boulder"
+          fill
+          className="object-cover object-center lg:hidden"
+          sizes="100vw"
+        />
         <Image
           className="absolute right-0 bottom-0 z-0 hidden rounded-bl-[40%] lg:block lg:h-auto lg:object-contain"
           src="/gyms/gyms_1.jpg"
@@ -73,6 +80,7 @@ const GymContent = ({ initialGyms }) => {
           </div>
         </div>
       </div>
+
       <GymsResults gyms={gyms} />
     </>
   );

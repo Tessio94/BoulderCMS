@@ -3,12 +3,20 @@ import * as motion from "motion/react-client";
 import { containerVariants, listItemVariants } from "@/lib/animation";
 import { useTranslations } from "next-intl";
 import { eventDateFormat } from "@/lib/utils";
+import Image from "next/image";
 
 const EventsLanding = ({ event }) => {
   const t = useTranslations("EventsLanding");
 
   return (
-    <div className="relative h-screen min-h-[800px]  max-h-[calc(100vh-125px)] w-full bg-[url(/homepage/boulder_1920.jpg)] bg-cover bg-no-repeat shadow-2xl shadow-amber-400/40">
+    <div className="relative h-screen min-h-[800px] w-full shadow-2xl shadow-amber-400/40 lg:min-h-[unset]">
+      <Image
+        src="/homepage/boulder_1920.jpg"
+        alt="gym boulder"
+        fill
+        className="object-cover object-center"
+        sizes="100vw"
+      />
       <div className="xsm:top-[unset] xsm:bottom-16 absolute bottom-[18%] left-[50%] w-[800px] max-w-[90%] translate-x-[-50%] sm:w-[505px] sm:max-w-[72%] lg:w-[unset]">
         <div className="relative z-10 mb-10 flex flex-col gap-6">
           <motion.h2

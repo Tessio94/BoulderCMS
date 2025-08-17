@@ -26,14 +26,14 @@ const GalleryContent = ({ initialGalleries }) => {
 
   return (
     <>
-      <div className="relative z-0 flex h-screen max-h-[calc(100vh-125px)] min-h-[800px] w-full items-center justify-center overflow-hidden bg-[url(/homepage/gallery_1024.jpg)] bg-no-repeat lg:block lg:h-fit lg:min-h-[unset] lg:bg-none">
+      <div className="relative z-0 flex h-screen min-h-[800px] w-full items-center justify-center overflow-hidden lg:min-h-[unset]">
         {/* <div className="absolute top-1/2 left-1/2 translate-y-[-10%] translate-x-[-50%] content-[''] h-[350px] w-[90%] lg:w-[70%] z-10 backdrop-blur-xsm bg-[radial-gradient(circle,_rgba(8,51,68)_0%,_rgba(8,51,68,0)_50%)]"></div> */}
         <Image
-          className="hidden lg:block lg:h-auto lg:object-contain"
           src="/homepage/gallery.jpg"
           alt="climber on boulder"
-          width={1920}
-          height={1080}
+          fill
+          className="object-cover object-center"
+          sizes="100vw"
         />
 
         <div className="absolute bottom-[21%] left-[50%] z-20 flex w-[800px] max-w-[90%] translate-x-[-50%] flex-col gap-8 rounded-2xl xl:gap-12">

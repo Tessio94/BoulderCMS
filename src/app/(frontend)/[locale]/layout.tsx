@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { ReactQueryProvider } from "@/components/providers/ReactQueryProvider";
+// import { ProjectProvider } from "@/context/ProjectContext";
 
 const sniglet = localFont({
   src: [
