@@ -5,7 +5,7 @@ import { Masonry } from "@/components/lib/Masonry";
 
 export default function MasonryGrid({ event }) {
   const items = event.gallery.map((photo) => photo);
-  console.log(items);
+  // console.log(items);
   return (
     <Masonry
       items={items}

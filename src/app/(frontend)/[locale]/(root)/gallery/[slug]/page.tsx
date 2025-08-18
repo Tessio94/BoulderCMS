@@ -23,7 +23,9 @@ const Page = async ({ params }) => {
       </div>
 
       <FancyboxWrapper>
-        <MasonryGrid event={event} />
+        <div className="relative min-h-[30vh] w-full">
+          <MasonryGrid event={event} />
+        </div>
       </FancyboxWrapper>
     </main>
   );

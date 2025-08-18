@@ -5,7 +5,8 @@ import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { ReactQueryProvider } from "@/components/providers/ReactQueryProvider";
-// import { ProjectProvider } from "@/context/ProjectContext";
+import { ProjectProvider } from "@/context/ProjectContext";
+import Spinner from "@/components/Spinner";
 
 const sniglet = localFont({
   src: [
@@ -84,9 +85,12 @@ export default async function RootLayout({
       <body
         className={`${sniglet.className} ${nunito.variable} max-w-screen antialiased`}
       >
-        <ReactQueryProvider>
-          <NextIntlClientProvider>{children}</NextIntlClientProvider>
-        </ReactQueryProvider>
+        <ProjectProvider>
+          <Spinner />
+          <ReactQueryProvider>
+            <NextIntlClientProvider>{children}</NextIntlClientProvider>
+          </ReactQueryProvider>
+        </ProjectProvider>
       </body>
     </html>
   );

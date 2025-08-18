@@ -1,11 +1,11 @@
 import Footer from "@/components/Footer";
-import Header from "@/components/Header";
+import Header2 from "@/components/Header2";
 import { ReactNode } from "react";
 
 const Layout = async ({ children }: { children: ReactNode }) => {
   return (
     <>
-      <Header />
+      <Header2 />
       <>{children}</>
       <Footer />
     </>

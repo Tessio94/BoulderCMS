@@ -1,8 +1,9 @@
 import Image from "next/image";
 import { useTranslations } from "next-intl";
-import Link from "next/link";
+// import Link from "next/link";
 import * as motion from "motion/react-client";
 import { containerVariants, listItemVariants } from "@/lib/animation";
+import { TransitionLink } from "./TransitionLink";
 
 const Landing = () => {
   const t = useTranslations("Landing");
@@ -18,7 +19,7 @@ const Landing = () => {
       />
       {/* 3xl:top-[450px] */}
       {/* <motion.div className="3xl:top-[400px] xsm:top-[unset] xsm:bottom-10 absolute top-[45%] left-[50%] z-10 w-[800px] max-w-[90%] translate-x-[-50%] md:top-[50%] lg:top-[220px] lg:w-[unset] xl:top-[270px] xl:left-[100px] xl:translate-x-0 2xl:top-[350px]"> */}
-      <motion.div className="3xl:bottom-[12%] absolute bottom-[50%] left-[50%] z-10 w-[800px] max-w-[90%] translate-x-[-50%] translate-y-[50%] lg:w-[unset] xl:bottom-[8%] xl:left-[100px] xl:translate-x-0 xl:translate-y-0">
+      <motion.div className="3xl:bottom-[12%] absolute top-[calc(125px+10vh)] left-[50%] z-10 w-[800px] max-w-[90%] translate-x-[-50%] sm:top-auto sm:bottom-[50%] sm:translate-y-[50%] lg:w-[unset] xl:bottom-[8%] xl:left-[100px] xl:translate-x-0 xl:translate-y-0">
         <div className="absolute inset-0 -z-10 rounded-2xl bg-gradient-to-b from-cyan-200/50 via-cyan-200/60 to-amber-400/50 shadow-2xl shadow-amber-400/40 backdrop-blur-md"></div>
         <div className="flex flex-col gap-4 p-4 xl:gap-8 xl:p-8">
           <motion.h2
@@ -49,22 +50,24 @@ const Landing = () => {
             initial={{ y: 100, opacity: 0 }}
             animate={{ y: 0, opacity: 1, transition: { duration: 0.4 } }}
           >
-            <Link
+            <TransitionLink
+              type="i18n"
               href="/register"
               className="b-cyan-900 group cursor-pointer rounded-lg border-2 border-cyan-900 bg-amber-400 px-4 py-2 text-xl text-cyan-900 transition-all duration-500 hover:border-amber-400 hover:bg-cyan-900 hover:text-amber-400 focus:border-amber-400 focus:bg-cyan-900 focus:text-amber-400 active:border-amber-400 active:bg-cyan-900 active:text-amber-400 xl:text-2xl"
             >
               <span className="relative after:absolute after:top-[105%] after:left-0 after:h-0.5 after:w-0 after:bg-amber-400 after:transition-all after:duration-500 after:content-[''] group-hover:after:w-full group-focus:after:w-full group-active:after:w-full">
                 {t("button1")}
               </span>
-            </Link>
-            <Link
+            </TransitionLink>
+            <TransitionLink
+              type="18n"
               href="/events/#events"
               className="group cursor-pointer rounded-lg border-2 border-amber-400 bg-cyan-900 px-4 py-2 text-xl text-amber-400 transition-all duration-500 hover:border-cyan-900 hover:bg-amber-400 hover:text-cyan-900 focus:border-cyan-900 focus:bg-amber-400 focus:text-cyan-900 active:border-cyan-900 active:bg-amber-400 active:text-cyan-900 xl:text-2xl"
             >
               <span className="relative after:absolute after:top-[105%] after:left-0 after:h-0.5 after:w-0 after:bg-cyan-900 after:transition-all after:duration-500 after:content-[''] group-hover:after:w-full group-focus:after:w-full group-active:after:w-full">
                 {t("button2")}
               </span>
-            </Link>
+            </TransitionLink>
           </motion.div>
           <motion.div
             className="flex gap-4"

@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useState } from "react";
 
-const ProjectContext = createContext(null);
+const ProjectContext = createContext(false);
 
 export const ProjectProvider = ({ children }) => {
   const [showSpinner, setShowSpinner] = useState(true);

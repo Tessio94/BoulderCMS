@@ -18,7 +18,7 @@ const Competition = () => {
   const isInView3 = useInView(ref3, { once: true, amount: 0.3 });
 
   return (
-    <section className="relative mb-[90px] px-[20px] pt-[20px] sm:px-[50px] lg:px-[60px] lg:pt-[80px] 2xl:px-[160px]">
+    <section className="relative mb-[90px] px-[20px] pt-[50px] sm:px-[50px] lg:px-[60px] lg:pt-[80px] 2xl:px-[160px]">
       <Image
         className="absolute z-[-10] hidden w-[150] md:top-[-300px] lg:left-[60px] lg:block lg:w-[250] xl:top-[0px] 2xl:left-[160px]"
         src="/homepage/bouldering.svg"
@@ -33,7 +33,7 @@ const Competition = () => {
         width={180}
         height={176}
       />
-      <h4 className="my-text-stroke mb-[110px] text-center text-6xl text-cyan-900 lg:mb-[130px]">
+      <h4 className="my-text-stroke mb-[30px] text-center text-4xl text-cyan-900 sm:text-5xl lg:mb-[130px] xl:mb-[110px] xl:text-6xl">
         {t("title")}
       </h4>
       <div className="xsm:gap-[30px] flex w-full items-center justify-between gap-[55px] sm:gap-[80px] lg:min-h-[450px] lg:flex-col lg:justify-start">

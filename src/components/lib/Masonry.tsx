@@ -1,10 +1,11 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useMediaValues } from "./utlis/useMediaValues";
 import { createSafeArray } from "./utlis/createSafeArray";
 import { useGridStyles } from "./utlis/useGridStyles";
 import Spinner from "../Spinner";
+import { setTime } from "node_modules/react-datepicker/dist/date_utils";
 
 export type MasonryProps<T> = React.ComponentPropsWithoutRef<"div"> & {
   items: T[];
@@ -26,15 +27,24 @@ export function Masonry<T>({
   ...rest
 }: MasonryProps<T>) {
   const [heights, setHeights] = useState<Map<T, number>>(new Map());
+  const [showSpinner, setShowSpinner] = useState(true);
+
   const { columns, gap } = useMediaValues(
     config.media,
     createSafeArray(config.columns),
     createSafeArray(config.gap),
   );
 
+  useEffect(() => {
+    const timer = setTimeout(() => setShowSpinner(false), 500);
+    return () => clearTimeout(timer);
+  }, []);
+
   const styles = useGridStyles(columns, gap);
 
-  if (!columns) return <Spinner />;
+  if (showSpinner || !columns) {
+    return <Spinner />;
+  }
 
   // Choose layout strategy based on config
   const dataColumns = config.useBalancedLayout

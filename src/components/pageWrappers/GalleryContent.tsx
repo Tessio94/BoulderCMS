@@ -36,19 +36,19 @@ const GalleryContent = ({ initialGalleries }) => {
           sizes="100vw"
         />
 
-        <div className="absolute bottom-[21%] left-[50%] z-20 flex w-[800px] max-w-[90%] translate-x-[-50%] flex-col gap-8 rounded-2xl xl:gap-12">
+        <div className="z-20 flex w-[800px] max-w-[90%] flex-col gap-8 rounded-2xl xl:gap-12">
           <div className="flex flex-col items-center gap-14 sm:gap-10 xl:gap-12">
-            <h5 className="my-text-stroke2 amber-400 relative text-center text-5xl font-extrabold text-amber-400 text-shadow-cyan-900 text-shadow-lg after:absolute after:top-[118%] after:left-[50%] after:h-[5px] after:w-[20%] after:translate-x-[-50%] after:rounded-2xl after:border-[1px] after:border-cyan-900 after:bg-amber-400 after:content-[''] sm:after:top-[130%] xl:text-6xl">
+            <h5 className="my-text-stroke2 amber-400 relative text-center text-5xl font-extrabold text-amber-400 text-shadow-cyan-900 text-shadow-lg after:absolute after:top-[calc(100%+10px)] after:left-[50%] after:h-[5px] after:w-[20%] after:translate-x-[-50%] after:rounded-2xl after:border-[1px] after:border-cyan-900 after:bg-amber-400 after:content-[''] xl:text-6xl">
               {t("heading")}
             </h5>
             <div className="flex w-full items-center rounded-2xl shadow-2xl shadow-cyan-900">
-              <button className="group flex h-[68px] shrink-0 basis-[20%] cursor-pointer items-center justify-center rounded-tl-2xl rounded-bl-2xl bg-cyan-900 py-4 sm:basis-[10%]">
+              <button className="group flex h-[68px] w-[20%] shrink-0 cursor-pointer items-center justify-center rounded-tl-2xl rounded-bl-2xl bg-cyan-900 py-4 sm:w-[10%]">
                 <SlMagnifier className="text-2xl font-extrabold text-amber-400 transition-all duration-300 group-hover:scale-[1.1] xl:text-3xl 2xl:text-4xl" />
               </button>
               <input
                 type="text"
                 placeholder={t("searchPlaceholder")}
-                className="h-[68px] basis-[80%] overflow-hidden rounded-2xl rounded-l-none border-b-[3px] border-cyan-900 bg-amber-400 px-[20px] py-4 text-2xl text-nowrap text-cyan-900 outline-none sm:basis-[90%] xl:text-3xl 2xl:text-4xl"
+                className="h-[68px] w-[80%] overflow-hidden rounded-2xl rounded-l-none border-b-[3px] border-cyan-900 bg-amber-400 px-[20px] py-4 text-2xl text-nowrap text-cyan-900 outline-none sm:w-[90%] xl:text-3xl 2xl:text-4xl"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
               />
