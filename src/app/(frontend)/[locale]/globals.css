@@ -64,6 +64,10 @@ body {
   @apply flex w-full cursor-pointer items-center justify-center gap-5 rounded-2xl border-[2px] border-transparent bg-cyan-200 px-5 py-2 text-cyan-900 transition-all duration-500 hover:border-cyan-200 hover:bg-cyan-900 hover:text-cyan-200;
 }
 
+@utility btn-social-de {
+  @apply flex w-full cursor-pointer items-center justify-center gap-3 rounded-2xl border-[2px] border-transparent bg-cyan-200 px-3 py-2 text-cyan-900 transition-all duration-500 hover:border-cyan-200 hover:bg-cyan-900 hover:text-cyan-200;
+}
+
 @utility icon {
   @apply absolute top-[50%] right-5 h-8 w-8 translate-y-[-50%] cursor-pointer rounded-full p-1 transition-all hover:bg-slate-400/40;
 }
@@ -89,6 +93,13 @@ body {
   @media (width < 430px) {
     @slot;
   }
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:focus {
+  transition:
+    background-color 0s 600000s,
+    color 0s 600000s !important;
 }
 
 #nav-icon1 {

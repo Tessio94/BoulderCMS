@@ -1,15 +1,90 @@
 "use client";
 
 import { Link } from "@/i18n/navigation";
-import { useTranslations } from "next-intl";
+import { cn } from "@/lib/utils";
 import { useState } from "react";
+import { useLocale, useTranslations } from "next-intl";
 import { FaFacebook } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { MdVisibility, MdVisibilityOff } from "react-icons/md";
+import { useMutation } from "@tanstack/react-query";
+
+const registerMember = async (formData: any) => {
+  const res = await fetch(`/api/members`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      firstName: formData.firstName,
+      lastName: formData.lastName,
+      userName: formData.userName,
+      email: formData.email,
+      phoneNumber: formData.phoneNumber,
+      password: formData.password,
+      termsAcceptedAt: new Date().toISOString(),
+    }),
+  });
+
+  if (!res.ok) {
+    const err = await res.json();
+    throw new Error(err.errors?.[0].message || "Registration falied");
+  }
+
+  return res.json();
+};
 
 function Register() {
   const [showPassword, setShowPassword] = useState(false);
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    userName: "",
+    email: "",
+    phoneNumber: "",
+    password: "",
+    repeatPassword: "",
+    terms: false,
+  });
+
+  const locale = useLocale();
   const t = useTranslations("Register");
+
+  const mutation = useMutation({
+    mutationFn: registerMember,
+    onSuccess: (data) => {
+      console.log("Registered:", data);
+      alert("Registration successful!");
+    },
+    onError: (error: any) => {
+      console.error(error.message);
+    },
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value, type, checked } = e.target;
+
+    setFormData((prev) => ({
+      ...prev,
+      [name]: type === "checkbox" ? checked : value,
+    }));
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (formData.password !== formData.repeatPassword) {
+      alert("Passwords do not match");
+      return;
+    }
+
+    if (!formData.terms) {
+      alert("You must accept the term");
+      return;
+    }
+
+    mutation.mutate(formData);
+  };
 
   return (
     <div className="relative flex h-screen min-h-[1080px] w-full items-center justify-center bg-[url(/homepage/boulder_1920.jpg)] bg-cover bg-no-repeat shadow-2xl shadow-amber-400/40">
@@ -31,18 +106,57 @@ function Register() {
         </div>
 
         <div className="mt-5 px-3 pb-[80px] sm:px-10">
-          <form className="mb-6 flex flex-col gap-5">
+          <form onSubmit={handleSubmit} className="mb-6 flex flex-col gap-5">
             <div className="flex gap-3 sm:gap-7">
-              <input placeholder={t("name")} className="input" />
-              <input placeholder={t("lastName")} className="input" />
+              <input
+                name="firstName"
+                placeholder={t("name")}
+                type="text"
+                className="input"
+                value={formData.firstName}
+                onChange={handleChange}
+              />
+              <input
+                name="lastName"
+                placeholder={t("lastName")}
+                type="text"
+                className="input"
+                value={formData.lastName}
+                onChange={handleChange}
+              />
             </div>
-            <input placeholder={t("email")} className="input" />
-            <input placeholder={t("phone")} className="input" />
+            <input
+              name="userName"
+              placeholder={t("username")}
+              type="text"
+              className="input"
+              value={formData.userName}
+              onChange={handleChange}
+            />
+            <input
+              name="email"
+              placeholder={t("email")}
+              className="input"
+              type="email"
+              value={formData.email}
+              onChange={handleChange}
+            />
+            <input
+              name="phoneNumber"
+              placeholder={t("phone")}
+              type="tel"
+              className="input"
+              value={formData.phoneNumber}
+              onChange={handleChange}
+            />
             <div className="relative">
               <input
+                name="password"
                 type={showPassword ? "text" : "password"}
                 placeholder={t("password")}
                 className="input"
+                value={formData.password}
+                onChange={handleChange}
               />
               {showPassword ? (
                 <MdVisibilityOff
@@ -58,9 +172,12 @@ function Register() {
             </div>
             <div className="relative">
               <input
+                name="repeatPassword"
                 type={showPassword ? "text" : "password"}
                 placeholder={t("repeatPassword")}
                 className="input"
+                value={formData.repeatPassword}
+                onChange={handleChange}
               />
               {showPassword ? (
                 <MdVisibilityOff
@@ -75,22 +192,47 @@ function Register() {
               )}
             </div>
             <div className="flex items-center gap-3">
-              <input type="checkbox" className="cursor-pointer" id="terms" />
+              <input
+                name="terms"
+                type="checkbox"
+                className="cursor-pointer"
+                id="terms"
+                checked={formData.terms}
+                onChange={handleChange}
+              />
               <label className="cursor-pointer text-cyan-900" htmlFor="terms">
                 {t("terms")}
               </label>
             </div>
+
+            {/* Error + Loading states from react-query */}
+            {mutation.isError && (
+              <p className="text-red-600">{(mutation.error as any).message}</p>
+            )}
+            {mutation.isSuccess && (
+              <p className="text-green-600">Registration successful!</p>
+            )}
+
             <button className="cursor-pointer rounded-2xl border-[2px] border-transparent bg-cyan-900 px-5 py-2 text-cyan-200 transition-all duration-500 hover:border-cyan-900 hover:bg-cyan-200 hover:text-cyan-900">
-              {t("register")}
+              {mutation.isLoading ? "..." : t("register")}
             </button>
           </form>
 
-          <div className="flex flex-row gap-4 max-[480px]:flex-col sm:gap-20">
-            <button className="btn-social">
+          <div
+            className={cn(
+              "flex flex-row gap-4 max-[480px]:flex-col",
+              locale === "de" ? "gap-4" : "sm:gap-20",
+            )}
+          >
+            <button
+              className={cn(locale === "de" ? "btn-social-de" : "btn-social")}
+            >
               <FaFacebook className="text-2xl" />
               {t("facebook")}
             </button>
-            <button className="btn-social">
+            <button
+              className={cn(locale === "de" ? "btn-social-de" : "btn-social")}
+            >
               <FcGoogle className="text-2xl" />
               {t("google")}
             </button>

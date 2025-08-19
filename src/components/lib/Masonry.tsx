@@ -4,8 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useMediaValues } from "./utlis/useMediaValues";
 import { createSafeArray } from "./utlis/createSafeArray";
 import { useGridStyles } from "./utlis/useGridStyles";
-import Spinner from "../Spinner";
-import { setTime } from "node_modules/react-datepicker/dist/date_utils";
+import LoadingSpinner from "../LoadingSpinner";
 
 export type MasonryProps<T> = React.ComponentPropsWithoutRef<"div"> & {
   items: T[];
@@ -43,7 +42,7 @@ export function Masonry<T>({
   const styles = useGridStyles(columns, gap);
 
   if (showSpinner || !columns) {
-    return <Spinner />;
+    return <LoadingSpinner />;
   }
 
   // Choose layout strategy based on config

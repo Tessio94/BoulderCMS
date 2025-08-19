@@ -12,10 +12,19 @@ import { MdEmojiEvents } from "react-icons/md";
 import { IoMdHome } from "react-icons/io";
 import { RiLoginBoxFill } from "react-icons/ri";
 
-const Header2 = () => {
+const Header2 = ({
+  firstName,
+  lastName,
+  userName,
+}: {
+  firstName?: string;
+  lastName?: string;
+  userName?: string;
+}) => {
   const [scrolled, setScrolled] = useState(false);
   const [hambActive, setHambActive] = useState(false);
   const [showSidebar, setShowSidebar] = useState(false);
+  const [showProfile, setShowProfile] = useState(false);
 
   const pathname = usePathname();
   const locale = useLocale();
@@ -172,21 +181,43 @@ const Header2 = () => {
         </ul>
       </nav>
 
-      <div className="my-text-stroke ml-auto flex items-center lg:ml-0 lg:gap-4 xl:gap-10">
-        <TransitionLink
-          type="i18n"
-          className="hidden items-center gap-3 rounded-2xl bg-cyan-900/10 px-2 py-[1px] text-2xl font-extrabold text-cyan-900/90 transition-all duration-500 hover:bg-cyan-900/30 focus:bg-cyan-900/30 active:bg-cyan-900/30 lg:flex xl:text-3xl"
-          href="/login"
-        >
-          <Image
-            src="/header/login.svg"
-            alt="ikona za login"
-            width={40}
-            height={40}
-            className="red"
-          />
-          {t("login")}
-        </TransitionLink>
+      <div className="ml-auto flex items-center lg:ml-0 lg:gap-4 xl:gap-10">
+        {firstName && lastName ? (
+          <div className="relative">
+            <div
+              onClick={() => setShowProfile((prev) => !prev)}
+              className="group flex h-[38px] w-[38px] cursor-pointer items-center justify-center rounded-full border-2 border-amber-400 bg-cyan-900 text-amber-400 transition-all duration-300 hover:border-cyan-900 hover:bg-amber-400 hover:text-cyan-900"
+            >
+              {`${firstName.slice(0, 1).toUpperCase()}${lastName.slice(0, 1).toUpperCase()}`}
+            </div>
+            {showProfile && (
+              <div className="absolute top-[100%] flex flex-col rounded-xl bg-cyan-900 text-amber-400">
+                <div className="cursor-pointer rounded-t-xl border-2 border-b-[1px] border-amber-400 px-3 py-1 transition-all duration-300 hover:border-cyan-900 hover:border-b-amber-400 hover:bg-amber-400 hover:text-cyan-900">
+                  Results
+                </div>
+                <div className="cursor-pointer rounded-b-xl border-2 border-t-[1px] border-amber-400 px-3 py-1 duration-300 hover:border-cyan-900 hover:border-t-amber-400 hover:bg-amber-400 hover:text-cyan-900">
+                  Logout
+                </div>
+              </div>
+            )}
+          </div>
+        ) : (
+          <TransitionLink
+            type="i18n"
+            className="my-text-stroke hidden items-center gap-3 rounded-2xl bg-cyan-900/10 px-2 py-[1px] text-2xl font-extrabold text-cyan-900/90 transition-all duration-500 hover:bg-cyan-900/30 focus:bg-cyan-900/30 active:bg-cyan-900/30 lg:flex xl:text-3xl"
+            href="/login"
+          >
+            <Image
+              src="/header/login.svg"
+              alt="ikona za login"
+              width={40}
+              height={40}
+              className="red"
+            />
+            {t("login")}
+          </TransitionLink>
+        )}
+
         <LocalePicker type="desktop" />
       </div>
 
