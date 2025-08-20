@@ -18,7 +18,7 @@ const LocalePicker = ({ type }: { type: string }) => {
 
   const pickLang = (newLocale: string) => {
     const segments = pathname.split("/");
-    console.log(segments);
+    // console.log(segments);
     if (newLocale === "en") {
       segments[1] = newLocale;
       const newPath = segments.join("/");
@@ -99,7 +99,7 @@ const LocalePicker = ({ type }: { type: string }) => {
               onClick={() => pickLang(lang)}
               className="group/inner flex cursor-pointer items-center gap-3 rounded-2xl text-3xl font-semibold text-cyan-900/90 transition-all duration-500 hover:text-cyan-700/80"
             >
-              {lang.toUpperCase()}
+              <span className="hidden sm:inline">{lang.toUpperCase()}</span>
               <div className="h-[22px] w-[22px] shrink-0 overflow-hidden rounded-full border-[1px] border-transparent transition-all duration-500 group-hover/inner:border-amber-400">
                 <Image
                   className="object-contain"

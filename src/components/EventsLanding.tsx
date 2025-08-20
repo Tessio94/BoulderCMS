@@ -22,7 +22,11 @@ const EventsLanding = ({ event }) => {
           <motion.h2
             className="bold my-text-stroke2 relative mb-3 text-center text-4xl text-amber-400 text-shadow-cyan-900 text-shadow-lg after:absolute after:top-[calc(100%+10px)] after:left-[50%] after:h-[5px] after:w-[20%] after:translate-x-[-50%] after:rounded-2xl after:border-[1px] after:border-cyan-900 after:bg-amber-400 after:content-[''] sm:text-5xl lg:text-6xl 2xl:text-8xl"
             initial={{ y: -100, opacity: 0 }}
-            animate={{ y: 0, opacity: 1, transition: { duration: 0.4 } }}
+            animate={{
+              y: 0,
+              opacity: 1,
+              transition: { duration: 0.4, delay: 0.4 },
+            }}
           >
             {t("heading")}
           </motion.h2>
@@ -54,7 +58,7 @@ const EventsLanding = ({ event }) => {
             className="ml-7 flex list-disc flex-col gap-2"
             initial="hidden"
             animate="show"
-            variants={containerVariants(0.3)}
+            variants={containerVariants(0.4)}
           >
             <motion.li
               className="font-nunito xsm:text-xl text-2xl text-cyan-900 xl:text-3xl"

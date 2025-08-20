@@ -26,7 +26,7 @@ const GymContent = ({ initialGyms }) => {
   // console.log("gyms", gyms);
   return (
     <>
-      <div className="relative z-0 flex h-screen max-h-screen min-h-[800px] w-full items-center justify-center overflow-hidden xl:block">
+      <div className="relative z-0 flex h-screen max-h-screen min-h-[800px] w-full items-center justify-center overflow-hidden">
         <Image
           src="/gyms/gyms_1024.jpg"
           alt="climber on boulder"
@@ -35,20 +35,27 @@ const GymContent = ({ initialGyms }) => {
           sizes="100vw"
         />
         <Image
-          className="absolute right-0 bottom-0 z-0 hidden rounded-bl-[40%] lg:block lg:h-auto lg:object-contain"
+          className="absolute top-0 right-0 z-0 hidden rounded-bl-[40%] lg:block lg:h-auto lg:object-contain"
           src="/gyms/gyms_1.jpg"
           alt="climber on boulder"
           width={640}
           height={960}
         />
         <Image
-          className="absolute bottom-[-40px] left-0 z-0 hidden rounded-tr-[40%] lg:h-auto lg:object-contain xl:block"
+          className="absolute bottom-[-40px] left-0 z-0 hidden max-h-[45%] rounded-tr-[40%] object-cover lg:h-auto xl:block"
           src="/gyms/gyms_2.jpg"
           alt="climber on boulder"
           width={640}
           height={480}
         />
-        <div className="absolute top-[50%] z-20 flex max-w-[90%] translate-y-[-50%] flex-col gap-8 rounded-2xl lg:left-[9%] xl:top-[calc(125px+10vh)] xl:bottom-auto xl:w-[900px] xl:translate-y-0 xl:gap-12">
+        <Image
+          className="absolute top-[-40px] left-0 z-0 hidden max-h-[45%] rounded-br-[40%] object-cover lg:h-auto xl:block"
+          src="/gyms/gyms_3.jpg"
+          alt="climber on boulder"
+          width={640}
+          height={480}
+        />
+        <div className="z-20 flex max-w-[90%] flex-col gap-8 rounded-2xl xl:w-[900px] xl:gap-12">
           <div className="z-20 flex flex-col items-center gap-14 sm:gap-10 xl:gap-12">
             <h5 className="my-text-stroke2 amber-400 relative text-center text-4xl font-extrabold text-amber-400 text-shadow-cyan-900 text-shadow-lg after:absolute after:top-[calc(100%+10px)] after:left-[50%] after:h-[5px] after:w-[20%] after:translate-x-[-50%] after:rounded-2xl after:border-[1px] after:border-cyan-900 after:bg-amber-400 after:content-[''] sm:text-5xl xl:text-6xl">
               {t("heading")}

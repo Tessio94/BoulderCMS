@@ -3,7 +3,7 @@
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import { TransitionLink } from "./TransitionLink";
 import LocalePicker from "./LocalePicker";
@@ -11,16 +11,10 @@ import { GrGallery } from "react-icons/gr";
 import { MdEmojiEvents } from "react-icons/md";
 import { IoMdHome } from "react-icons/io";
 import { RiLoginBoxFill } from "react-icons/ri";
+import { getUser } from "@/lib/serverFunctions/getUserAction";
+import { QueryClient, useQuery, useQueryClient } from "@tanstack/react-query";
 
-const Header2 = ({
-  firstName,
-  lastName,
-  userName,
-}: {
-  firstName?: string;
-  lastName?: string;
-  userName?: string;
-}) => {
+const Header2 = () => {
   const [scrolled, setScrolled] = useState(false);
   const [hambActive, setHambActive] = useState(false);
   const [showSidebar, setShowSidebar] = useState(false);
@@ -28,6 +22,8 @@ const Header2 = ({
 
   const pathname = usePathname();
   const locale = useLocale();
+  const router = useRouter();
+  const queryClient = useQueryClient();
   const t = useTranslations("Header");
   // console.log(pathname);
   let landingPage;
@@ -91,6 +87,42 @@ const Header2 = ({
     setHambActive(false);
     if (hamb.current) hamb.current.classList.remove("open");
   }, [pathname]);
+
+  let firstName: string | undefined;
+  let lastName: string | undefined;
+  let userName: string | undefined;
+
+  const { data, isLoading } = useQuery({
+    queryKey: ["user", pathname],
+    queryFn: getUser,
+    refetchOnWindowFocus: false,
+    refetchOnMount: true,
+  });
+
+  if (data) {
+    ({ userName, firstName, lastName } = data);
+  }
+
+  const handleLogout = async () => {
+    try {
+      const res = await fetch("/api/members/logout?allSessions=false", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+      });
+
+      if (!res.ok) {
+        throw new Error("Failed to logout");
+      }
+
+      // Clear client state (react-query cache, etc.)
+      // queryClient.clear(); // if you are using react-query
+      queryClient.invalidateQueries({ queryKey: ["user"] });
+      router.push("/");
+      // Redirect or refresh
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   return (
     <header
@@ -183,10 +215,10 @@ const Header2 = ({
 
       <div className="ml-auto flex items-center lg:ml-0 lg:gap-4 xl:gap-10">
         {firstName && lastName ? (
-          <div className="relative">
+          <div className="xsm:mr-3 relative mr-6 sm:mr-10 lg:mr-0">
             <div
               onClick={() => setShowProfile((prev) => !prev)}
-              className="group flex h-[38px] w-[38px] cursor-pointer items-center justify-center rounded-full border-2 border-amber-400 bg-cyan-900 text-amber-400 transition-all duration-300 hover:border-cyan-900 hover:bg-amber-400 hover:text-cyan-900"
+              className="group flex aspect-square h-[38px] cursor-pointer items-center justify-center rounded-full border-2 border-amber-400 bg-cyan-900 text-amber-400 transition-all duration-300 hover:border-cyan-900 hover:bg-amber-400 hover:text-cyan-900 sm:h-[52px] sm:text-2xl lg:h-[32px] lg:text-sm xl:h-[36px] xl:text-lg"
             >
               {`${firstName.slice(0, 1).toUpperCase()}${lastName.slice(0, 1).toUpperCase()}`}
             </div>
@@ -195,7 +227,10 @@ const Header2 = ({
                 <div className="cursor-pointer rounded-t-xl border-2 border-b-[1px] border-amber-400 px-3 py-1 transition-all duration-300 hover:border-cyan-900 hover:border-b-amber-400 hover:bg-amber-400 hover:text-cyan-900">
                   Results
                 </div>
-                <div className="cursor-pointer rounded-b-xl border-2 border-t-[1px] border-amber-400 px-3 py-1 duration-300 hover:border-cyan-900 hover:border-t-amber-400 hover:bg-amber-400 hover:text-cyan-900">
+                <div
+                  onClick={handleLogout}
+                  className="cursor-pointer rounded-b-xl border-2 border-t-[1px] border-amber-400 px-3 py-1 duration-300 hover:border-cyan-900 hover:border-t-amber-400 hover:bg-amber-400 hover:text-cyan-900"
+                >
                   Logout
                 </div>
               </div>
