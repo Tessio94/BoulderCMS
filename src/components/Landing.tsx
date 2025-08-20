@@ -2,8 +2,9 @@ import Image from "next/image";
 import { useTranslations } from "next-intl";
 // import Link from "next/link";
 import * as motion from "motion/react-client";
-import { containerVariants, listItemVariants } from "@/lib/animation";
+// import { containerVariants, listItemVariants } from "@/lib/animation";
 import { TransitionLink } from "./TransitionLink";
+import LandingIntro from "./LandingIntro";
 
 const Landing = () => {
   const t = useTranslations("Landing");
@@ -20,7 +21,8 @@ const Landing = () => {
       {/* 3xl:top-[450px] */}
       {/* <motion.div className="3xl:top-[400px] xsm:top-[unset] xsm:bottom-10 absolute top-[45%] left-[50%] z-10 w-[800px] max-w-[90%] translate-x-[-50%] md:top-[50%] lg:top-[220px] lg:w-[unset] xl:top-[270px] xl:left-[100px] xl:translate-x-0 2xl:top-[350px]"> */}
       <motion.div
-        className="absolute top-[125px] right-0 rounded-bl-[60px] border-t-[1px] border-t-cyan-900/50 bg-cyan-100/80 px-10 py-6"
+        id="news"
+        className="absolute top-[125px] right-0 rounded-bl-[25px] border-t-[1px] border-t-cyan-900/50 bg-cyan-100/80 px-3 py-1 transition-all duration-500 sm:rounded-bl-[40px] sm:px-5 sm:py-3 lg:rounded-bl-[60px] lg:px-10 lg:py-6"
         initial={{ x: 100, opacity: 0 }}
         animate={{
           x: 0,
@@ -55,50 +57,7 @@ const Landing = () => {
           >
             {t("title")}
           </motion.h2>
-          <motion.ul
-            className="ml-7 flex list-disc flex-col gap-2"
-            initial="hidden"
-            animate="show"
-            variants={containerVariants(0.2)}
-          >
-            {[t("text1"), t("text2"), t("text3")].map((text, idx) => (
-              <motion.li
-                key={idx}
-                className="font-nunito text-xl text-cyan-900 xl:text-2xl"
-                variants={listItemVariants}
-              >
-                {text}
-              </motion.li>
-            ))}
-          </motion.ul>
-          <motion.div
-            className="flex gap-4"
-            initial={{ y: 100, opacity: 0 }}
-            animate={{
-              y: 0,
-              opacity: 1,
-              transition: { duration: 0.4, delay: 0.4 },
-            }}
-          >
-            <TransitionLink
-              type="i18n"
-              href="/register"
-              className="b-cyan-900 group cursor-pointer rounded-lg border-2 border-cyan-900 bg-amber-400 px-4 py-2 text-xl text-cyan-900 transition-all duration-500 hover:border-amber-400 hover:bg-cyan-900 hover:text-amber-400 focus:border-amber-400 focus:bg-cyan-900 focus:text-amber-400 active:border-amber-400 active:bg-cyan-900 active:text-amber-400 xl:text-2xl"
-            >
-              <span className="relative after:absolute after:top-[105%] after:left-0 after:h-0.5 after:w-0 after:bg-amber-400 after:transition-all after:duration-500 after:content-[''] group-hover:after:w-full group-focus:after:w-full group-active:after:w-full">
-                {t("button1")}
-              </span>
-            </TransitionLink>
-            <TransitionLink
-              type="18n"
-              href="/events/#events"
-              className="group cursor-pointer rounded-lg border-2 border-amber-400 bg-cyan-900 px-4 py-2 text-xl text-amber-400 transition-all duration-500 hover:border-cyan-900 hover:bg-amber-400 hover:text-cyan-900 focus:border-cyan-900 focus:bg-amber-400 focus:text-cyan-900 active:border-cyan-900 active:bg-amber-400 active:text-cyan-900 xl:text-2xl"
-            >
-              <span className="relative after:absolute after:top-[105%] after:left-0 after:h-0.5 after:w-0 after:bg-cyan-900 after:transition-all after:duration-500 after:content-[''] group-hover:after:w-full group-focus:after:w-full group-active:after:w-full">
-                {t("button2")}
-              </span>
-            </TransitionLink>
-          </motion.div>
+          <LandingIntro />
           <motion.div
             className="flex gap-4"
             initial={{ y: 100, opacity: 0 }}

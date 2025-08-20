@@ -95,6 +95,7 @@ body {
   }
 }
 
+/*------------selecting placeholder in input------*/
 input:-webkit-autofill,
 input:-webkit-autofill:focus {
   transition:
@@ -102,6 +103,7 @@ input:-webkit-autofill:focus {
     color 0s 600000s !important;
 }
 
+/*---------------------hambMenu-------------------*/
 #nav-icon1 {
   width: 50px;
   height: 35px;
@@ -149,6 +151,7 @@ input:-webkit-autofill:focus {
   transform: rotate(-135deg);
 }
 
+/*------------------swiper styling----------------*/
 .swiper-thumbs .swiper-slide {
   opacity: 0.4;
 }
@@ -157,6 +160,7 @@ input:-webkit-autofill:focus {
   opacity: 1;
 }
 
+/*--------------------richtext styling------------*/
 .payload-richtext {
   display: flex;
   flex-direction: column;
@@ -175,4 +179,16 @@ input:-webkit-autofill:focus {
 .payload-richtext ul {
   list-style: disc;
   margin-left: 2rem;
+}
+
+/*--------------------landing element styling ------------*/
+#news:has(span:hover) {
+  border-bottom-right-radius: 60px;
+  right: 50px;
+}
+
+@media (width < 1024px) {
+  #news:has(span:hover) {
+    border-bottom-right-radius: 40px;
+  }
 }

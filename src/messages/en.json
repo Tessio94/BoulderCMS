@@ -16,7 +16,9 @@
     "text2": "Find bouldering competitions in the future and current",
     "text3": "See overview of bouldering gyms",
     "button1": "Join Us",
-    "button2": "See Events"
+    "button2": "See Events",
+    "welcome": "Welcome",
+    "results": "Your results"
   },
   "Cards": {
     "card1": {
@@ -67,7 +69,8 @@
     "title": "Find your event and login",
     "text1": "Connect to your boulder app account, register your score and compete with others",
     "button1": "Join Us",
-    "button2": "See Events"
+    "button2": "See Events",
+    "results": "Your results"
   },
   "Footer": {
     "text1": "© 2025 BoulderApp. All rights reserved."

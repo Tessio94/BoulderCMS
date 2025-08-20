@@ -61,7 +61,7 @@ const LocalePicker = ({ type }: { type: string }) => {
               {currentLocale?.toUpperCase()}
             </div>
 
-            <div className="absolute left-0 z-10 max-h-0 w-full rounded-2xl bg-cyan-900/10 opacity-0 transition-all duration-500 group-hover:max-h-60 group-hover:bg-cyan-900/30 group-hover:opacity-100">
+            <div className="pointer-events-none absolute left-0 z-10 max-h-0 w-full rounded-2xl bg-cyan-900/10 opacity-0 transition-all duration-500 group-hover:pointer-events-auto group-hover:max-h-60 group-hover:bg-cyan-900/30 group-hover:opacity-100">
               {otherLocales.map((lang) => (
                 <div
                   key={lang}

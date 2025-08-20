@@ -17,7 +17,9 @@
     "text2": "Finde aktuelle und zukünftige Boulder-Wettkämpfe",
     "text3": "Verschaffe dir einen Überblick über Boulderhallen",
     "button1": "Mach mit",
-    "button2": "Zu den Events"
+    "button2": "Zu den Events",
+    "welcome": "Willkommen",
+    "results": "Ihre Ergebnisse"
   },
   "Cards": {
     "card1": {
@@ -68,7 +70,8 @@
     "title": "Finde dein Event und logge dich ein",
     "text1": "Verbinde dich mit deinem BoulderApp-Konto, registriere deine Punktzahl und tritt gegen andere an",
     "button1": "Mach mit",
-    "button2": "Zu den Events"
+    "button2": "Zu den Events",
+    "results": "Ihre Ergebnisse"
   },
   "Footer": {
     "text1": "© 2025 BoulderApp. Alle Rechte vorbehalten."
