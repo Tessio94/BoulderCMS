@@ -10,6 +10,9 @@ import { Media } from "./collections/Media";
 import { Events } from "./collections/Events";
 import { Gyms } from "./collections/Gyms";
 import { Members } from "./collections/Members";
+import { Results } from "./collections/Results";
+import { Categories } from "./collections/Categories";
+import { EventRegistrations } from "./collections/EventsRegistrations";
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -21,7 +24,15 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media, Events, Gyms, Members],
+  collections: [
+    Users,
+    Media,
+    Events,
+    Gyms,
+    Members,
+    Results,
+    EventRegistrations,
+  ],
   editor: lexicalEditor({}),
   secret: process.env.PAYLOAD_SECRET || "",
   typescript: {

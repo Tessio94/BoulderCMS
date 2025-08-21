@@ -35,7 +35,7 @@ const Landing = () => {
           href="/events/#events"
           className="group cursor-pointer text-2xl text-cyan-900 transition-all duration-500 hover:text-cyan-900 focus:text-cyan-900 active:text-cyan-900 xl:text-3xl"
         >
-          <span className="relative after:absolute after:top-[105%] after:left-0 after:h-0.5 after:w-0 after:bg-cyan-900 after:transition-all after:duration-500 after:content-[''] group-hover:after:w-full group-focus:after:w-full group-active:after:w-full">
+          <span className="relative after:absolute after:top-[90%] after:left-0 after:h-0.5 after:w-0 after:bg-cyan-900 after:transition-all after:duration-500 after:content-[''] group-hover:after:w-full group-focus:after:w-full group-active:after:w-full after:xl:top-[105%]">
             What's new{" "}
             <span className="inline-block origin-center rotate-0 transform transition-all duration-500 group-hover:rotate-180">
               ?

@@ -11,6 +11,7 @@ export const Members: CollectionConfig = {
 
     //   return true;
     // },
+
     create: () => true,
   },
   auth: true,
@@ -47,6 +48,12 @@ export const Members: CollectionConfig = {
       admin: {
         disabled: true,
       },
+    },
+    {
+      name: "registrations",
+      type: "relationship",
+      relationTo: "event-registrations",
+      hasMany: true,
     },
   ],
   hooks: {

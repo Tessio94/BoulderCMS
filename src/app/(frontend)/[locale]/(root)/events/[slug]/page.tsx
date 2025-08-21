@@ -1,5 +1,6 @@
 // import Image from "next/image";
 
+import EventButton from "@/components/buttons/EventButton";
 import { DateRangeDisplay } from "@/components/DateRangeDisplay";
 import { EventGallery } from "@/components/EventGallery";
 import { RenderHTML } from "@/components/RenderHTML";
@@ -14,9 +15,10 @@ const Page = async ({ params }) => {
   const { slug } = await params;
 
   const event = await queryEventsBySlug({ slug });
-  console.log("event :", event);
+  // console.log("event :", event);
   const heroAspectRatio = event?.heroImage?.width / event?.heroImage?.height;
-  console.log(heroAspectRatio);
+  // console.log(heroAspectRatio);
+
   return (
     <>
       {/* <Image
@@ -119,15 +121,15 @@ const Page = async ({ params }) => {
                 </div>
               </div>
               <div className="flex flex-col gap-5">
-                <button className="w-full cursor-pointer rounded-2xl bg-cyan-100/80 py-2 text-cyan-900 uppercase transition-all duration-500 hover:bg-cyan-900/40">
-                  log in
-                </button>
+                <EventButton eventId={event.id} slug={event.slug} type="join" />
                 <button className="w-full cursor-pointer rounded-2xl bg-cyan-100/80 py-2 text-cyan-900 uppercase transition-all duration-500 hover:bg-cyan-900/40">
                   show results
                 </button>
-                <button className="w-full cursor-pointer rounded-2xl bg-cyan-100/80 py-2 text-cyan-900 uppercase transition-all duration-500 hover:bg-cyan-900/40">
-                  submit results
-                </button>
+                <EventButton
+                  eventId={event.id}
+                  slug={event.slug}
+                  type="submit"
+                />
               </div>
             </div>
           </div>

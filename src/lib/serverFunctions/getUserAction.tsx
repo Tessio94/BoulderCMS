@@ -15,6 +15,7 @@ export async function getUser() {
   if (user.collection === "members") {
     const typedUser = user as Member & { collection: "members" };
     return {
+      id: typedUser.id,
       firstName: typedUser.firstName,
       lastName: typedUser.lastName,
       userName: typedUser.userName,

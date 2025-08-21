@@ -43,8 +43,8 @@ const Page = async ({ params }) => {
           height={955}
         />
       </div>
-      <main className="xsm:px-6 flex flex-col justify-between gap-10 px-10 py-10 pb-20 sm:px-20 md:flex-row md:gap-0 lg:px-40">
-        <div className="w-[55%]">
+      <main className="xsm:px-6 flex flex-col justify-between gap-10 px-10 py-10 pb-20 sm:px-20 md:gap-0 lg:px-40 xl:flex-row">
+        <div className="w-full xl:w-[55%]">
           <div className="mb-5">
             <h2 className="my-text-stroke2 relative mb-5 w-fit text-3xl font-extrabold text-amber-400 text-shadow-cyan-900 text-shadow-lg after:absolute after:top-[110%] after:left-0 after:h-[5px] after:w-[20%] after:rounded-2xl after:border-[1px] after:border-cyan-900 after:bg-amber-400 after:content-['']">
               {gym.name}
@@ -113,7 +113,7 @@ const Page = async ({ params }) => {
             )}
           </div>
         </div>
-        <div className="w-[40%]">
+        <div className="w-full xl:w-[40%]">
           {gym.gallery && gym.gallery.length > 0 && (
             <>
               <h2 className="my-text-stroke2 mb-5 text-2xl font-extrabold text-amber-400">

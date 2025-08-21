@@ -7,6 +7,7 @@ import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { ReactQueryProvider } from "@/components/providers/ReactQueryProvider";
 import { ProjectProvider } from "@/context/ProjectContext";
 import Spinner from "@/components/Spinner";
+import { Toaster } from "sonner";
 
 const sniglet = localFont({
   src: [
@@ -87,6 +88,7 @@ export default async function RootLayout({
       >
         <ProjectProvider>
           <Spinner />
+          <Toaster position="top-center" />
           <ReactQueryProvider>
             <NextIntlClientProvider>{children}</NextIntlClientProvider>
           </ReactQueryProvider>

@@ -73,6 +73,8 @@ export interface Config {
     events: Event;
     gyms: Gym;
     members: Member;
+    results: Result;
+    'event-registrations': EventRegistration;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -88,6 +90,8 @@ export interface Config {
     events: EventsSelect<false> | EventsSelect<true>;
     gyms: GymsSelect<false> | GymsSelect<true>;
     members: MembersSelect<false> | MembersSelect<true>;
+    results: ResultsSelect<false> | ResultsSelect<true>;
+    'event-registrations': EventRegistrationsSelect<false> | EventRegistrationsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -220,7 +224,33 @@ export interface Event {
     start: string;
     end?: string | null;
   };
+  category?:
+    | {
+        name: string;
+        ageFrom?: number | null;
+        ageTo?: number | null;
+        gender?: ('male' | 'female') | null;
+        id?: string | null;
+      }[]
+    | null;
+  stage?:
+    | {
+        name: string;
+        location?: string | null;
+        image?: (number | null) | Media;
+        goals?:
+          | {
+              name: string;
+              baseScore: number;
+              coefficient?: number | null;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
   gallery?: (number | Media)[] | null;
+  registrations?: (number | EventRegistration)[] | null;
   slug?: string | null;
   updatedAt: string;
   createdAt: string;
@@ -259,6 +289,18 @@ export interface Gym {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "event-registrations".
+ */
+export interface EventRegistration {
+  id: number;
+  event: number | Event;
+  member: number | Member;
+  order?: number | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "members".
  */
 export interface Member {
@@ -272,6 +314,7 @@ export interface Member {
    */
   termsAcceptedAt?: string | null;
   fullName?: string | null;
+  registrations?: (number | EventRegistration)[] | null;
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -282,6 +325,17 @@ export interface Member {
   loginAttempts?: number | null;
   lockUntil?: string | null;
   password?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "results".
+ */
+export interface Result {
+  id: number;
+  member: number | Member;
+  event: number | Event;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -309,6 +363,14 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'members';
         value: number | Member;
+      } | null)
+    | ({
+        relationTo: 'results';
+        value: number | Result;
+      } | null)
+    | ({
+        relationTo: 'event-registrations';
+        value: number | EventRegistration;
       } | null);
   globalSlug?: string | null;
   user:
@@ -422,7 +484,33 @@ export interface EventsSelect<T extends boolean = true> {
         start?: T;
         end?: T;
       };
+  category?:
+    | T
+    | {
+        name?: T;
+        ageFrom?: T;
+        ageTo?: T;
+        gender?: T;
+        id?: T;
+      };
+  stage?:
+    | T
+    | {
+        name?: T;
+        location?: T;
+        image?: T;
+        goals?:
+          | T
+          | {
+              name?: T;
+              baseScore?: T;
+              coefficient?: T;
+              id?: T;
+            };
+        id?: T;
+      };
   gallery?: T;
+  registrations?: T;
   slug?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -465,6 +553,7 @@ export interface MembersSelect<T extends boolean = true> {
   phoneNumber?: T;
   termsAcceptedAt?: T;
   fullName?: T;
+  registrations?: T;
   updatedAt?: T;
   createdAt?: T;
   email?: T;
@@ -474,6 +563,27 @@ export interface MembersSelect<T extends boolean = true> {
   hash?: T;
   loginAttempts?: T;
   lockUntil?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "results_select".
+ */
+export interface ResultsSelect<T extends boolean = true> {
+  member?: T;
+  event?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "event-registrations_select".
+ */
+export interface EventRegistrationsSelect<T extends boolean = true> {
+  event?: T;
+  member?: T;
+  order?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
