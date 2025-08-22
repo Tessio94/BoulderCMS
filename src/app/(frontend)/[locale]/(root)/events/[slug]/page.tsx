@@ -11,7 +11,7 @@ import Image from "next/image";
 import { getPayload } from "payload";
 import { cache } from "react";
 
-const Page = async ({ params }) => {
+const Page = async ({ params }: { params: { slug: string } }) => {
   const { slug } = await params;
 
   const event = await queryEventsBySlug({ slug });
@@ -72,7 +72,10 @@ const Page = async ({ params }) => {
           />
         </div> */}
       </div>
-      <main className="xsm:px-6 flex flex-col justify-between gap-10 px-10 py-10 pb-20 sm:px-20 md:flex-row md:gap-0 lg:px-40">
+      <main
+        id="event-content"
+        className="xsm:px-6 flex flex-col justify-between gap-10 px-10 py-10 pb-20 sm:px-20 md:flex-row md:gap-0 lg:px-40"
+      >
         <div className="basis-[60%]">
           <div className="mb-5">
             <h2 className="my-text-stroke2 relative mb-5 w-fit text-3xl font-extrabold text-amber-400 text-shadow-cyan-900 text-shadow-lg after:absolute after:top-[110%] after:left-0 after:h-[5px] after:w-[20%] after:rounded-2xl after:border-[1px] after:border-cyan-900 after:bg-amber-400 after:content-['']">
@@ -121,14 +124,29 @@ const Page = async ({ params }) => {
                 </div>
               </div>
               <div className="flex flex-col gap-5">
-                <EventButton eventId={event.id} slug={event.slug} type="join" />
-                <button className="w-full cursor-pointer rounded-2xl bg-cyan-100/80 py-2 text-cyan-900 uppercase transition-all duration-500 hover:bg-cyan-900/40">
-                  show results
-                </button>
                 <EventButton
+                  type="join"
                   eventId={event.id}
                   slug={event.slug}
+                  timeframe={event.timeframe}
+                  registration={event.registration}
+                />
+                {/* <button className="w-full cursor-pointer rounded-2xl bg-cyan-100/80 py-2 text-cyan-900 uppercase transition-all duration-500 hover:bg-cyan-900/40">
+                  show results
+                </button> */}
+                <EventButton
+                  type="results"
+                  eventId={event.id}
+                  slug={event.slug}
+                  timeframe={event.timeframe}
+                  registration={event.registration}
+                />
+                <EventButton
                   type="submit"
+                  eventId={event.id}
+                  slug={event.slug}
+                  timeframe={event.timeframe}
+                  registration={event.registration}
                 />
               </div>
             </div>

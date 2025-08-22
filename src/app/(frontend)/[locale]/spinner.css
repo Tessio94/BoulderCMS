@@ -17,6 +17,7 @@
 .loading.preloader {
   background: unset;
   position: absolute;
+  z-index: 99998;
 }
 
 .preloader-hide {

@@ -1,5 +1,4 @@
 import { formatSlugHook } from "@/fields/slug/formatSlug";
-import { formatCategoryName } from "@/fields/events/formatCategoryName";
 import type { CollectionConfig } from "payload";
 
 import {
@@ -104,7 +103,7 @@ export const Events: CollectionConfig = {
         {
           name: "end",
           type: "date",
-          required: false,
+          required: true,
         },
       ],
     },
@@ -117,7 +116,7 @@ export const Events: CollectionConfig = {
         {
           name: "end",
           type: "date",
-          required: false,
+          required: true,
         },
       ],
     },
@@ -177,11 +176,23 @@ export const Events: CollectionConfig = {
       relationTo: "media",
       hasMany: true,
     },
+    // {
+    //   name: "registrations",
+    //   type: "relationship",
+    //   relationTo: "event-registrations",
+    //   hasMany: true,
+    //   // admin: {
+    //   //   hidden: true, // this hides the field in the admin panel
+    //   // },
+    // },
     {
       name: "registrations",
-      type: "relationship",
-      relationTo: "event-registrations",
-      hasMany: true,
+      type: "join",
+      collection: "event-registrations",
+      on: "event",
+      admin: {
+        hidden: true, // this hides the field in the admin panel
+      },
     },
     {
       name: "slug",

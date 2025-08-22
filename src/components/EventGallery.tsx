@@ -38,7 +38,7 @@ export const EventGallery = ({ gallery }) => {
               alt={image.alt}
               width={1920}
               height={1080}
-              className="rounded-xl bg-center object-contain"
+              className="noSelect rounded-xl bg-center object-contain"
             />
           </SwiperSlide>
         ))}

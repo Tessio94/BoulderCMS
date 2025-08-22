@@ -35,7 +35,7 @@ export function Masonry<T>({
   );
 
   useEffect(() => {
-    const timer = setTimeout(() => setShowSpinner(false), 500);
+    const timer = setTimeout(() => setShowSpinner(false), 1500);
     return () => clearTimeout(timer);
   }, []);
 

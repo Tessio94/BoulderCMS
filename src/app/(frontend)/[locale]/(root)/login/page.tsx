@@ -10,7 +10,7 @@ import { MdVisibility, MdVisibilityOff } from "react-icons/md";
 // import { useMutation } from "@tanstack/react-query";
 import { loginAction } from "@/lib/serverFunctions/loginAction";
 import LoadingSpinner from "@/components/LoadingSpinner";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 // const loginMember = async (formData: any) => {
 //   const res = await fetch("/api/members/login", {
@@ -48,6 +48,10 @@ const Login = () => {
   const t = useTranslations("Login");
   const locale = useLocale();
   const router = useRouter();
+  const searchParams = useSearchParams();
+
+  const rawCallbackUrl = searchParams.get("callbackUrl");
+  const callbackUrl = rawCallbackUrl ? decodeURIComponent(rawCallbackUrl) : "/";
 
   // const mutation = useMutation({
   //   mutationFn: loginMember,
@@ -85,7 +89,7 @@ const Login = () => {
         // redirect if you want:
         // router.push(`/${locale}/dashboard`);
         setLoading(false);
-        router.push("/");
+        router.push(callbackUrl);
       } else {
         setError(t("invalidCredentials"));
       }

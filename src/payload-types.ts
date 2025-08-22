@@ -80,6 +80,9 @@ export interface Config {
     'payload-migrations': PayloadMigration;
   };
   collectionsJoins: {
+    events: {
+      registrations: 'event-registrations';
+    };
     gyms: {
       relatedEvents: 'events';
     };
@@ -218,11 +221,11 @@ export interface Event {
   cardImage?: (number | null) | Media;
   timeframe: {
     start: string;
-    end?: string | null;
+    end: string;
   };
   registration: {
     start: string;
-    end?: string | null;
+    end: string;
   };
   category?:
     | {
@@ -250,7 +253,11 @@ export interface Event {
       }[]
     | null;
   gallery?: (number | Media)[] | null;
-  registrations?: (number | EventRegistration)[] | null;
+  registrations?: {
+    docs?: (number | EventRegistration)[];
+    hasNextPage?: boolean;
+    totalDocs?: number;
+  };
   slug?: string | null;
   updatedAt: string;
   createdAt: string;
