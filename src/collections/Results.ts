@@ -4,7 +4,7 @@ export const Results: CollectionConfig = {
   slug: "results",
   admin: {
     useAsTitle: "id",
-    defaultColumns: ["event", "member"],
+    defaultColumns: ["member", "event", "stage", "points"],
   },
   fields: [
     {
@@ -19,6 +19,18 @@ export const Results: CollectionConfig = {
       relationTo: "events",
       required: true,
     },
+    {
+      name: "stage",
+      type: "relationship",
+      relationTo: "stages", // if you move stages out
+      required: true,
+    },
+    {
+      name: "points",
+      type: "number",
+      required: true,
+    },
+
     // {
     //   name: "category",
     //   type: "relationship",
@@ -26,41 +38,10 @@ export const Results: CollectionConfig = {
     //   required: true,
     // },
   ],
-  //     {
-  //       name: "stageResults",
-  //       type: "array",
-  //       fields: [
-  //         {
-  //           name: "stage",
-  //           type: "relationship",
-  //           relationTo: "events.stages",
-  //           required: true,
-  //         },
-  //         {
-  //           name: "goalResults",
-  //           type: "array",
-  //           fields: [
-  //             { name: "goal", type: "text", required: true },
-  //             { name: "score", type: "number", required: true },
-  //             { name: "multiplier", type: "number", defaultValue: 1 },
-  //           ],
-  //         },
-  //         { name: "totalPoints", type: "number" },
-  //       ],
-  //     },
-  //     { name: "totalEventPoints", type: "number" },
-  //   ],
-  //   hooks: {
-  //     beforeChange: [
-  //       ({ data }) => {
-  //         if (data.stageResults && Array.isArray(data.stageResults)) {
-  //           data.totalEventPoints = data.stageResults.reduce(
-  //             (acc, s) => acc + (s.points || 0),
-  //             0,
-  //           );
-  //         }
-  //         return data;
-  //       },
-  //     ],
-  //   },
+  indexes: [
+    {
+      fields: ["member", "event", "stage"],
+      unique: true, // for combination of fields to be unique
+    },
+  ],
 };

@@ -7,7 +7,7 @@ const page = async ({ params }: { params: { slug: string } }) => {
   const { slug } = await params;
 
   const event = await queryEventsBySlug({ slug });
-  console.log("event :", event);
+  // console.log("event :", event);
 
   return (
     <main className="xsm:px-6 flex min-h-screen flex-col items-center justify-start px-10 py-10 pb-20 sm:px-20 lg:px-40">
@@ -38,5 +38,15 @@ const queryEventsBySlug = cache(async ({ slug }: { slug: string }) => {
     },
   });
 
-  return result.docs?.[0] || null;
+  const event = result.docs?.[0] || null;
+
+  if (event?.stages?.docs) {
+    // Sort stages by createdAt ascending
+    event.stages.docs.sort(
+      (a, b) =>
+        new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime(),
+    );
+  }
+
+  return event;
 });

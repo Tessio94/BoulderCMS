@@ -7,7 +7,7 @@ interface customProps extends ToasterProps {
   type?: string;
   title: string;
   description?: string;
-  button: {
+  button?: {
     label: string;
     onClick: () => void;
   };
@@ -31,17 +31,19 @@ const Toast = (props: customProps) => {
           )}
         </div>
       </div>
-      <div className="ml-5 shrink-0 rounded-md text-sm font-medium text-indigo-600 hover:text-indigo-500 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:outline-hidden">
-        <button
-          className="cursor-pointer rounded bg-cyan-900 px-3 py-1 text-sm font-semibold text-cyan-100 transition-all duration-300 hover:text-amber-400 hover:shadow-sm hover:shadow-amber-400"
-          onClick={() => {
-            button.onClick();
-            toast.dismiss(id);
-          }}
-        >
-          {button.label}
-        </button>
-      </div>
+      {button && (
+        <div className="ml-5 shrink-0 rounded-md text-sm font-medium text-indigo-600 hover:text-indigo-500 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:outline-hidden">
+          <button
+            className="cursor-pointer rounded bg-cyan-900 px-3 py-1 text-sm font-semibold text-cyan-100 transition-all duration-300 hover:text-amber-400 hover:shadow-sm hover:shadow-amber-400"
+            onClick={() => {
+              button.onClick();
+              toast.dismiss(id);
+            }}
+          >
+            {button.label}
+          </button>
+        </div>
+      )}
     </div>
   );
 };

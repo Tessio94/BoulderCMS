@@ -11,8 +11,9 @@ import { Events } from "./collections/Events";
 import { Gyms } from "./collections/Gyms";
 import { Members } from "./collections/Members";
 import { Results } from "./collections/Results";
-import { Categories } from "./collections/Categories";
+// import { Categories } from "./collections/Categories";
 import { EventRegistrations } from "./collections/EventsRegistrations";
+import { Stages } from "./collections/Stages";
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -31,6 +32,7 @@ export default buildConfig({
     Gyms,
     Members,
     Results,
+    Stages,
     EventRegistrations,
   ],
   editor: lexicalEditor({}),

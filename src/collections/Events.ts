@@ -152,22 +152,10 @@ export const Events: CollectionConfig = {
       ],
     },
     {
-      name: "stage",
-      type: "array",
-      fields: [
-        { name: "name", type: "text", required: true },
-        { name: "location", type: "text" },
-        { name: "image", type: "upload", relationTo: "media" },
-        {
-          name: "goals",
-          type: "array",
-          fields: [
-            { name: "name", type: "text", required: true },
-            { name: "baseScore", type: "number", required: true },
-            { name: "coefficient", type: "number", defaultValue: 1 },
-          ],
-        },
-      ],
+      name: "stages",
+      type: "join",
+      collection: "stages",
+      on: "event",
     },
     {
       name: "gallery",
