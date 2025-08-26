@@ -13,7 +13,7 @@ const ResultsInfo = ({ setShow, data }: { ResultInfoProps }) => {
     <div className="bg-cards-dark/50 fixed h-[650px] max-h-[700px] min-h-[60vh] w-[650px] max-w-[90%] rounded-xl backdrop-blur-sm">
       <div className="absolute top-[50%] left-[50%] flex h-[85%] w-[85%] translate-x-[-50%] translate-y-[-50%] flex-col justify-between rounded-xl bg-gray-100 px-5 py-10">
         <div>
-          <h4 className="my-text-stroke font- mb-6 text-2xl font-bold capitalize">
+          <h4 className="font-nunito my-text-stroke mb-6 text-2xl font-bold capitalize">
             {name}
           </h4>
           <div className="max-h-[340px] overflow-y-scroll">
