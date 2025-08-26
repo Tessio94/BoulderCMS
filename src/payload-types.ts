@@ -355,6 +355,7 @@ export interface Result {
   member: number | Member;
   event: number | Event;
   stage: number | Stage;
+  goal: string;
   points: number;
   updatedAt: string;
   createdAt: string;
@@ -583,6 +584,7 @@ export interface ResultsSelect<T extends boolean = true> {
   member?: T;
   event?: T;
   stage?: T;
+  goal?: T;
   points?: T;
   updatedAt?: T;
   createdAt?: T;

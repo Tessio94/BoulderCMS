@@ -48,12 +48,12 @@ const SubmitResultsForm = ({ id: eventId, stages = [] }) => {
     if (savedGoals) setAchievedGoals(JSON.parse(savedGoals));
   }, []);
 
-  // ✅ Persist scores to localStorage whenever they change
+  // Persist scores to localStorage whenever they change
   useEffect(() => {
     localStorage.setItem("scores", JSON.stringify(scores));
   }, [scores]);
 
-  // ✅ Persist achievedGoals to localStorage whenever they change
+  // Persist achievedGoals to localStorage whenever they change
   useEffect(() => {
     localStorage.setItem("achievedGoals", JSON.stringify(achievedGoals));
   }, [achievedGoals]);
@@ -74,8 +74,7 @@ const SubmitResultsForm = ({ id: eventId, stages = [] }) => {
       return prev;
     });
   };
-  console.log("memberID", memberId);
-  // console.log("scores", scores);
+
   const handleSubmit = async () => {
     const missing = stagesList.filter(
       (stage) => scores[stage.id] === undefined || scores[stage.id] === null,
@@ -87,29 +86,31 @@ const SubmitResultsForm = ({ id: eventId, stages = [] }) => {
           id={id}
           type="not"
           title={"Select all route results."}
-          description={"Please fill result for each route before submitting."}
+          description={
+            "Please enter a result for each route before submitting."
+          }
         />
       ));
 
       return;
     }
 
-    for (const stage of stagesList) {
-      const points = scores[stage.id] ?? 0;
-      await fetch("/api/results", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include",
-        body: JSON.stringify({
-          member: memberId,
-          event: eventId,
-          stage: stage.id,
-          points,
-        }),
-      });
-    }
+    const payload = stagesList.map((stage) => ({
+      member: memberId,
+      event: eventId,
+      stage: stage.id,
+      goal: achievedGoals[stage.id] ?? "nicht geschafft",
+      points: scores[stage.id] ?? 0,
+    }));
 
-    // ✅ Optional: clear localStorage after submit
+    await fetch("/api/submitResults", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+      body: JSON.stringify({ results: payload }),
+    });
+
+    //  clear state and localStorage after submit
     localStorage.removeItem("scores");
     localStorage.removeItem("achievedGoals");
     setScores({});
@@ -122,6 +123,8 @@ const SubmitResultsForm = ({ id: eventId, stages = [] }) => {
     0,
   );
 
+  console.log("stages", stages);
+  console.log("achievedGoals", achievedGoals);
   return (
     <div className="xsm:w-full flex w-[90%] flex-col gap-10 rounded-xl border-1 border-cyan-900 px-2 py-5 shadow-xl shadow-cyan-900 sm:w-[85%] sm:px-5 sm:py-10 md:mr-auto md:w-[80%] lg:w-[75%] xl:w-[70%] 2xl:w-[60%]">
       <h5 className="text-3xl text-cyan-900">Total points: {totalPoints}</h5>

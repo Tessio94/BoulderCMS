@@ -26,6 +26,11 @@ export const Results: CollectionConfig = {
       required: true,
     },
     {
+      name: "goal",
+      type: "text",
+      required: true,
+    },
+    {
       name: "points",
       type: "number",
       required: true,

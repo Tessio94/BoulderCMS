@@ -2,6 +2,9 @@ import React, { cache } from "react";
 import { getPayload } from "payload";
 import config from "@payload-config";
 import ResultsForm from "@/components/ResultsForm";
+// import { useQuery } from "@tanstack/react-query";
+// import { getUser } from "@/lib/serverFunctions/getUserAction";
+// import ResultsInfo from "@/components/ResultsInfo";
 
 const page = async ({ params }: { params: { slug: string } }) => {
   const { slug } = await params;
