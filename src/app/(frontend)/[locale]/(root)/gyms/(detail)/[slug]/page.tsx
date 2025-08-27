@@ -9,6 +9,7 @@ import { FaPhoneAlt } from "react-icons/fa";
 import { IoMdMail } from "react-icons/io";
 import { TbWorld } from "react-icons/tb";
 import { FaLocationDot } from "react-icons/fa6";
+import { cn } from "@/lib/utils";
 
 const Page = async ({ params }) => {
   const { slug } = await params;
@@ -18,8 +19,9 @@ const Page = async ({ params }) => {
   console.log("gym", gym);
 
   return (
-    <>
-      <div className="relative aspect-[16/9] max-h-[calc(100vh-125px)] w-full overflow-hidden">
+    <div className="shadow-xl shadow-cyan-500/50 xl:mx-40">
+      {/* lg:min-h-[calc(100vh-125px)] - donji div */}
+      <div className="relative z-0 flex w-full items-center justify-center overflow-hidden lg:p-10">
         <div
           className="absolute inset-0 z-0 scale-110 blur-sm"
           style={{
@@ -31,19 +33,28 @@ const Page = async ({ params }) => {
             backgroundPosition: "center",
           }}
         />
-        <Image
-          className="relative z-10 max-h-[calc(100vh-125px)] object-contain"
-          src={
-            typeof gym.heroImage === "object" && gym.heroImage?.url
-              ? gym.heroImage.url
-              : "/homepage/gallery.jpg"
-          }
-          alt={gym.name}
-          width={1920}
-          height={955}
-        />
+        <div
+          className={cn(
+            "z-10",
+            gym.heroImage.backgroundColor
+              ? `${gym.heroImage.backgroundColor}`
+              : "bg-white",
+          )}
+        >
+          <Image
+            className="z-10 max-h-screen shadow-[0px_0px_15px_15px_#859ca3] ring-4"
+            src={
+              typeof gym.heroImage === "object" && gym.heroImage?.url
+                ? gym.heroImage.url
+                : "/homepage/gallery.jpg"
+            }
+            alt={gym.name}
+            width={gym.heroImage.width}
+            height={gym.heroImage.height}
+          />
+        </div>
       </div>
-      <main className="xsm:px-6 flex flex-col justify-between gap-10 px-10 py-10 pb-20 sm:px-20 md:gap-0 lg:px-40 xl:flex-row">
+      <main className="xsm:px-6 flex flex-col justify-between gap-10 px-10 py-10 pb-20 sm:px-10 md:gap-0 lg:px-15 xl:flex-row">
         <div className="w-full xl:w-[55%]">
           <div className="mb-5">
             <h2 className="my-text-stroke2 relative mb-5 w-fit text-3xl font-extrabold text-amber-400 text-shadow-cyan-900 text-shadow-lg after:absolute after:top-[110%] after:left-0 after:h-[5px] after:w-[20%] after:rounded-2xl after:border-[1px] after:border-cyan-900 after:bg-amber-400 after:content-['']">
@@ -126,7 +137,7 @@ const Page = async ({ params }) => {
           )}
         </div>
       </main>
-    </>
+    </div>
   );
 };
 

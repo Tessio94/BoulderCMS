@@ -2,8 +2,10 @@
 
 import Image from "next/image";
 import { Masonry } from "@/components/lib/Masonry";
+import { useState } from "react";
 
 export default function MasonryGrid({ event }) {
+  const [loaded, setLoaded] = useState(false);
   const items = event.gallery.map((photo) => photo);
   // console.log(items);
   return (
@@ -30,21 +32,24 @@ export default function MasonryGrid({ event }) {
               height={item.height}
               style={{ width: "100%", height: "auto" }}
               className="rounded-xl"
+              onLoad={() => setLoaded(true)}
             />
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="text-color1 absolute top-3 right-3 h-10 w-10 rounded-2xl bg-white/70 p-2 transition-all duration-300 xl:opacity-0 xl:group-hover:opacity-100"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth={2}
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M15 3h6v6m0-6l-7 7m-3 11H3v-6m0 6l7-7"
-              />
-            </svg>
+            {loaded && (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="text-color1 absolute top-3 right-3 h-10 w-10 rounded-2xl bg-white/70 p-2 transition-all duration-300 xl:opacity-0 xl:group-hover:opacity-100"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={2}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M15 3h6v6m0-6l-7 7m-3 11H3v-6m0 6l7-7"
+                />
+              </svg>
+            )}
           </a>
         );
       }}

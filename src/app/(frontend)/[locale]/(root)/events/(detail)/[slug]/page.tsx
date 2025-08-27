@@ -5,6 +5,7 @@ import { DateRangeDisplay } from "@/components/DateRangeDisplay";
 import { EventGallery } from "@/components/EventGallery";
 import { RenderHTML } from "@/components/RenderHTML";
 import { TransitionLink } from "@/components/TransitionLink";
+import { cn } from "@/lib/utils";
 import config from "@payload-config";
 import Image from "next/image";
 // import Link from "next/link";
@@ -15,12 +16,13 @@ const Page = async ({ params }: { params: { slug: string } }) => {
   const { slug } = await params;
 
   const event = await queryEventsBySlug({ slug });
-  // console.log("event :", event);
+
   const heroAspectRatio = event?.heroImage?.width / event?.heroImage?.height;
-  // console.log(heroAspectRatio);
+
+  console.log(event);
 
   return (
-    <>
+    <div className="shadow-xl shadow-cyan-500/50 xl:mx-40">
       {/* <Image
         className="aspect-auto max-h-screen"
         src={
@@ -32,7 +34,8 @@ const Page = async ({ params }: { params: { slug: string } }) => {
         width={1920}
         height={1080}
       /> */}
-      <div className="relative z-0 flex w-full items-center justify-center overflow-hidden lg:min-h-[calc(100vh-125px)]">
+      {/* lg:min-h-[calc(100vh-125px)] - donji div */}
+      <div className="relative z-0 flex w-full items-center justify-center overflow-hidden lg:p-10">
         <div
           className="absolute inset-0 z-0 scale-110 blur-sm"
           style={{
@@ -44,17 +47,27 @@ const Page = async ({ params }: { params: { slug: string } }) => {
             backgroundPosition: "center",
           }}
         />
-        <Image
-          className="z-10 max-h-screen shadow-[0px_0px_35px_35px_#859ca3] ring-4"
-          src={
-            typeof event.heroImage === "object" && event.heroImage?.url
-              ? event.heroImage.url
-              : "/homepage/gallery.jpg"
-          }
-          alt={event.title}
-          width={event.heroImage.width}
-          height={event.heroImage.height}
-        />
+        <div
+          className={cn(
+            "z-10",
+            event.heroImage.backgroundColor
+              ? `${event.heroImage.backgroundColor}`
+              : "bg-white",
+          )}
+        >
+          <Image
+            className="z-10 max-h-screen shadow-[0px_0px_15px_15px_#859ca3] ring-4"
+            src={
+              typeof event.heroImage === "object" && event.heroImage?.url
+                ? event.heroImage.url
+                : "/homepage/gallery.jpg"
+            }
+            alt={event.title}
+            width={event.heroImage.width}
+            height={event.heroImage.height}
+          />
+        </div>
+
         {/* <div
           className="relative z-10 flex h-full w-full items-center justify-center"
           style={{ aspectRatio: heroAspectRatio }}
@@ -74,7 +87,7 @@ const Page = async ({ params }: { params: { slug: string } }) => {
       </div>
       <main
         id="event-content"
-        className="xsm:px-6 flex flex-col justify-between gap-10 px-10 py-10 pb-20 sm:px-20 md:flex-row md:gap-0 lg:px-40"
+        className="xsm:px-3 flex flex-col justify-between gap-10 px-6 py-10 pb-20 sm:px-10 md:flex-row md:gap-0 lg:px-15"
       >
         <div className="basis-[60%]">
           <div className="mb-5">
@@ -131,9 +144,6 @@ const Page = async ({ params }: { params: { slug: string } }) => {
                   timeframe={event.timeframe}
                   registration={event.registration}
                 />
-                {/* <button className="w-full cursor-pointer rounded-2xl bg-cyan-100/80 py-2 text-cyan-900 uppercase transition-all duration-500 hover:bg-cyan-900/40">
-                  show results
-                </button> */}
                 <EventButton
                   type="results"
                   eventId={event.id}
@@ -154,16 +164,16 @@ const Page = async ({ params }: { params: { slug: string } }) => {
         </div>
       </main>
       {event.gallery && (
-        <>
-          <h2 className="xsm:mx-6 my-text-stroke2 mx-10 mb-5 text-2xl font-extrabold text-amber-400 sm:mx-20 lg:mx-40">
+        <div className="xsm:px-3 px-6 pb-20 sm:px-10 lg:px-15">
+          <h2 className="my-text-stroke2 mx-10 mb-5 text-2xl font-extrabold text-amber-400">
             Images from past event:
           </h2>
-          <div className="xxl:max-w-[40%] xsm:mx-6 mx-10 mb-20 aspect-auto max-w-full overflow-hidden rounded-xl border-2 border-cyan-900/30 shadow-xl shadow-cyan-900/40 sm:mx-20 md:max-w-[60%] lg:mx-40 xl:max-w-[50%]">
+          <div className="aspect-auto max-w-full overflow-hidden rounded-xl border-2 border-cyan-900/30 shadow-xl shadow-cyan-900/40 lg:max-w-[60%] xl:max-w-[60%]">
             <EventGallery gallery={event.gallery} />
           </div>
-        </>
+        </div>
       )}
-    </>
+    </div>
   );
 };
 
