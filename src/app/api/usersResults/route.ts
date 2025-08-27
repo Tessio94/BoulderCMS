@@ -3,7 +3,7 @@ import { getPayload } from "payload";
 import config from "@payload-config";
 
 import { members, results } from "@/payload-generated-schema";
-import { eq, sql, sum } from "@payloadcms/db-postgres/drizzle";
+import { desc, eq, sql, sum } from "@payloadcms/db-postgres/drizzle";
 
 export async function GET(req: NextRequest) {
   try {
@@ -27,7 +27,8 @@ export async function GET(req: NextRequest) {
       .from(results)
       .leftJoin(members, eq(results.member, members.id))
       .where(eq(results.event, eventId))
-      .groupBy(members.id);
+      .groupBy(members.id)
+      .orderBy(desc(sum(results.points)));
 
     // console.log(results);
 

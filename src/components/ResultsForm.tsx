@@ -1,9 +1,8 @@
 "use client";
 
-import { getUser } from "@/lib/serverFunctions/getUserAction";
 import { cn } from "@/lib/utils";
-import { useMutation, useQuery } from "@tanstack/react-query";
-import React, { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import React, { useEffect, useState } from "react";
 import ResultsInfo from "./ResultsInfo";
 
 type TotalResult = {
@@ -34,11 +33,11 @@ const ResultsForm = ({ id: eventId, category, registrations }) => {
   });
 
   if (data) {
-    console.log(data);
+    // console.log(data);
     ({ totals: eventResults } = data);
     // ({ id: memberId } = data);
   }
-
+  console.log("eventId", eventId);
   // let userResultDetails: undefined |
 
   const handleUserResult = async (memberId) => {
@@ -57,6 +56,18 @@ const ResultsForm = ({ id: eventId, category, registrations }) => {
       console.error("Failed to fetch user result:", error);
     }
   };
+
+  useEffect(() => {
+    if (showResultInfo) {
+      document.body.style.overflowY = "hidden";
+    } else {
+      document.body.style.overflowY = "";
+    }
+
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [showResultInfo]);
 
   return (
     <>
@@ -105,7 +116,9 @@ const ResultsForm = ({ id: eventId, category, registrations }) => {
               >
                 <tr>
                   <td className="rounded-l-xl px-5 py-3 text-start">{i + 1}</td>
-                  <td className="px-5 py-3 text-start">{memberResult.name}</td>
+                  <td className="px-5 py-3 text-start capitalize">
+                    {memberResult.name}
+                  </td>
                   <td className="rounded-r-xl px-5 py-3 text-end">
                     {memberResult.points}
                   </td>
@@ -117,7 +130,11 @@ const ResultsForm = ({ id: eventId, category, registrations }) => {
         </table>
       </div>
       {showResultInfo && userResult && (
-        <ResultsInfo setShow={setShowResultInfo} data={userResult} />
+        <ResultsInfo
+          setShow={setShowResultInfo}
+          data={userResult}
+          eventId={eventId}
+        />
       )}
     </>
   );
