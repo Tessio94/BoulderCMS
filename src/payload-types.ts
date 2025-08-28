@@ -76,12 +76,14 @@ export interface Config {
     results: Result;
     stages: Stage;
     'event-registrations': EventRegistration;
+    categories: Category;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
   collectionsJoins: {
     events: {
+      category: 'categories';
       stages: 'stages';
       registrations: 'event-registrations';
     };
@@ -98,6 +100,7 @@ export interface Config {
     results: ResultsSelect<false> | ResultsSelect<true>;
     stages: StagesSelect<false> | StagesSelect<true>;
     'event-registrations': EventRegistrationsSelect<false> | EventRegistrationsSelect<true>;
+    categories: CategoriesSelect<false> | CategoriesSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -234,15 +237,11 @@ export interface Event {
     start: string;
     end: string;
   };
-  category?:
-    | {
-        name: string;
-        ageFrom?: number | null;
-        ageTo?: number | null;
-        gender?: ('male' | 'female') | null;
-        id?: string | null;
-      }[]
-    | null;
+  category?: {
+    docs?: (number | Category)[];
+    hasNextPage?: boolean;
+    totalDocs?: number;
+  };
   stages?: {
     docs?: (number | Stage)[];
     hasNextPage?: boolean;
@@ -292,22 +291,16 @@ export interface Gym {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "stages".
+ * via the `definition` "categories".
  */
-export interface Stage {
+export interface Category {
   id: number;
   event: number | Event;
   name: string;
-  location?: string | null;
-  image?: (number | null) | Media;
-  goals?:
-    | {
-        name: string;
-        baseScore: number;
-        coefficient?: number | null;
-        id?: string | null;
-      }[]
-    | null;
+  ageFrom?: number | null;
+  ageTo?: number | null;
+  gender?: ('male' | 'female') | null;
+  registrations?: (number | EventRegistration)[] | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -319,6 +312,7 @@ export interface EventRegistration {
   id: number;
   event: number | Event;
   member: number | Member;
+  category: number | Category;
   order?: number | null;
   updatedAt: string;
   createdAt: string;
@@ -352,6 +346,27 @@ export interface Member {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "stages".
+ */
+export interface Stage {
+  id: number;
+  event: number | Event;
+  name: string;
+  location?: string | null;
+  image?: (number | null) | Media;
+  goals?:
+    | {
+        name: string;
+        baseScore: number;
+        coefficient?: number | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "results".
  */
 export interface Result {
@@ -359,6 +374,7 @@ export interface Result {
   member: number | Member;
   event: number | Event;
   stage: number | Stage;
+  category: number | Category;
   goal: string;
   points: number;
   updatedAt: string;
@@ -402,6 +418,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'event-registrations';
         value: number | EventRegistration;
+      } | null)
+    | ({
+        relationTo: 'categories';
+        value: number | Category;
       } | null);
   globalSlug?: string | null;
   user:
@@ -516,15 +536,7 @@ export interface EventsSelect<T extends boolean = true> {
         start?: T;
         end?: T;
       };
-  category?:
-    | T
-    | {
-        name?: T;
-        ageFrom?: T;
-        ageTo?: T;
-        gender?: T;
-        id?: T;
-      };
+  category?: T;
   stages?: T;
   gallery?: T;
   registrations?: T;
@@ -589,6 +601,7 @@ export interface ResultsSelect<T extends boolean = true> {
   member?: T;
   event?: T;
   stage?: T;
+  category?: T;
   goal?: T;
   points?: T;
   updatedAt?: T;
@@ -621,7 +634,22 @@ export interface StagesSelect<T extends boolean = true> {
 export interface EventRegistrationsSelect<T extends boolean = true> {
   event?: T;
   member?: T;
+  category?: T;
   order?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "categories_select".
+ */
+export interface CategoriesSelect<T extends boolean = true> {
+  event?: T;
+  name?: T;
+  ageFrom?: T;
+  ageTo?: T;
+  gender?: T;
+  registrations?: T;
   updatedAt?: T;
   createdAt?: T;
 }

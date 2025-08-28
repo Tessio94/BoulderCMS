@@ -4,11 +4,16 @@ import { cn } from "@/lib/utils";
 import { useQuery } from "@tanstack/react-query";
 import React, { useEffect, useState } from "react";
 import ResultsInfo from "./ResultsInfo";
+import { Event } from "@/payload-types";
 
 type TotalResult = {
   member: number;
   name: string;
   points: string;
+};
+
+type ResultProps = {
+  event: Event;
 };
 
 const getAllResult = async (eventId) => {
@@ -18,10 +23,15 @@ const getAllResult = async (eventId) => {
   return results;
 };
 
-const ResultsForm = ({ id: eventId, category, registrations }) => {
+const ResultsForm = ({ event }: ResultProps) => {
   const [showCategories, setShowCategories] = useState(false);
   const [showResultInfo, setShowResultInfo] = useState(false);
   const [userResult, setUserResult] = useState(null);
+
+  const { id: eventId, category, registrations } = event;
+
+  const categories = category.docs;
+  console.log("categories", categories);
 
   let eventResults: undefined | TotalResult[];
 
@@ -77,7 +87,7 @@ const ResultsForm = ({ id: eventId, category, registrations }) => {
             onClick={() => setShowCategories((prev) => !prev)}
             className="w-full cursor-pointer rounded-xl border-b-2 border-b-gray-600 bg-cyan-100 px-10 py-4 text-cyan-900 transition-all duration-300 hover:bg-cyan-900/50"
           >
-            {category[0].name}
+            {categories[0].name}
           </div>
           <div
             className={cn(
@@ -85,7 +95,7 @@ const ResultsForm = ({ id: eventId, category, registrations }) => {
               showCategories ? "max-h-[300px]" : "max-h-0",
             )}
           >
-            {category?.map((group, i) => {
+            {categories?.map((group, i) => {
               return (
                 <div
                   className="cursor-pointer rounded-xl px-10 py-4 text-cyan-900 transition-all duration-300 hover:bg-cyan-900/70 hover:text-amber-400"

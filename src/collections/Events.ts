@@ -120,36 +120,42 @@ export const Events: CollectionConfig = {
         },
       ],
     },
+    // {
+    //   name: "category",
+    //   type: "array",
+    //   fields: [
+    //     {
+    //       name: "name",
+    //       type: "text",
+    //       required: true,
+    //       admin: {
+    //         readOnly: true,
+    //       },
+    //       hooks: {
+    //         beforeValidate: [
+    //           ({ siblingData }) => {
+    //             if (siblingData.ageFrom && siblingData.ageTo) {
+    //               return `${siblingData.gender} - (${siblingData.ageFrom} - ${siblingData.ageTo})`;
+    //             }
+    //             return siblingData.name;
+    //           },
+    //         ],
+    //       },
+    //     },
+    //     { name: "ageFrom", type: "number" },
+    //     { name: "ageTo", type: "number" },
+    //     {
+    //       name: "gender",
+    //       type: "select",
+    //       options: ["male", "female"],
+    //     },
+    //   ],
+    // },
     {
       name: "category",
-      type: "array",
-      fields: [
-        {
-          name: "name",
-          type: "text",
-          required: true,
-          admin: {
-            readOnly: true,
-          },
-          hooks: {
-            beforeValidate: [
-              ({ siblingData }) => {
-                if (siblingData.ageFrom && siblingData.ageTo) {
-                  return `${siblingData.gender} - (${siblingData.ageFrom} - ${siblingData.ageTo})`;
-                }
-                return siblingData.name;
-              },
-            ],
-          },
-        },
-        { name: "ageFrom", type: "number" },
-        { name: "ageTo", type: "number" },
-        {
-          name: "gender",
-          type: "select",
-          options: ["male", "female"],
-        },
-      ],
+      type: "join",
+      collection: "categories",
+      on: "event",
     },
     {
       name: "stages",

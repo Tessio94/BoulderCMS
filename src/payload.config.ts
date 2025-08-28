@@ -14,6 +14,7 @@ import { Results } from "./collections/Results";
 // import { Categories } from "./collections/Categories";
 import { EventRegistrations } from "./collections/EventsRegistrations";
 import { Stages } from "./collections/Stages";
+import { Categories } from "./collections/Categories";
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -34,6 +35,7 @@ export default buildConfig({
     Results,
     Stages,
     EventRegistrations,
+    Categories,
   ],
   editor: lexicalEditor({}),
   secret: process.env.PAYLOAD_SECRET || "",

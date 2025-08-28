@@ -20,7 +20,11 @@ const Toast = (props: customProps) => {
     <div
       className={cn(
         "flex w-full items-center rounded-lg bg-cyan-100 p-4 shadow-lg ring-1 ring-black/5 md:max-w-[364px]",
-        type === "yes" ? "shadow-green-500" : "shadow-red-500",
+        type === "yes"
+          ? "shadow-green-500"
+          : type === "info"
+            ? "shadow-purple-500"
+            : "shadow-red-500",
       )}
     >
       <div className="flex flex-1 items-center">

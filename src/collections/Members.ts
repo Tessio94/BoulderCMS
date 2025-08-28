@@ -54,6 +54,9 @@ export const Members: CollectionConfig = {
       type: "relationship",
       relationTo: "event-registrations",
       hasMany: true,
+      admin: {
+        hidden: true,
+      },
     },
   ],
   hooks: {

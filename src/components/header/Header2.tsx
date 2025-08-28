@@ -5,16 +5,27 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
-import { TransitionLink } from "./TransitionLink";
-import LocalePicker from "./LocalePicker";
+import { TransitionLink } from "../TransitionLink";
+import LocalePicker from "../LocalePicker";
 import { GrGallery } from "react-icons/gr";
 import { MdEmojiEvents } from "react-icons/md";
 import { IoMdHome } from "react-icons/io";
 import { RiLoginBoxFill } from "react-icons/ri";
 import { getUser } from "@/lib/serverFunctions/getUserAction";
-import { QueryClient, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 
-const Header2 = () => {
+type User = {
+  id: number;
+  firstName: string;
+  lastName: string;
+  userName: string;
+};
+
+type Header2Props = {
+  user: User | null;
+};
+
+const Header2 = ({ user }: Header2Props) => {
   const [scrolled, setScrolled] = useState(false);
   const [hambActive, setHambActive] = useState(false);
   const [showSidebar, setShowSidebar] = useState(false);
@@ -95,8 +106,7 @@ const Header2 = () => {
   const { data, isLoading } = useQuery({
     queryKey: ["user", pathname],
     queryFn: getUser,
-    refetchOnWindowFocus: false,
-    refetchOnMount: true,
+    initialData: user,
   });
 
   if (data) {

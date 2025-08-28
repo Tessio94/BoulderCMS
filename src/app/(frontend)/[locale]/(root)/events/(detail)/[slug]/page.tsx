@@ -5,6 +5,7 @@ import { DateRangeDisplay } from "@/components/DateRangeDisplay";
 import { EventGallery } from "@/components/EventGallery";
 import { RenderHTML } from "@/components/RenderHTML";
 import { TransitionLink } from "@/components/TransitionLink";
+import { getUser } from "@/lib/serverFunctions/getUserAction";
 import { cn } from "@/lib/utils";
 import config from "@payload-config";
 import Image from "next/image";
@@ -14,26 +15,22 @@ import { cache } from "react";
 
 const Page = async ({ params }: { params: { slug: string } }) => {
   const { slug } = await params;
-
   const event = await queryEventsBySlug({ slug });
 
-  const heroAspectRatio = event?.heroImage?.width / event?.heroImage?.height;
+  const { id: eventId } = event;
 
-  console.log(event);
+  const user = await getUser();
+
+  let joinedUser;
+
+  if (user) {
+    const { id: memberId } = user;
+    joinedUser = await queryJoinedInUser(eventId, memberId);
+    console.log(joinedUser);
+  }
 
   return (
     <div className="shadow-xl shadow-cyan-500/50 xl:mx-40">
-      {/* <Image
-        className="aspect-auto max-h-screen"
-        src={
-          typeof event.heroImage === "object" && event.heroImage?.url
-            ? event.heroImage.url
-            : "/homepage/gallery.jpg"
-        }
-        alt={event.title}
-        width={1920}
-        height={1080}
-      /> */}
       {/* lg:min-h-[calc(100vh-125px)] - donji div */}
       <div className="relative z-0 flex w-full items-center justify-center overflow-hidden lg:p-10">
         <div
@@ -67,23 +64,6 @@ const Page = async ({ params }: { params: { slug: string } }) => {
             height={event.heroImage.height}
           />
         </div>
-
-        {/* <div
-          className="relative z-10 flex h-full w-full items-center justify-center"
-          style={{ aspectRatio: heroAspectRatio }}
-        >
-          <Image
-            src={
-              typeof event.heroImage === "object" && event.heroImage?.url
-                ? event.heroImage.url
-                : "/homepage/gallery.jpg"
-            }
-            alt={event.title}
-            fill
-            style={{ objectFit: "contain" }} // key: proper contain behavior
-            className="max-h-screen"
-          />
-        </div> */}
       </div>
       <main
         id="event-content"
@@ -139,24 +119,21 @@ const Page = async ({ params }: { params: { slug: string } }) => {
               <div className="flex flex-col gap-5">
                 <EventButton
                   type="join"
-                  eventId={event.id}
-                  slug={event.slug}
-                  timeframe={event.timeframe}
-                  registration={event.registration}
+                  event={event}
+                  user={user}
+                  joinedUser={joinedUser}
                 />
                 <EventButton
                   type="results"
-                  eventId={event.id}
-                  slug={event.slug}
-                  timeframe={event.timeframe}
-                  registration={event.registration}
+                  event={event}
+                  user={user}
+                  joinedUser={joinedUser}
                 />
                 <EventButton
                   type="submit"
-                  eventId={event.id}
-                  slug={event.slug}
-                  timeframe={event.timeframe}
-                  registration={event.registration}
+                  event={event}
+                  user={user}
+                  joinedUser={joinedUser}
                 />
               </div>
             </div>
@@ -190,6 +167,37 @@ const queryEventsBySlug = cache(async ({ slug }: { slug: string }) => {
       slug: {
         equals: slug,
       },
+    },
+  });
+
+  return result.docs?.[0] || null;
+});
+
+const queryJoinedInUser = cache(async (eventId: number, memberId: number) => {
+  const payload = await getPayload({ config });
+
+  const result = await payload.find({
+    collection: "event-registrations",
+    limit: 1,
+    pagination: false,
+    where: {
+      and: [
+        {
+          member: {
+            equals: memberId,
+          },
+        },
+        {
+          event: {
+            equals: eventId,
+          },
+        },
+      ],
+    },
+    select: {
+      id: true,
+      category: true,
+      member: true,
     },
   });
 

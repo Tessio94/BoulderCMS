@@ -22,7 +22,13 @@ export const Results: CollectionConfig = {
     {
       name: "stage",
       type: "relationship",
-      relationTo: "stages", // if you move stages out
+      relationTo: "stages",
+      required: true,
+    },
+    {
+      name: "category",
+      type: "relationship",
+      relationTo: "categories",
       required: true,
     },
     {

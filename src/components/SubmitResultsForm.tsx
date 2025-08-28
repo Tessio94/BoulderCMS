@@ -6,10 +6,16 @@ import { useQuery } from "@tanstack/react-query";
 import React, { useEffect, useState } from "react";
 import { toast } from "sonner";
 import Toast from "./sonner/Toast";
+import { Event, EventRegistration } from "@/payload-types";
+
+type SubmitResultsFormTypes = {
+  event: Event;
+  joinedUser: EventRegistration | undefined;
+};
 
 const STAGES_PER_PAGE = 5;
 
-const SubmitResultsForm = ({ id: eventId, stages = [] }) => {
+const SubmitResultsForm = ({ event, joinedUser }: SubmitResultsFormTypes) => {
   const [page, setPage] = useState(1);
   const [scores, setScores] = useState<Record<string, number>>({});
   const [achievedGoals, setAchievedGoals] = useState<Record<string, number[]>>(
@@ -17,8 +23,17 @@ const SubmitResultsForm = ({ id: eventId, stages = [] }) => {
   );
   const [user, setUser] = useState(null);
 
-  const stagesList = stages.docs || [];
-  //
+  const {
+    id: categoryId,
+    member: { id: memberId, userName },
+  } = joinedUser;
+  console.log("member", memberId);
+  console.log("member", userName);
+
+  const { id: eventId, stages } = event;
+
+  const stagesList = stages?.docs || [];
+  console.log("joinedInUser", joinedUser);
 
   const totalPages = Math.ceil(stagesList.length / STAGES_PER_PAGE);
   const startIndex = (page - 1) * STAGES_PER_PAGE;
@@ -27,18 +42,18 @@ const SubmitResultsForm = ({ id: eventId, stages = [] }) => {
     startIndex + STAGES_PER_PAGE,
   );
 
-  let memberId: number | undefined;
+  // let memberId: number | undefined;
 
-  const { data, isLoading } = useQuery({
-    queryKey: ["user"],
-    queryFn: getUser,
-    refetchOnWindowFocus: false,
-    refetchOnMount: true,
-  });
+  // const { data, isLoading } = useQuery({
+  //   queryKey: ["user"],
+  //   queryFn: getUser,
+  //   refetchOnWindowFocus: false,
+  //   refetchOnMount: true,
+  // });
 
-  if (data) {
-    ({ id: memberId } = data);
-  }
+  // if (data) {
+  //   ({ id: memberId } = data);
+  // }
 
   useEffect(() => {
     const savedScores = localStorage.getItem("scores");
@@ -99,6 +114,7 @@ const SubmitResultsForm = ({ id: eventId, stages = [] }) => {
       member: memberId,
       event: eventId,
       stage: stage.id,
+      category: categoryId,
       goal: achievedGoals[stage.id] ?? "nicht geschafft",
       points: scores[stage.id] ?? 0,
     }));

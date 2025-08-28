@@ -24,6 +24,12 @@ export const EventRegistrations: CollectionConfig = {
       required: true,
     },
     {
+      name: "category",
+      type: "relationship",
+      relationTo: "categories",
+      required: true,
+    },
+    {
       name: "order",
       type: "number",
     },

@@ -7,15 +7,15 @@ export async function POST(req: NextRequest) {
     const payload = await getPayload({ config });
 
     const body = await req.json();
-    const { event: eventId, member: memberId } = body;
+    const { event: eventId, member: memberId, category: categoryId } = body;
 
-    if (!eventId || !memberId) {
+    if (!eventId || !memberId || !categoryId) {
       return NextResponse.json(
         { error: "Missing eventId or memberId" },
         { status: 400 },
       );
     }
-
+    console.log("categoryID", categoryId);
     const existingRegistration = await payload.find({
       collection: "event-registrations",
       where: {
@@ -25,15 +25,21 @@ export async function POST(req: NextRequest) {
         member: {
           equals: memberId,
         },
+        category: {
+          equals: categoryId,
+        },
       },
       limit: 1,
     });
 
     if (existingRegistration.totalDocs > 0) {
-      return NextResponse.json({
-        message: "Already registered",
-        alreadyRegistered: true,
-      });
+      return NextResponse.json(
+        {
+          message: "Already registered",
+          alreadyRegistered: true,
+        },
+        { status: 409 },
+      );
     }
 
     const registeredMember = await payload.create({
@@ -41,6 +47,7 @@ export async function POST(req: NextRequest) {
       data: {
         event: eventId,
         member: memberId,
+        category: categoryId,
       },
     });
 

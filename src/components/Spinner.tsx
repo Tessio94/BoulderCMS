@@ -12,7 +12,7 @@ const Spinner = () => {
   // console.log("searchParams", searchParams);
   // console.log(pathname);
   useEffect(() => {
-    const handleLoad = () => setTimeout(() => setShowSpinner(false), 400);
+    const handleLoad = () => setTimeout(() => setShowSpinner(false), 300);
 
     if (document.readyState === "complete") {
       handleLoad();

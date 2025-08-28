@@ -2,7 +2,11 @@ import { NextRequest, NextResponse } from "next/server";
 import { getPayload } from "payload";
 import config from "@payload-config";
 
-import { members, results } from "@/payload-generated-schema";
+import {
+  event_registrations,
+  members,
+  results,
+} from "@/payload-generated-schema";
 import { desc, eq, sql, sum } from "@payloadcms/db-postgres/drizzle";
 
 export async function GET(req: NextRequest) {
@@ -25,6 +29,10 @@ export async function GET(req: NextRequest) {
         points: sum(results.points),
       })
       .from(results)
+      .innerJoin(
+        event_registrations,
+        eq(results.member, event_registrations.member),
+      )
       .leftJoin(members, eq(results.member, members.id))
       .where(eq(results.event, eventId))
       .groupBy(members.id)
