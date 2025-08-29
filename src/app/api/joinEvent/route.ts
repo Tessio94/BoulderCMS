@@ -25,9 +25,9 @@ export async function POST(req: NextRequest) {
         member: {
           equals: memberId,
         },
-        category: {
-          equals: categoryId,
-        },
+        // category: {
+        //   equals: categoryId,
+        // },
       },
       limit: 1,
     });

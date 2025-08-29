@@ -25,7 +25,12 @@ const Page = async ({ params }: { params: { slug: string } }) => {
 
   if (user) {
     const { id: memberId } = user;
-    joinedUser = await queryJoinedInUser(eventId, memberId);
+    const loggedInUser = await queryJoinedInUser(eventId, memberId);
+    if (loggedInUser) {
+      joinedUser = { alreadyRegistered: true };
+    } else {
+      joinedUser = { alreadyRegistered: false };
+    }
     console.log(joinedUser);
   }
 

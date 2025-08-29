@@ -34,4 +34,10 @@ export const EventRegistrations: CollectionConfig = {
       type: "number",
     },
   ],
+  indexes: [
+    {
+      fields: ["member", "event"],
+      unique: true, // for combination of fields to be unique
+    },
+  ],
 };

@@ -7,19 +7,21 @@ import {
   members,
   results,
 } from "@/payload-generated-schema";
-import { desc, eq, sql, sum } from "@payloadcms/db-postgres/drizzle";
+import { and, desc, eq, sum } from "@payloadcms/db-postgres/drizzle";
 
 export async function GET(req: NextRequest) {
   try {
     const url = new URL(req.url);
     const eventIdParam = url.searchParams.get("eventId");
+    const categoryIdParam = url.searchParams.get("categoryId");
 
-    if (!eventIdParam) {
-      return NextResponse.json({ error: "Missing eventId" }, { status: 400 });
+    if (!eventIdParam || !categoryIdParam) {
+      return NextResponse.json({ error: "Missing params" }, { status: 400 });
     }
 
     const eventId = Number(eventIdParam);
-
+    const categoryId = Number(categoryIdParam);
+    console.log(categoryId);
     const payload = await getPayload({ config });
 
     const totals = await payload.db.drizzle
@@ -34,7 +36,7 @@ export async function GET(req: NextRequest) {
         eq(results.member, event_registrations.member),
       )
       .leftJoin(members, eq(results.member, members.id))
-      .where(eq(results.event, eventId))
+      .where(and(eq(results.event, eventId), eq(results.category, categoryId)))
       .groupBy(members.id)
       .orderBy(desc(sum(results.points)));
 

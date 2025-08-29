@@ -24,16 +24,13 @@ const SubmitResultsForm = ({ event, joinedUser }: SubmitResultsFormTypes) => {
   const [user, setUser] = useState(null);
 
   const {
-    id: categoryId,
+    category: { id: categoryId },
     member: { id: memberId, userName },
   } = joinedUser;
-  console.log("member", memberId);
-  console.log("member", userName);
 
   const { id: eventId, stages } = event;
 
   const stagesList = stages?.docs || [];
-  console.log("joinedInUser", joinedUser);
 
   const totalPages = Math.ceil(stagesList.length / STAGES_PER_PAGE);
   const startIndex = (page - 1) * STAGES_PER_PAGE;
@@ -41,19 +38,6 @@ const SubmitResultsForm = ({ event, joinedUser }: SubmitResultsFormTypes) => {
     startIndex,
     startIndex + STAGES_PER_PAGE,
   );
-
-  // let memberId: number | undefined;
-
-  // const { data, isLoading } = useQuery({
-  //   queryKey: ["user"],
-  //   queryFn: getUser,
-  //   refetchOnWindowFocus: false,
-  //   refetchOnMount: true,
-  // });
-
-  // if (data) {
-  //   ({ id: memberId } = data);
-  // }
 
   useEffect(() => {
     const savedScores = localStorage.getItem("scores");
@@ -139,8 +123,8 @@ const SubmitResultsForm = ({ event, joinedUser }: SubmitResultsFormTypes) => {
     0,
   );
 
-  console.log("stages", stages);
-  console.log("achievedGoals", achievedGoals);
+  // console.log("stages", stages);
+  // console.log("achievedGoals", achievedGoals);
   return (
     <div className="xsm:w-full flex w-[90%] flex-col gap-10 rounded-xl border-1 border-cyan-900 px-2 py-5 shadow-xl shadow-cyan-900 sm:w-[85%] sm:px-5 sm:py-10 md:mr-auto md:w-[80%] lg:w-[75%] xl:w-[70%] 2xl:w-[60%]">
       <h5 className="text-3xl text-cyan-900">Total points: {totalPoints}</h5>

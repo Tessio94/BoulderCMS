@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { getUser } from "@/lib/serverFunctions/getUserAction";
 import { Event, EventRegistration } from "@/payload-types";
 import { toast } from "sonner";
@@ -19,7 +19,7 @@ type EventButtonProps = {
   type: string;
   event: Event;
   user: User | null;
-  joinedUser: EventRegistration | undefined;
+  joinedUser: Record<string, boolean> | undefined;
 };
 
 class HttpError extends Error {
@@ -62,10 +62,19 @@ const registerForEvent = async ({
   return data;
 };
 
+const getJoinedUser = async (eventId: number, memberId: number) => {
+  console.log(eventId, memberId);
+  const res = await fetch(
+    `/api/joinEvent?eventId=${eventId}&memberId=${memberId}`,
+  );
+  if (!res.ok) throw new Error("Failed to fetch joinedUser");
+  return res.json();
+};
+
 const EventButton = ({ type, event, user, joinedUser }: EventButtonProps) => {
-  const [isJoined, setIsJoined] = useState(() => {
-    return joinedUser ? true : false;
-  });
+  // const [isJoined, setIsJoined] = useState(() => {
+  //   return joinedUser ? true : false;
+  // });
   const [showJoinOverlay, setShowJoinOverlay] = useState(false);
 
   const router = useRouter();
@@ -73,7 +82,9 @@ const EventButton = ({ type, event, user, joinedUser }: EventButtonProps) => {
   const { id: eventId, slug, timeframe, category, registration } = event;
 
   const categories = category?.docs ?? [];
-  // console.log("categories", categories);
+  console.log("categories", categories);
+
+  const queryClient = useQueryClient();
 
   let userName: string | undefined;
   let memberId: number | undefined;
@@ -88,6 +99,22 @@ const EventButton = ({ type, event, user, joinedUser }: EventButtonProps) => {
 
   if (data && !isLoading) {
     ({ userName, id: memberId } = data);
+  }
+
+  const { data: isJoinedUser, isLoading: isJoinedLoading } = useQuery({
+    queryKey: ["joinedUser", eventId, memberId],
+    queryFn: () => {
+      if (!memberId) return Promise.resolve(null);
+      console.log(eventId, memberId);
+      return getJoinedUser(eventId, memberId);
+    },
+    enabled: !!memberId,
+    initialData: joinedUser,
+  });
+
+  let isJoined: boolean;
+  if (isJoinedUser && !isJoinedLoading) {
+    isJoined = isJoinedUser.alreadyRegistered;
   }
 
   const handleJoinEvent = () => {
@@ -123,6 +150,22 @@ const EventButton = ({ type, event, user, joinedUser }: EventButtonProps) => {
       return;
     }
 
+    if (userName && type === "submit" && memberId && isJoined === false) {
+      toast.custom((id) => (
+        <Toast
+          id={id}
+          type="not"
+          title={"You must join the event."}
+          description={"Join in to submit your results!"}
+          button={{
+            label: "Join event",
+            onClick: () => setShowJoinOverlay(true),
+          }}
+        />
+      ));
+      return;
+    }
+
     if (userName && type === "submit" && memberId && isJoined === true) {
       router.push(`/events/${slug}/submit-results`);
       return;
@@ -130,6 +173,7 @@ const EventButton = ({ type, event, user, joinedUser }: EventButtonProps) => {
   };
 
   const handleJoinCategory = (categoryId: number) => {
+    console.log("categoryId", categoryId);
     if (memberId && eventId && categoryId) {
       mutation.mutate({ eventId, memberId, categoryId });
     }
@@ -138,6 +182,10 @@ const EventButton = ({ type, event, user, joinedUser }: EventButtonProps) => {
   const mutation = useMutation({
     mutationFn: registerForEvent,
     onSuccess: () => {
+      setShowJoinOverlay(false);
+      queryClient.invalidateQueries({
+        queryKey: ["joinedUser", eventId, memberId ?? "guest"],
+      });
       toast.custom((id) => (
         <Toast
           id={id}
@@ -149,8 +197,6 @@ const EventButton = ({ type, event, user, joinedUser }: EventButtonProps) => {
           }}
         />
       ));
-      setIsJoined(true);
-      setShowJoinOverlay(false);
     },
     onError: (error: any) => {
       if (error instanceof HttpError && error.status === 409) {

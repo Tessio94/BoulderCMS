@@ -7,9 +7,12 @@ const page = async ({ params }: { params: { slug: string } }) => {
   const { slug } = await params;
   const event = await queryEventsBySlug({ slug });
   const { id: eventId } = event;
-  console.log("event :", event);
+  const categories = event.category?.docs ?? [];
 
-  const results = await queryResults(eventId);
+  // napraviti provjeru sa typeof Category
+
+  const firstCategoryId = categories[0].id;
+  const results = await getAllResult(eventId, firstCategoryId);
   console.log("result", results);
 
   return (
@@ -40,18 +43,29 @@ const queryEventsBySlug = cache(async ({ slug }: { slug: string }) => {
   return result.docs?.[0] || null;
 });
 
-const queryResults = cache(async (eventId: number) => {
-  const payload = await getPayload({ config });
+const getAllResult = async (eventId, categoryId) => {
+  const baseUrl = process.env.NEXT_PUBLIC_URL || "http://localhost:3000";
 
-  const result = await payload.find({
-    collection: "results",
-    pagination: false,
-    where: {
-      event: {
-        equals: eventId,
-      },
-    },
-  });
+  const res = await fetch(
+    `${baseUrl}/api/usersResults?eventId=${eventId}&categoryId=${categoryId}`,
+  );
+  const results = res.json();
 
-  return result.docs?.[0] || null;
-});
+  return results;
+};
+
+// const queryResults = cache(async (eventId: number) => {
+//   const payload = await getPayload({ config });
+
+//   const result = await payload.find({
+//     collection: "results",
+//     pagination: false,
+//     where: {
+//       event: {
+//         equals: eventId,
+//       },
+//     },
+//   });
+
+//   return result.docs?.[0] || null;
+// });

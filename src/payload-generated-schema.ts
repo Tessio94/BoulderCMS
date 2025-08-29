@@ -445,6 +445,11 @@ export const results = pgTable(
       .references(() => stages.id, {
         onDelete: "set null",
       }),
+    category: integer("category_id")
+      .notNull()
+      .references(() => categories.id, {
+        onDelete: "set null",
+      }),
     points: numeric("points").notNull(),
     updatedAt: timestamp("updated_at", {
       mode: "string",

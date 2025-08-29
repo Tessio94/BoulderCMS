@@ -16,8 +16,10 @@ type ResultProps = {
   event: Event;
 };
 
-const getAllResult = async (eventId) => {
-  const res = await fetch(`/api/usersResults?eventId=${eventId}`);
+const getAllResult = async (eventId, categoryId) => {
+  const res = await fetch(
+    `/api/usersResults?eventId=${eventId}&categoryId=${categoryId}`,
+  );
   const results = res.json();
 
   return results;
@@ -31,13 +33,15 @@ const ResultsForm = ({ event }: ResultProps) => {
   const { id: eventId, category, registrations } = event;
 
   const categories = category.docs;
+  const firstCategoryId = categories[0].id;
   console.log("categories", categories);
+  console.log("firstCategory", firstCategoryId);
 
   let eventResults: undefined | TotalResult[];
 
   const { data, isLoading } = useQuery({
     queryKey: ["results", eventId],
-    queryFn: () => getAllResult(eventId),
+    queryFn: () => getAllResult(eventId, firstCategoryId),
     refetchOnWindowFocus: false,
     refetchOnMount: true,
   });
