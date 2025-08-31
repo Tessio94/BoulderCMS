@@ -1,10 +1,10 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import React, { useEffect, useState } from "react";
 import ResultsInfo from "./ResultsInfo";
-import { Event } from "@/payload-types";
+import { Category, Event } from "@/payload-types";
 
 type TotalResult = {
   member: number;
@@ -14,9 +14,11 @@ type TotalResult = {
 
 type ResultProps = {
   event: Event;
+  eventResults: TotalResult[];
+  categories: Category[];
 };
 
-const getAllResult = async (eventId, categoryId) => {
+const getAllResult = async ({ eventId, categoryId }) => {
   const res = await fetch(
     `/api/usersResults?eventId=${eventId}&categoryId=${categoryId}`,
   );
@@ -25,34 +27,49 @@ const getAllResult = async (eventId, categoryId) => {
   return results;
 };
 
-const ResultsForm = ({ event }: ResultProps) => {
+const ResultsForm = ({ event, eventResults, categories }: ResultProps) => {
   const [showCategories, setShowCategories] = useState(false);
   const [showResultInfo, setShowResultInfo] = useState(false);
   const [userResult, setUserResult] = useState(null);
+  const [result, setResult] = useState(eventResults);
+  const [categoryHeading, setCategoryHeading] = useState(categories[0].name);
 
-  const { id: eventId, category, registrations } = event;
+  const { id: eventId } = event;
 
-  const categories = category.docs;
-  const firstCategoryId = categories[0].id;
   console.log("categories", categories);
-  console.log("firstCategory", firstCategoryId);
 
-  let eventResults: undefined | TotalResult[];
+  // const categories = category.docs;
+  // const firstCategoryId = categories[0].id;
+  // console.log("categories", categories);
+  // console.log("firstCategory", firstCategoryId);
 
-  const { data, isLoading } = useQuery({
-    queryKey: ["results", eventId],
-    queryFn: () => getAllResult(eventId, firstCategoryId),
-    refetchOnWindowFocus: false,
-    refetchOnMount: true,
-  });
+  // let eventResults: undefined | TotalResult[];
 
-  if (data) {
-    // console.log(data);
-    ({ totals: eventResults } = data);
-    // ({ id: memberId } = data);
-  }
-  console.log("eventId", eventId);
+  // const { data, isLoading } = useQuery({
+  //   queryKey: ["results", eventId],
+  //   queryFn: () => getAllResult(eventId, firstCategoryId),
+  //   refetchOnWindowFocus: false,
+  //   refetchOnMount: true,
+  // });
+
+  // if (data) {
+  //   // console.log(data);
+  //   ({ totals: eventResults } = data);
+  //   // ({ id: memberId } = data);
+  // }
+  // console.log("eventId", eventId);
   // let userResultDetails: undefined |
+
+  const mutation = useMutation({
+    mutationFn: getAllResult,
+    onSuccess: (data, variables) => {
+      setResult(data.totals);
+      setCategoryHeading(
+        categories.find((c) => c.id === variables.categoryId)?.name ||
+          "Category not found",
+      );
+    },
+  });
 
   const handleUserResult = async (memberId) => {
     try {
@@ -83,6 +100,14 @@ const ResultsForm = ({ event }: ResultProps) => {
     };
   }, [showResultInfo]);
 
+  const handleCategoryResults = (categoryId) => {
+    console.log("aaaaaaaaaaa");
+    console.log("catId", categoryId);
+    mutation.mutate({ eventId, categoryId });
+    // setCategoryHeading(categoryName);
+    setShowCategories((prev) => !prev);
+  };
+
   return (
     <>
       <div className="xsm:w-full w-[90%] sm:w-[85%] md:w-[80%] lg:w-[75%] xl:w-[70%] 2xl:w-[60%]">
@@ -91,7 +116,7 @@ const ResultsForm = ({ event }: ResultProps) => {
             onClick={() => setShowCategories((prev) => !prev)}
             className="w-full cursor-pointer rounded-xl border-b-2 border-b-gray-600 bg-cyan-100 px-10 py-4 text-cyan-900 transition-all duration-300 hover:bg-cyan-900/50"
           >
-            {categories[0].name}
+            {categoryHeading}
           </div>
           <div
             className={cn(
@@ -100,8 +125,10 @@ const ResultsForm = ({ event }: ResultProps) => {
             )}
           >
             {categories?.map((group, i) => {
+              console.log("group", group);
               return (
                 <div
+                  onClick={() => handleCategoryResults(group.id, group.name)}
                   className="cursor-pointer rounded-xl px-10 py-4 text-cyan-900 transition-all duration-300 hover:bg-cyan-900/70 hover:text-amber-400"
                   key={i}
                 >
@@ -120,7 +147,7 @@ const ResultsForm = ({ event }: ResultProps) => {
               {/* <th className="text-end">Points</th> */}
             </tr>
           </thead>
-          {eventResults?.map((memberResult, i) => {
+          {result?.map((memberResult, i) => {
             // console.log(person);
             return (
               <tbody
