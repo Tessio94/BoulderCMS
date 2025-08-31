@@ -292,12 +292,12 @@ const Header2 = ({ user }: Header2Props) => {
         )}
       >
         <ul className="flex flex-col text-2xl font-bold text-cyan-900">
-          <li className="px-6 py-3 transition-all duration-300 hover:bg-cyan-900/10 focus:bg-cyan-900/10 active:bg-cyan-900/10">
+          <li className="transition-all duration-300 hover:bg-cyan-900/10 focus:bg-cyan-900/10 active:bg-cyan-900/10">
             <TransitionLink
               type="i18n"
               href="/"
               className={cn(
-                "flex items-center justify-between pr-12",
+                "flex items-center justify-between px-6 py-3 pr-18",
                 pathname === "/" || pathname === "/de"
                   ? "text-cyan-700/80"
                   : "text-cyan-900",
@@ -306,12 +306,12 @@ const Header2 = ({ user }: Header2Props) => {
               {t("home")} <IoMdHome className="w-[32px] text-3xl" />
             </TransitionLink>
           </li>
-          <li className="px-6 py-3 transition-all duration-300 hover:bg-cyan-900/10 focus:bg-cyan-900/10 active:bg-cyan-900/10">
+          <li className="transition-all duration-300 hover:bg-cyan-900/10 focus:bg-cyan-900/10 active:bg-cyan-900/10">
             <TransitionLink
               type="i18n"
               href="/events"
               className={cn(
-                "flex items-center justify-between pr-12",
+                "flex items-center justify-between px-6 py-3 pr-18",
                 pathname.split("/").includes("events")
                   ? "text-cyan-700/80"
                   : "text-cyan-900",
@@ -320,12 +320,12 @@ const Header2 = ({ user }: Header2Props) => {
               {t("events")} <MdEmojiEvents className="w-[32px] text-3xl" />
             </TransitionLink>
           </li>
-          <li className="px-6 py-3 transition-all duration-300 hover:bg-cyan-900/10 focus:bg-cyan-900/10 active:bg-cyan-900/10">
+          <li className="transition-all duration-300 hover:bg-cyan-900/10 focus:bg-cyan-900/10 active:bg-cyan-900/10">
             <TransitionLink
               type="i18n"
               href="/gyms"
               className={cn(
-                "flex items-center justify-between pr-12",
+                "flex items-center justify-between px-6 py-3 pr-18",
                 pathname.split("/").includes("gyms")
                   ? "text-cyan-700/80"
                   : "text-cyan-900",
@@ -340,12 +340,12 @@ const Header2 = ({ user }: Header2Props) => {
               />
             </TransitionLink>
           </li>
-          <li className="px-6 py-3 transition-all duration-300 hover:bg-cyan-900/10 focus:bg-cyan-900/10 active:bg-cyan-900/10">
+          <li className="transition-all duration-300 hover:bg-cyan-900/10 focus:bg-cyan-900/10 active:bg-cyan-900/10">
             <TransitionLink
               type="i18n"
               href="/gallery"
               className={cn(
-                "flex items-center justify-between pr-12",
+                "flex items-center justify-between px-6 py-3 pr-18",
                 pathname === "/gallery" || pathname === "/de/galerie"
                   ? "text-cyan-700/80"
                   : "text-cyan-900",
@@ -354,11 +354,11 @@ const Header2 = ({ user }: Header2Props) => {
               {t("gallery")} <GrGallery className="w-[32px] text-2xl" />
             </TransitionLink>
           </li>
-          <li className="border-t-2 border-cyan-900/30 px-6 py-3 transition-all duration-300 hover:bg-cyan-900/10 focus:bg-cyan-900/10 active:bg-cyan-900/10">
+          <li className="border-t-2 border-cyan-900/30 transition-all duration-300 hover:bg-cyan-900/10 focus:bg-cyan-900/10 active:bg-cyan-900/10">
             <TransitionLink
               type="i18n"
               className={cn(
-                "flex items-center justify-between pr-12",
+                "flex items-center justify-between px-6 py-3 pr-18",
                 pathname === "/login" || pathname === "/de/login"
                   ? "text-cyan-700/80"
                   : "text-cyan-900",
