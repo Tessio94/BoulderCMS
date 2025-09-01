@@ -9,7 +9,19 @@ import { useQuery } from "@tanstack/react-query";
 import { getUser } from "@/lib/serverFunctions/getUserAction";
 import { usePathname } from "next/navigation";
 
-const LandingIntro = () => {
+type User = {
+  id: number;
+  firstName: string;
+  lastName: string;
+  userName: string;
+};
+
+type LandingIntro = {
+  user: User | null;
+};
+
+const LandingIntro = ({ user }: LandingIntro) => {
+  console.log("user2", user);
   const t = useTranslations("Landing");
   const pathname = usePathname();
 
@@ -20,6 +32,7 @@ const LandingIntro = () => {
     queryFn: getUser,
     refetchOnWindowFocus: false,
     refetchOnMount: true,
+    initialData: user,
   });
 
   if (data && !isLoading) {

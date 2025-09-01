@@ -91,7 +91,7 @@ const Competition = () => {
                 className="xsm:text-lg text-xl"
                 variants={listItemVariants}
               >
-                &#x2022; {t("step2.bullet1")}
+                &#x2022; {t("step2.bullet2")}
               </motion.p>
             </motion.div>
           </div>

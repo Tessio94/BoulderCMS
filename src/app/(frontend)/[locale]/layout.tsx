@@ -82,7 +82,7 @@ export default async function RootLayout({
   }
 
   return (
-    <html lang={locale}>
+    <html lang={locale} suppressHydrationWarning>
       <body
         className={`${sniglet.className} ${nunito.variable} max-w-screen antialiased`}
       >

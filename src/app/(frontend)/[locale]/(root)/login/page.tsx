@@ -1,36 +1,17 @@
 "use client";
 
 import { Link } from "@/i18n/navigation";
-import { cn } from "@/lib/utils";
+// import { cn } from "@/lib/utils";
 import { useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
-import { FaFacebook } from "react-icons/fa";
-import { FcGoogle } from "react-icons/fc";
+// import { FaFacebook } from "react-icons/fa";
+// import { FcGoogle } from "react-icons/fc";
 import { MdVisibility, MdVisibilityOff } from "react-icons/md";
-// import { useMutation } from "@tanstack/react-query";
 import { loginAction } from "@/lib/serverFunctions/loginAction";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import { useRouter, useSearchParams } from "next/navigation";
-
-// const loginMember = async (formData: any) => {
-//   const res = await fetch("/api/members/login", {
-//     method: "POST",
-//     headers: {
-//       "Content-Type": "application/json",
-//     },
-//     body: JSON.stringify({
-//       email: formData.email,
-//       password: formData.password,
-//     }),
-//   });
-
-//   if (!res.ok) {
-//     const err = await res.json();
-//     throw new Error(err.errors?.[0].message || "Login falied");
-//   }
-
-//   return res.json();
-// };
+import { toast } from "sonner";
+import Toast from "@/components/sonner/Toast";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -38,12 +19,6 @@ const Login = () => {
   const [password, setPassword] = useState<string>("");
 
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [success, setSuccess] = useState(false);
-  // const [formData, setFormData] = useState({
-  //   email: "",
-  //   password: "",
-  // });
 
   const t = useTranslations("Login");
   const locale = useLocale();
@@ -53,49 +28,46 @@ const Login = () => {
   const rawCallbackUrl = searchParams.get("callbackUrl");
   const callbackUrl = rawCallbackUrl ? decodeURIComponent(rawCallbackUrl) : "/";
 
-  // const mutation = useMutation({
-  //   mutationFn: loginMember,
-  //   onSuccess: (data) => {
-  //     console.log("Login:", data);
-  //     alert("Login successful!");
-  //   },
-  //   onError: (error: any) => {
-  //     console.error(error.message);
-  //   },
-  // });
-
-  // const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   const { name, value } = e.target;
-
-  //   setFormData((prev) => ({ ...prev, [name]: value }));
-  // };
-
-  // const handleSubmit = (e: React.FormEvent) => {
-  //   e.preventDefault();
-
-  //   mutation.mutate(formData);
-  // };
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    setError(null);
-    setSuccess(false);
 
     try {
       const res = await loginAction({ email, password });
 
       if (res?.user) {
-        setSuccess(true);
-        // redirect if you want:
-        // router.push(`/${locale}/dashboard`);
+        console.log("user", res?.user);
         setLoading(false);
+        toast.custom((id) => (
+          <Toast
+            id={id}
+            type="yes"
+            title={"You are logged in."}
+            description={`Welcome to boulder app ${res.user.userName}!`}
+          />
+        ));
+
         router.push(callbackUrl);
       } else {
-        setError(t("invalidCredentials"));
+        toast.custom((id) => (
+          <Toast
+            id={id}
+            type="not"
+            title={"Something went wrong."}
+            description={"Please type in correct email and password"}
+          />
+        ));
       }
     } catch (err) {
-      setError((err as Error).message);
       setLoading(false);
+      toast.custom((id) => (
+        <Toast
+          id={id}
+          type="not"
+          title={"Something went wrong."}
+          description={"Please type in correct email and password"}
+        />
+      ));
     }
   };
 
@@ -163,12 +135,9 @@ const Login = () => {
                 <button className="cursor-pointer rounded-2xl border-[2px] border-transparent bg-cyan-900 px-5 py-2 text-cyan-200 transition-all duration-500 hover:border-cyan-900 hover:bg-cyan-200 hover:text-cyan-900">
                   {loading ? "...loading" : t("login")}
                 </button>
-
-                {error && <p className="text-red-600">{error}</p>}
-                {success && <p className="text-green-600">...success</p>}
               </form>
 
-              <div
+              {/* <div
                 className={cn(
                   "flex flex-row gap-4 max-[480px]:flex-col",
                   locale === "de" ? "gap-4" : "sm:gap-20",
@@ -190,7 +159,7 @@ const Login = () => {
                   <FcGoogle className="text-2xl" />
                   {t("google")}
                 </button>
-              </div>
+              </div> */}
             </div>
           </>
         )}

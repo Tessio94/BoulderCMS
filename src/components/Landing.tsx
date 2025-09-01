@@ -1,13 +1,15 @@
 import Image from "next/image";
-import { useTranslations } from "next-intl";
-// import Link from "next/link";
+// import { useTranslations } from "next-intl";
 import * as motion from "motion/react-client";
-// import { containerVariants, listItemVariants } from "@/lib/animation";
 import { TransitionLink } from "./TransitionLink";
 import LandingIntro from "./LandingIntro";
+import { getUser } from "@/lib/serverFunctions/getUserAction";
+import { getTranslations } from "next-intl/server";
 
-const Landing = () => {
-  const t = useTranslations("Landing");
+const Landing = async () => {
+  const user = await getUser();
+  console.log(user);
+  const t = await getTranslations("Landing");
 
   return (
     <div className="relative z-0 h-screen max-h-screen min-h-[800px] w-full overflow-hidden lg:min-h-[unset]">
@@ -57,7 +59,7 @@ const Landing = () => {
           >
             {t("title")}
           </motion.h2>
-          <LandingIntro />
+          <LandingIntro user={user} />
           <motion.div
             className="flex gap-4"
             initial={{ y: 100, opacity: 0 }}

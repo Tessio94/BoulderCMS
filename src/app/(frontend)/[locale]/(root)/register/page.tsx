@@ -218,7 +218,7 @@ function Register() {
             </button>
           </form>
 
-          <div
+          {/* <div
             className={cn(
               "flex flex-row gap-4 max-[480px]:flex-col",
               locale === "de" ? "gap-4" : "sm:gap-20",
@@ -236,7 +236,7 @@ function Register() {
               <FcGoogle className="text-2xl" />
               {t("google")}
             </button>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

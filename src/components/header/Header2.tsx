@@ -354,21 +354,23 @@ const Header2 = ({ user }: Header2Props) => {
               {t("gallery")} <GrGallery className="w-[32px] text-2xl" />
             </TransitionLink>
           </li>
-          <li className="border-t-2 border-cyan-900/30 transition-all duration-300 hover:bg-cyan-900/10 focus:bg-cyan-900/10 active:bg-cyan-900/10">
-            <TransitionLink
-              type="i18n"
-              className={cn(
-                "flex items-center justify-between px-6 py-3 pr-18",
-                pathname === "/login" || pathname === "/de/login"
-                  ? "text-cyan-700/80"
-                  : "text-cyan-900",
-              )}
-              href="/login"
-            >
-              {t("login")}
-              <RiLoginBoxFill className="w-[32px] text-3xl" />
-            </TransitionLink>
-          </li>
+          {!firstName && !lastName && (
+            <li className="border-t-2 border-cyan-900/30 transition-all duration-300 hover:bg-cyan-900/10 focus:bg-cyan-900/10 active:bg-cyan-900/10">
+              <TransitionLink
+                type="i18n"
+                className={cn(
+                  "flex items-center justify-between px-6 py-3 pr-18",
+                  pathname === "/login" || pathname === "/de/login"
+                    ? "text-cyan-700/80"
+                    : "text-cyan-900",
+                )}
+                href="/login"
+              >
+                {t("login")}
+                <RiLoginBoxFill className="w-[32px] text-3xl" />
+              </TransitionLink>
+            </li>
+          )}
         </ul>
         <div className="flex flex-col items-start gap-8 border-t-2 border-cyan-900/30 px-6 pt-3">
           <div className="flex items-center gap-5">
