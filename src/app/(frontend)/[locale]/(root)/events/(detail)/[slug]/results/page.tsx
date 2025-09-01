@@ -54,7 +54,7 @@ const getAllResult = async (eventId, categoryId) => {
   const res = await fetch(
     `${baseUrl}/api/usersResults?eventId=${eventId}&categoryId=${categoryId}`,
   );
-  const results = res.json();
+  const results = await res.json();
 
   return results;
 };
