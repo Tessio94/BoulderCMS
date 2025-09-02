@@ -23,6 +23,7 @@ const Page = async ({ params }: { params: { slug: string } }) => {
           <RenderHTML data={post.content} />
         </div>
         <div className="3xl:w-[40%] order-0 xl:order-1 xl:w-[45%]">
+          {/* later add placeholder image if this is not added */}
           <Image
             src={post.newsImage.url}
             alt={post.newsImage.alt}
