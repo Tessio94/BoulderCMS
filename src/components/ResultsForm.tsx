@@ -36,7 +36,7 @@ const ResultsForm = ({ event, eventResults, categories }: ResultProps) => {
 
   const { id: eventId } = event;
 
-  console.log("categories", categories);
+  // console.log("categories", categories);
 
   // const categories = category.docs;
   // const firstCategoryId = categories[0].id;
@@ -101,8 +101,6 @@ const ResultsForm = ({ event, eventResults, categories }: ResultProps) => {
   }, [showResultInfo]);
 
   const handleCategoryResults = (categoryId) => {
-    console.log("aaaaaaaaaaa");
-    console.log("catId", categoryId);
     mutation.mutate({ eventId, categoryId });
     // setCategoryHeading(categoryName);
     setShowCategories((prev) => !prev);
@@ -125,7 +123,7 @@ const ResultsForm = ({ event, eventResults, categories }: ResultProps) => {
             )}
           >
             {categories?.map((group, i) => {
-              console.log("group", group);
+              // console.log("group", group);
               return (
                 <div
                   onClick={() => handleCategoryResults(group.id, group.name)}

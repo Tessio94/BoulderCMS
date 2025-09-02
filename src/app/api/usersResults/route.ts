@@ -21,26 +21,22 @@ export async function GET(req: NextRequest) {
 
     const eventId = Number(eventIdParam);
     const categoryId = Number(categoryIdParam);
-    console.log(categoryId);
+
     const payload = await getPayload({ config });
 
     const totals = await payload.db.drizzle
       .select({
-        member: members.id,
+        member: results.member,
         name: members.fullName,
         points: sum(results.points),
       })
       .from(results)
-      .innerJoin(
-        event_registrations,
-        eq(results.member, event_registrations.member),
-      )
       .leftJoin(members, eq(results.member, members.id))
       .where(and(eq(results.event, eventId), eq(results.category, categoryId)))
-      .groupBy(members.id)
+      .groupBy(results.member, members.fullName)
       .orderBy(desc(sum(results.points)));
 
-    // console.log(results);
+    console.log("server scores", totals);
 
     return NextResponse.json({ totals }, { status: 200 });
   } catch (error) {

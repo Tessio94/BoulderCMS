@@ -235,10 +235,14 @@ const Header2 = ({ user }: Header2Props) => {
             {showProfile && (
               <div className="absolute top-[100%] z-20 flex flex-col rounded-xl bg-cyan-900 text-amber-400">
                 <div className="cursor-pointer rounded-t-xl border-2 border-b-[1px] border-amber-400 px-10 py-3 transition-all duration-300 hover:border-cyan-900 hover:border-b-amber-400 hover:bg-amber-400 hover:text-cyan-900">
-                  Results
+                  <TransitionLink type="i18n" href="/profile">
+                    Profile
+                  </TransitionLink>
                 </div>
                 <div className="cursor-pointer border-2 border-t-[1px] border-b-[1px] border-amber-400 px-10 py-3 transition-all duration-300 hover:border-cyan-900 hover:border-t-amber-400 hover:border-b-amber-400 hover:bg-amber-400 hover:text-cyan-900">
-                  Events
+                  <TransitionLink type="i18n" href="/results">
+                    Results
+                  </TransitionLink>
                 </div>
                 <div
                   onClick={handleLogout}

@@ -14,7 +14,6 @@ const page = async ({ params }: { params: { slug: string } }) => {
   const firstCategoryId = categories[0].id;
   const data = await getAllResult(eventId, firstCategoryId);
   const { totals: eventResults } = data;
-  console.log("result", eventResults);
 
   return (
     <main className="xsm:px-6 flex min-h-screen flex-col items-center justify-start gap-10 px-10 py-10 pb-20 sm:px-20 lg:gap-16 lg:px-40">

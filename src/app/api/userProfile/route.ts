@@ -17,22 +17,29 @@ export async function GET(req: NextRequest) {
     const memberId = Number(memberIdParam);
 
     const payload = await getPayload({ config });
-    console.log("zadnja branaaa");
+
     const totals = await payload.db.drizzle
       .select({
         event: results.event,
         eventName: events.title,
         category: results.category,
         categoryName: categories.name,
+        member: results.member,
         points: sum(results.points),
       })
       .from(results)
       .leftJoin(events, eq(results.event, events.id))
       .leftJoin(categories, eq(results.category, categories.id))
       .where(eq(results.member, memberId))
-      .groupBy(results.event, results.category, events.title, categories.name);
+      .groupBy(
+        results.event,
+        results.category,
+        events.title,
+        categories.name,
+        results.member,
+      );
     //   .orderBy(desc(results.createdAt));
-    console.log("results2", totals);
+
     return NextResponse.json({ totals }, { status: 200 });
   } catch (error) {
     return NextResponse.json(
