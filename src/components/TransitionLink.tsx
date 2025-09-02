@@ -8,7 +8,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useProjectInfo } from "@/context/ProjectContext";
 
 interface TransitionLinkProps extends LinkProps {
-  type: string;
+  type?: string;
   children: ReactNode;
   href: string;
 }
