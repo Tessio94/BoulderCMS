@@ -31,7 +31,6 @@ const Page = async ({ params }: { params: { slug: string } }) => {
     } else {
       joinedUser = { alreadyRegistered: false };
     }
-    console.log(joinedUser);
   }
 
   return (
@@ -51,14 +50,17 @@ const Page = async ({ params }: { params: { slug: string } }) => {
         />
         <div
           className={cn(
-            "z-10",
+            "z-10 w-fit",
             event.heroImage.backgroundColor
               ? `${event.heroImage.backgroundColor}`
               : "bg-white",
           )}
         >
           <Image
-            className="z-10 max-h-screen shadow-[0px_0px_15px_15px_#859ca3] ring-4"
+            className="z-10 max-h-[600px] w-fit object-contain shadow-[0px_0px_15px_15px_#859ca3] ring-4"
+            style={{
+              aspectRatio: event.heroImage.width / event.heroImage.height,
+            }}
             src={
               typeof event.heroImage === "object" && event.heroImage?.url
                 ? event.heroImage.url
@@ -145,7 +147,7 @@ const Page = async ({ params }: { params: { slug: string } }) => {
           </div>
         </div>
       </main>
-      {event.gallery && (
+      {event.gallery.length > 0 && (
         <div className="xsm:px-3 px-6 pb-20 sm:px-10 lg:px-15">
           <h2 className="my-text-stroke2 mx-10 mb-5 text-2xl font-extrabold text-amber-400">
             Images from past event:

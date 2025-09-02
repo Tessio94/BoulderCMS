@@ -35,14 +35,17 @@ const Page = async ({ params }) => {
         />
         <div
           className={cn(
-            "z-10",
+            "z-10 w-fit",
             gym.heroImage.backgroundColor
               ? `${gym.heroImage.backgroundColor}`
               : "bg-white",
           )}
         >
           <Image
-            className="z-10 max-h-screen shadow-[0px_0px_15px_15px_#859ca3] ring-4"
+            className="z-10 max-h-[600px] w-fit shadow-[0px_0px_15px_15px_#859ca3] ring-4"
+            style={{
+              aspectRatio: gym.heroImage.width / gym.heroImage.height,
+            }}
             src={
               typeof gym.heroImage === "object" && gym.heroImage?.url
                 ? gym.heroImage.url
