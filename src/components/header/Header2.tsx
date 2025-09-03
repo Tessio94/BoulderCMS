@@ -234,13 +234,21 @@ const Header2 = ({ user }: Header2Props) => {
             </div>
             {showProfile && (
               <div className="absolute top-[100%] z-20 flex flex-col rounded-xl bg-cyan-900 text-amber-400">
-                <div className="cursor-pointer rounded-t-xl border-2 border-b-[1px] border-amber-400 px-10 py-3 transition-all duration-300 hover:border-cyan-900 hover:border-b-amber-400 hover:bg-amber-400 hover:text-cyan-900">
-                  <TransitionLink type="i18n" href="/profile">
+                <div className="cursor-pointer rounded-t-xl border-2 border-b-[1px] border-amber-400 transition-all duration-300 hover:border-cyan-900 hover:border-b-amber-400 hover:bg-amber-400 hover:text-cyan-900">
+                  <TransitionLink
+                    type="i18n"
+                    href="/profile"
+                    className="inline-block px-10 py-3"
+                  >
                     Profile
                   </TransitionLink>
                 </div>
-                <div className="cursor-pointer border-2 border-t-[1px] border-b-[1px] border-amber-400 px-10 py-3 transition-all duration-300 hover:border-cyan-900 hover:border-t-amber-400 hover:border-b-amber-400 hover:bg-amber-400 hover:text-cyan-900">
-                  <TransitionLink type="i18n" href="/results">
+                <div className="cursor-pointer border-2 border-t-[1px] border-b-[1px] border-amber-400 transition-all duration-300 hover:border-cyan-900 hover:border-t-amber-400 hover:border-b-amber-400 hover:bg-amber-400 hover:text-cyan-900">
+                  <TransitionLink
+                    type="i18n"
+                    href="/results"
+                    className="inline-block px-10 py-3"
+                  >
                     Results
                   </TransitionLink>
                 </div>
