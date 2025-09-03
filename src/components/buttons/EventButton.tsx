@@ -1,10 +1,10 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { getUser } from "@/lib/serverFunctions/getUserAction";
-import { Event, EventRegistration } from "@/payload-types";
+import { Event } from "@/payload-types";
 import { toast } from "sonner";
 import Toast from "../sonner/Toast";
 
@@ -20,6 +20,7 @@ type EventButtonProps = {
   event: Event;
   user: User | null;
   joinedUser: Record<string, boolean> | undefined;
+  isSubmitted?: boolean;
 };
 
 class HttpError extends Error {
@@ -71,7 +72,13 @@ const getJoinedUser = async (eventId: number, memberId: number) => {
   return res.json();
 };
 
-const EventButton = ({ type, event, user, joinedUser }: EventButtonProps) => {
+const EventButton = ({
+  type,
+  event,
+  user,
+  joinedUser,
+  isSubmitted = false,
+}: EventButtonProps) => {
   // const [isJoined, setIsJoined] = useState(() => {
   //   return joinedUser ? true : false;
   // });
@@ -229,7 +236,8 @@ const EventButton = ({ type, event, user, joinedUser }: EventButtonProps) => {
 
   const buttonText = () => {
     if (type === "join") return isJoined ? "You're in!" : "Join event";
-    if (type === "submit") return "Submit results";
+    if (type === "submit")
+      return isSubmitted ? "Results submitted" : "Submit results";
     if (type === "results") return "Show results";
     return "";
   };
@@ -237,6 +245,9 @@ const EventButton = ({ type, event, user, joinedUser }: EventButtonProps) => {
   const disabledButton = () => {
     const today = new Date();
     if (type === "join" && isJoined) {
+      return true;
+    }
+    if (type === "submit" && isSubmitted) {
       return true;
     }
     if (today > new Date(registration.end) && type === "join") {

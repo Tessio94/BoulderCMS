@@ -48,24 +48,6 @@ const page = async () => {
 
             const place = index >= 0 ? index + 1 : "N/A";
             return (
-              // <tbody className="" key={i}>
-              //   <tr>
-              //     <td className="p-1 text-start text-sm sm:px-3 sm:py-2 sm:text-lg">
-              //       {userResult.eventName}
-              //     </td>
-              //     <td className="p-1 text-start text-sm sm:px-3 sm:py-2 sm:text-lg">
-              //       {" "}
-              //       {userResult.categoryName}
-              //     </td>
-              //     <td className="p-1 text-start text-sm sm:px-3 sm:py-2 sm:text-lg">
-              //       {" "}
-              //       {userResult.points}
-              //     </td>
-              //     <td className="p-1 text-start text-sm sm:px-3 sm:py-2 sm:text-lg">
-              //       {place}
-              //     </td>
-              //   </tr>
-              // </tbody>
               <UserResultsForm key={i} userResult={userResult} place={place} />
             );
           })}

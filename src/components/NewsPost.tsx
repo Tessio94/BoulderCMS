@@ -11,7 +11,7 @@ type NewsPostProps = {
 
 const NewsPost = ({ post }: NewsPostProps) => {
   return (
-    <div className="group overflow-hidden rounded-2xl lg:w-[45%] 2xl:w-[40%]">
+    <div className="group shadow-cards-dark overflow-hidden rounded-2xl shadow-lg lg:w-[45%] 2xl:w-[40%]">
       <TransitionLink
         href={`/news/${post.slug}`}
         type="post"

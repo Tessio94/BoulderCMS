@@ -12,6 +12,7 @@ const page = async ({ params }: { params: { slug: string } }) => {
   const user = await getUser();
 
   let joinedUser;
+
   // napraviti ovo da nije conditional u stranicama gdje cemo stavit guard clause (ako je logged in mos uci, ko ne ne mozes i onda ne treba guard clause, druga funkcija)
   if (user) {
     const { id: memberId } = user;
@@ -21,6 +22,7 @@ const page = async ({ params }: { params: { slug: string } }) => {
   const {
     member: { userName },
   } = joinedUser;
+
   // console.log("event :", event);
   // avoid getUser being undefined (make another server function if needed)
 

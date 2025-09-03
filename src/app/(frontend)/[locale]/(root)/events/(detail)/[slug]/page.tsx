@@ -22,6 +22,8 @@ const Page = async ({ params }: { params: { slug: string } }) => {
   const user = await getUser();
 
   let joinedUser;
+  let submittedResults;
+  let isSubmitted;
 
   if (user) {
     const { id: memberId } = user;
@@ -31,6 +33,9 @@ const Page = async ({ params }: { params: { slug: string } }) => {
     } else {
       joinedUser = { alreadyRegistered: false };
     }
+
+    submittedResults = await querySubmittedResults(eventId, memberId);
+    isSubmitted = Boolean(submittedResults);
   }
 
   return (
@@ -141,6 +146,7 @@ const Page = async ({ params }: { params: { slug: string } }) => {
                   event={event}
                   user={user}
                   joinedUser={joinedUser}
+                  isSubmitted={isSubmitted}
                 />
               </div>
             </div>
@@ -210,3 +216,36 @@ const queryJoinedInUser = cache(async (eventId: number, memberId: number) => {
 
   return result.docs?.[0] || null;
 });
+
+const querySubmittedResults = cache(
+  async (eventId: number, memberId: number) => {
+    const payload = await getPayload({ config });
+
+    const result = await payload.find({
+      collection: "results",
+      limit: 1,
+      pagination: false,
+      where: {
+        and: [
+          {
+            member: {
+              equals: memberId,
+            },
+          },
+          {
+            event: {
+              equals: eventId,
+            },
+          },
+        ],
+      },
+      select: {
+        id: true,
+        event: true,
+        member: true,
+      },
+    });
+
+    return result.docs?.[0] || null;
+  },
+);

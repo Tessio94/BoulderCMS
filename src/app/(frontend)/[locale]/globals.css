@@ -193,6 +193,12 @@ input:-webkit-autofill:focus {
   }
 }
 
+@media (width < 640px) {
+  #news:has(span:hover) {
+    border-bottom-right-radius: 25px;
+  }
+}
+
 /*-----------------------prevent blue background----------*/
 .noSelect {
   -webkit-tap-highlight-color: transparent;

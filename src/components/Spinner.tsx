@@ -21,7 +21,7 @@ const Spinner = () => {
 
       return () => window.removeEventListener("load", handleLoad);
     }
-  }, [pathname]);
+  }, [pathname, searchParams]);
 
   return (
     <div className={cn("preloader", showSpinner ? "" : "preloader-hide")}>
