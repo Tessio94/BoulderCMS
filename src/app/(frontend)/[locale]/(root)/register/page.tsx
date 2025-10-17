@@ -117,14 +117,6 @@ function Register() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (formData.password !== formData.repeatPassword) {
-      setErrors((prev) => ({
-        ...prev,
-        repeatPassword: "Passwords do not match",
-      }));
-      return;
-    }
-
     const result = registerSchema.safeParse(formData);
 
     if (!result.success) {
@@ -136,14 +128,22 @@ function Register() {
       return;
     }
 
+    if (formData.password !== formData.repeatPassword) {
+      setErrors((prev) => ({
+        ...prev,
+        repeatPassword: "Passwords do not match",
+      }));
+      return;
+    }
+
     setErrors({});
 
     mutation.mutate(formData);
   };
 
   return (
-    <div className="relative flex h-screen min-h-[1080px] w-full items-center justify-center bg-[url(/homepage/boulder_1920.jpg)] bg-cover bg-no-repeat shadow-2xl shadow-amber-400/40">
-      <div className="mt-[100px] w-[600px] max-w-[90%] rounded-2xl border-t-4 border-t-cyan-900 bg-gradient-to-b from-cyan-900/10 via-cyan-200/60 to-amber-400/50 shadow-2xl shadow-amber-400/40 backdrop-blur-md">
+    <div className="relative flex h-screen min-h-[1080px] w-full items-center justify-center bg-[url(/homepage/boulder_1920.jpg)] bg-cover bg-no-repeat pt-[125px] shadow-2xl shadow-amber-400/40">
+      <div className="w-[600px] max-w-[90%] rounded-2xl border-t-4 border-t-cyan-900 bg-gradient-to-b from-cyan-900/10 via-cyan-200/60 to-amber-400/50 shadow-2xl shadow-amber-400/40 backdrop-blur-md">
         <h5 className="my-text-stroke relative mx-auto mb-16 w-fit pt-7 text-3xl font-extrabold text-cyan-900 after:absolute after:top-[105%] after:left-0 after:h-[5px] after:w-[20%] after:rounded-2xl after:border-[1px] after:border-cyan-900 after:bg-amber-400 after:content-['']">
           {t("heading")}
         </h5>

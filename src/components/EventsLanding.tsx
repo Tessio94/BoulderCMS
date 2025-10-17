@@ -9,7 +9,7 @@ const EventsLanding = ({ event }) => {
   const t = useTranslations("EventsLanding");
 
   return (
-    <div className="relative flex h-screen max-h-screen min-h-[800px] w-full items-center justify-center shadow-2xl shadow-amber-400/40 lg:min-h-[unset]">
+    <div className="relative flex h-screen max-h-screen min-h-[800px] w-full items-center justify-center pt-[125px] shadow-2xl shadow-amber-400/40 lg:min-h-fit">
       <Image
         src="/homepage/boulder_1920.jpg"
         alt="gym boulder"
@@ -17,7 +17,7 @@ const EventsLanding = ({ event }) => {
         className="object-cover object-center"
         sizes="100vw"
       />
-      <div className="z-0 w-[800px] max-w-[90%] sm:mt-15 sm:w-[505px] sm:max-w-[72%] lg:w-[unset]">
+      <div className="z-0 mt-10 mb-10 max-h-[calc(100vh-125px)] w-[800px] max-w-[90%] sm:w-[505px] sm:max-w-[72%] lg:w-[unset]">
         <div className="relative z-10 mb-10 flex flex-col gap-6">
           <motion.h2
             className="bold my-text-stroke2 relative mb-3 text-center text-4xl text-amber-400 text-shadow-cyan-900 text-shadow-lg after:absolute after:top-[calc(100%+10px)] after:left-[50%] after:h-[5px] after:w-[20%] after:translate-x-[-50%] after:rounded-2xl after:border-[1px] after:border-cyan-900 after:bg-amber-400 after:content-[''] sm:text-5xl lg:text-6xl 2xl:text-8xl"
