@@ -6,13 +6,14 @@ import EventsSection from "@/components/EventsSection";
 import { useState } from "react";
 import Image from "next/image";
 
-export const EventsContent = ({ initialEvents }) => {
+export const EventsContent = ({ initialEvents, locale }) => {
   const [filters, setFilters] = useState({
     from: "",
     to: "",
     hall: "",
     term: "",
     sort: "desc",
+    locale,
   });
 
   const { data: events = [], isLoading } = useQuery({
@@ -47,6 +48,7 @@ export const EventsContent = ({ initialEvents }) => {
         events={events}
         filters={filters}
         onChange={(f) => setFilters({ ...filters, ...f })}
+        locale={locale}
       />
     </>
   );

@@ -21,6 +21,7 @@ export const Events: CollectionConfig = {
     {
       name: "title",
       type: "text",
+      localized: true,
       required: true,
     },
     {
@@ -36,6 +37,7 @@ export const Events: CollectionConfig = {
     {
       name: "description",
       type: "text",
+      localized: true,
       // maxLength: 20,
       // admin: {
       // 	description: "Maximum up to 20 words",
@@ -50,6 +52,7 @@ export const Events: CollectionConfig = {
     {
       name: "location",
       type: "text",
+      localized: true,
     },
     {
       type: "tabs",
@@ -64,6 +67,7 @@ export const Events: CollectionConfig = {
             {
               name: "content",
               type: "richText",
+              localized: true,
               editor: lexicalEditor({
                 features: ({ rootFeatures }) => {
                   return [
