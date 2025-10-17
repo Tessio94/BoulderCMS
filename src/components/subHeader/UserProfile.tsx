@@ -7,6 +7,8 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { getUser } from "@/lib/serverFunctions/getUserAction";
 import { TransitionLink } from "../TransitionLink";
+import { toast } from "sonner";
+import Toast from "@/components/sonner/Toast";
 
 type User = {
   id: number;
@@ -59,6 +61,14 @@ const UserProfile = ({ user }: UserProfileProps) => {
       // Clear client state (react-query cache, etc.)
       // queryClient.clear(); // if you are using react-query
       queryClient.invalidateQueries({ queryKey: ["user"] });
+      toast.custom((id) => (
+        <Toast
+          id={id}
+          type="info"
+          title={"You are logged out."}
+          description={"Login back using the login page"}
+        />
+      ));
       router.push("/");
       // Redirect or refresh
     } catch (err) {
@@ -77,12 +87,24 @@ const UserProfile = ({ user }: UserProfileProps) => {
             {`${firstName.slice(0, 1).toUpperCase()}${lastName.slice(0, 1).toUpperCase()}`}
           </div>
           {showProfile && (
-            <div className="absolute top-[100%] right-0 z-20 flex flex-col rounded-xl bg-cyan-900 text-amber-400">
-              <div className="cursor-pointer rounded-t-xl border-2 border-b-[1px] border-amber-400 px-10 py-3 transition-all duration-300 hover:border-cyan-900 hover:border-b-amber-400 hover:bg-amber-400 hover:text-cyan-900">
-                Results
+            <div className="absolute top-[100%] z-20 flex flex-col rounded-xl bg-cyan-900 text-amber-400">
+              <div className="cursor-pointer rounded-t-xl border-2 border-b-[1px] border-amber-400 transition-all duration-300 hover:border-cyan-900 hover:border-b-amber-400 hover:bg-amber-400 hover:text-cyan-900">
+                <TransitionLink
+                  type="i18n"
+                  href="/profile"
+                  className="inline-block px-10 py-3"
+                >
+                  Profile
+                </TransitionLink>
               </div>
-              <div className="cursor-pointer border-2 border-t-[1px] border-b-[1px] border-amber-400 px-10 py-3 transition-all duration-300 hover:border-cyan-900 hover:border-t-amber-400 hover:border-b-amber-400 hover:bg-amber-400 hover:text-cyan-900">
-                Events
+              <div className="cursor-pointer border-2 border-t-[1px] border-b-[1px] border-amber-400 transition-all duration-300 hover:border-cyan-900 hover:border-t-amber-400 hover:border-b-amber-400 hover:bg-amber-400 hover:text-cyan-900">
+                <TransitionLink
+                  type="i18n"
+                  href="/results"
+                  className="inline-block px-10 py-3"
+                >
+                  Results
+                </TransitionLink>
               </div>
               <div
                 onClick={handleLogout}

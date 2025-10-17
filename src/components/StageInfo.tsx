@@ -7,7 +7,7 @@ const StageInfo = ({ setShowStageInfo, stageData }) => {
   const stageImage = stageData[0]?.stageImage;
   console.log("stageData", stageData);
   return (
-    <div className="absolute inset-0 top-[50%] left-[50%] z-50 flex h-[80%] w-[80%] -translate-1/2 flex-col justify-between rounded-xl bg-white p-5">
+    <div className="absolute inset-0 top-[50%] left-[50%] z-50 flex h-[80%] min-w-fit -translate-1/2 flex-col justify-between rounded-xl bg-white px-2 py-5 sm:min-w-[80%] sm:p-5">
       <div>
         <h5 className="mb-4 text-xl text-cyan-900 underline">{stageName}</h5>
         <table className="w-full">

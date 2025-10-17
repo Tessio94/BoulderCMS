@@ -13,6 +13,8 @@ import { IoMdHome } from "react-icons/io";
 import { RiLoginBoxFill } from "react-icons/ri";
 import { getUser } from "@/lib/serverFunctions/getUserAction";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { toast } from "sonner";
+import Toast from "@/components/sonner/Toast";
 
 type User = {
   id: number;
@@ -127,8 +129,17 @@ const Header2 = ({ user }: Header2Props) => {
       // Clear client state (react-query cache, etc.)
       // queryClient.clear(); // if you are using react-query
       queryClient.invalidateQueries({ queryKey: ["user"] });
-      router.push("/");
+      toast.custom((id) => (
+        <Toast
+          id={id}
+          type="info"
+          title={"You are logged out."}
+          description={"Login back using the login page"}
+        />
+      ));
+
       // Redirect or refresh
+      router.push("/");
     } catch (err) {
       console.error(err);
     }

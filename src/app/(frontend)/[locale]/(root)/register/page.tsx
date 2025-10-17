@@ -1,11 +1,11 @@
 "use client";
 
 import { Link } from "@/i18n/navigation";
-import { cn } from "@/lib/utils";
+// import { cn } from "@/lib/utils";
 import { useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
-import { FaFacebook } from "react-icons/fa";
-import { FcGoogle } from "react-icons/fc";
+// import { FaFacebook } from "react-icons/fa";
+// import { FcGoogle } from "react-icons/fc";
 import { MdVisibility, MdVisibilityOff } from "react-icons/md";
 import { useMutation } from "@tanstack/react-query";
 
@@ -47,7 +47,7 @@ function Register() {
     terms: false,
   });
 
-  const locale = useLocale();
+  // const locale = useLocale();
   const t = useTranslations("Register");
 
   const mutation = useMutation({

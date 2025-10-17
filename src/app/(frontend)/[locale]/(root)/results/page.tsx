@@ -22,7 +22,7 @@ const page = async () => {
         <table className="w-full">
           <thead>
             <tr>
-              <th className="p-1 text-start text-sm sm:px-3 sm:py-2 sm:text-lg">
+              <th className="xsm:text-xs p-1 text-start text-sm sm:px-3 sm:py-2 sm:text-lg">
                 Event
               </th>
               <th className="p-1 text-start text-sm sm:px-3 sm:py-2 sm:text-lg">

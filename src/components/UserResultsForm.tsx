@@ -44,18 +44,18 @@ const UserResultsForm = ({ userResult, place }) => {
         className="cursor-pointer bg-white transition-all duration-300 hover:bg-slate-200"
       >
         <tr>
-          <td className="p-1 text-start text-sm sm:px-3 sm:py-2 sm:text-lg">
+          <td className="xsm:text-xs px-1 py-3 text-start text-sm sm:px-3 sm:py-2 sm:text-lg">
             {userResult.eventName}
           </td>
-          <td className="p-1 text-start text-sm sm:px-3 sm:py-2 sm:text-lg">
+          <td className="xsm:text-xs px-1 py-3 text-start text-sm sm:px-3 sm:py-2 sm:text-lg">
             {" "}
             {userResult.categoryName}
           </td>
-          <td className="p-1 text-start text-sm sm:px-3 sm:py-2 sm:text-lg">
+          <td className="xsm:text-xs xsm:text-center px-1 py-3 text-start text-sm sm:px-3 sm:py-2 sm:text-lg">
             {" "}
             {userResult.points}
           </td>
-          <td className="p-1 text-start text-sm sm:px-3 sm:py-2 sm:text-lg">
+          <td className="xsm:text-xs xsm:text-center px-1 py-3 text-start text-sm sm:px-3 sm:py-2 sm:text-lg">
             {place}
           </td>
         </tr>

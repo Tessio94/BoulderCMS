@@ -38,8 +38,8 @@ const ResultsInfo = ({ setShow, data, eventId }: ResultInfoProps) => {
   console.log("eventId2", eventId);
   return (
     <div className="fixed inset-0 backdrop-blur-xs">
-      <div className="bg-cards-dark/50 absolute top-[50%] left-[50%] h-[650px] max-h-[700px] min-h-[60vh] w-[650px] max-w-[90%] translate-x-[-50%] translate-y-[-50%] rounded-xl backdrop-blur-sm">
-        <div className="absolute top-[50%] left-[50%] flex h-[85%] w-[85%] translate-x-[-50%] translate-y-[-50%] flex-col justify-between rounded-xl bg-gray-100 px-5 py-10">
+      <div className="bg-cards-dark/50 xsm:max-w-[95%] absolute top-[50%] left-[50%] h-[650px] max-h-[700px] min-h-[60vh] w-[650px] max-w-[90%] translate-x-[-50%] translate-y-[-50%] rounded-xl backdrop-blur-sm">
+        <div className="xsm:w-[92%] xsm:px-2 absolute top-[50%] left-[50%] flex h-[85%] w-[85%] translate-x-[-50%] translate-y-[-50%] flex-col justify-between rounded-xl bg-gray-100 px-5 py-10">
           <div
             className={cn(
               "absolute inset-0 z-0",
