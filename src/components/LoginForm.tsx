@@ -10,6 +10,7 @@ import { MdVisibility, MdVisibilityOff } from "react-icons/md";
 import { loginAction } from "@/lib/serverFunctions/loginAction";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import { useRouter, useSearchParams } from "next/navigation";
+import { z } from "zod";
 import { toast } from "sonner";
 import Toast from "@/components/sonner/Toast";
 import { useQueryClient } from "@tanstack/react-query";
@@ -25,6 +26,13 @@ type UserProfileProps = {
   user: User | null;
 };
 
+const loginSchema = z
+  .object({
+    email: z.email("Invalid email"),
+    password: z.string().min(1, "Password is required"),
+  })
+  .required();
+
 const LoginForm = ({ user }: UserProfileProps) => {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState<string>("");
@@ -32,8 +40,10 @@ const LoginForm = ({ user }: UserProfileProps) => {
 
   const [loading, setLoading] = useState(false);
 
+  const [errors, setErrors] = useState<Record<string, string>>({});
+
   const t = useTranslations("Login");
-  //   const locale = useLocale();
+
   const router = useRouter();
   const searchParams = useSearchParams();
   const queryClient = useQueryClient();
@@ -43,13 +53,25 @@ const LoginForm = ({ user }: UserProfileProps) => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
 
+    const result = loginSchema.safeParse({ email, password });
+
+    if (!result.success) {
+      const formattedErrors: Record<string, string> = {};
+      result.error.issues.forEach((err) => {
+        if (err.path[0]) formattedErrors[err.path[0].toString()] = err.message;
+      });
+      setErrors(formattedErrors);
+      return;
+    }
+
+    setErrors({});
+
+    setLoading(true);
     try {
       const res = await loginAction({ email, password });
 
       if (res?.user) {
-        console.log("user", res?.user);
         setLoading(false);
         toast.custom((id) => (
           <Toast
@@ -66,8 +88,8 @@ const LoginForm = ({ user }: UserProfileProps) => {
           <Toast
             id={id}
             type="not"
-            title={"Something went wrong."}
-            description={"Please type in correct email and password"}
+            title="Something went wrong."
+            description="Please type in correct email and password"
           />
         ));
       }
@@ -112,7 +134,7 @@ const LoginForm = ({ user }: UserProfileProps) => {
       console.error(err);
     }
   };
-  console.log("login user", user);
+
   return (
     <div className="relative flex h-screen min-h-[1080px] w-full items-center justify-center bg-[url(/homepage/boulder_1920.jpg)] bg-cover bg-no-repeat shadow-2xl shadow-amber-400/40">
       {user ? (
@@ -159,34 +181,43 @@ const LoginForm = ({ user }: UserProfileProps) => {
                   onSubmit={handleSubmit}
                   className="mb-6 flex flex-col gap-5"
                 >
-                  <input
-                    name="email"
-                    type="email"
-                    placeholder={t("email")}
-                    className="input"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
-
-                  <div className="relative">
+                  <div>
                     <input
-                      name="password"
-                      type={showPassword ? "text" : "password"}
-                      placeholder={t("password")}
+                      name="email"
+                      type="email"
+                      placeholder={t("email")}
                       className="input"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
                     />
-                    {showPassword ? (
-                      <MdVisibilityOff
-                        className="icon"
-                        onClick={() => setShowPassword(false)}
+                    {errors.email && (
+                      <p className="mt-1 text-red-600">{errors.email}</p>
+                    )}
+                  </div>
+                  <div>
+                    <div className="relative">
+                      <input
+                        name="password"
+                        type={showPassword ? "text" : "password"}
+                        placeholder={t("password")}
+                        className="input"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
                       />
-                    ) : (
-                      <MdVisibility
-                        className="icon"
-                        onClick={() => setShowPassword(true)}
-                      />
+                      {showPassword ? (
+                        <MdVisibilityOff
+                          className="icon"
+                          onClick={() => setShowPassword(false)}
+                        />
+                      ) : (
+                        <MdVisibility
+                          className="icon"
+                          onClick={() => setShowPassword(true)}
+                        />
+                      )}
+                    </div>
+                    {errors.password && (
+                      <p className="mt-1 text-red-600">{errors.password}</p>
                     )}
                   </div>
 
