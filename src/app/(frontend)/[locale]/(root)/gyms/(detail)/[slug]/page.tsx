@@ -11,13 +11,16 @@ import { TbWorld } from "react-icons/tb";
 import { FaLocationDot } from "react-icons/fa6";
 import { cn } from "@/lib/utils";
 
-const Page = async ({ params }) => {
-  const { slug } = await params;
+const Page = async ({
+  params,
+}: {
+  params: Promise<{ locale: string; slug: string }>;
+}) => {
+  const { locale, slug } = await params;
 
-  const gym = await queryGymsBySlug({ slug });
-  // console.log("slug", slug);
-  console.log("gym", gym);
+  const gym = await queryGymsBySlug({ locale, slug });
 
+  // console.log("gymDetail", gym);
   return (
     <div className="shadow-xl shadow-cyan-500/50 xl:mx-40">
       {/* lg:min-h-[calc(100vh-125px)] - donji div */}
@@ -98,18 +101,44 @@ const Page = async ({ params }) => {
                   Working hours:
                 </p>
                 <div className="mt-2 flex flex-col gap-4">
-                  {gym.workingHours?.map((day, i) => (
-                    <div className="font-nunito flex items-start gap-3" key={i}>
-                      <p className="text-xl font-extrabold text-cyan-900 underline">
-                        {day.days.join(" ")}:
-                      </p>
-                      <p className="text-xl font-extrabold text-cyan-900">
-                        {day.from === 0
-                          ? "Closed"
-                          : `${day.from}:00 - ${day.to}:00`}
-                      </p>
-                    </div>
-                  ))}
+                  {gym.workingHours?.map((day, i) => {
+                    // console.log("dddaay", day.days);
+                    let abbrWeekDay;
+                    const weekDayDE = {
+                      mon: "mo",
+                      tue: "di",
+                      wed: "mi",
+                      thu: "do",
+                      fri: "fr",
+                      sat: "sa",
+                      sun: "so",
+                    };
+
+                    if (locale === "de") {
+                      abbrWeekDay = day.days
+                        .map((day) => weekDayDE[day])
+                        .join(" ");
+                    } else {
+                      abbrWeekDay = day.days.map((day) => day).join(" ");
+                    }
+
+                    return (
+                      <div
+                        className="font-nunito flex items-start gap-3"
+                        key={i}
+                      >
+                        <p className="text-xl font-extrabold text-cyan-900 underline">
+                          {/* {day.days.join(" ")}: */}
+                          {abbrWeekDay}
+                        </p>
+                        <p className="text-xl font-extrabold text-cyan-900">
+                          {day.from === 0
+                            ? "Closed"
+                            : `${day.from}:00 - ${day.to}:00`}
+                        </p>
+                      </div>
+                    );
+                  })}
                 </div>
               </>
             )}
@@ -146,20 +175,23 @@ const Page = async ({ params }) => {
 
 export default Page;
 
-const queryGymsBySlug = cache(async ({ slug }: { slug: string }) => {
-  const payload = await getPayload({ config });
+const queryGymsBySlug = cache(
+  async ({ locale, slug }: { locale: string; slug: string }) => {
+    const payload = await getPayload({ config });
 
-  const result = await payload.find({
-    collection: "gyms",
-    limit: 1,
-    pagination: false,
-    where: {
-      slug: {
-        equals: slug,
+    const result = await payload.find({
+      collection: "gyms",
+      limit: 1,
+      pagination: false,
+      locale: locale,
+      where: {
+        slug: {
+          equals: slug,
+        },
       },
-    },
-    depth: 2,
-  });
+      depth: 2,
+    });
 
-  return result.docs?.[0] || null;
-});
+    return result.docs?.[0] || null;
+  },
+);

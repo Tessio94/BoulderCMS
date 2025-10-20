@@ -52,7 +52,6 @@ export const Events: CollectionConfig = {
     {
       name: "location",
       type: "text",
-      localized: true,
     },
     {
       type: "tabs",

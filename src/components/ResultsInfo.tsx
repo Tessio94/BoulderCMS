@@ -18,7 +18,7 @@ const ResultsInfo = ({ setShow, data, eventId }: ResultInfoProps) => {
   const name = userResult.docs[0].member.fullName;
 
   const handleStageInfo = async (stageId) => {
-    console.log("eventId3", eventId);
+    // console.log("eventId3", eventId);
     try {
       const res = await fetch(
         `/api/stageResults?eventId=${eventId}&stageId=${stageId}`,
@@ -35,7 +35,7 @@ const ResultsInfo = ({ setShow, data, eventId }: ResultInfoProps) => {
       console.error("Failed to fetch user result:", error);
     }
   };
-  console.log("eventId2", eventId);
+  // console.log("eventId2", eventId);
   return (
     <div className="fixed inset-0 backdrop-blur-xs">
       <div className="bg-cards-dark/50 xsm:max-w-[95%] absolute top-[50%] left-[50%] h-[650px] max-h-[700px] min-h-[60vh] w-[650px] max-w-[90%] translate-x-[-50%] translate-y-[-50%] rounded-xl backdrop-blur-sm">

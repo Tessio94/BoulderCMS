@@ -42,6 +42,7 @@ export const Gyms: CollectionConfig = {
     {
       name: "information",
       type: "text",
+      localized: true,
       required: true,
     },
     {
@@ -53,6 +54,7 @@ export const Gyms: CollectionConfig = {
           name: "days",
           type: "select",
           hasMany: true,
+          required: true,
           options: [
             { label: "Mon", value: "mon" },
             { label: "Tue", value: "tue" },
@@ -62,7 +64,6 @@ export const Gyms: CollectionConfig = {
             { label: "Sat", value: "sat" },
             { label: "Sun", value: "sun" },
           ],
-          required: true,
         },
         {
           name: "from",

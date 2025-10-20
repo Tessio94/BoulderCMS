@@ -8,22 +8,24 @@ import GymsResults from "@/components/GymsResults";
 import { FaArrowDownLong } from "react-icons/fa6";
 import { SlMagnifier } from "react-icons/sl";
 
-const GymContent = ({ initialGyms }) => {
+const GymContent = ({ initialGyms, locale }) => {
   const t = useTranslations("Gym");
 
   const [search, setSearch] = useState("");
-  console.log("search", search);
+
   const { data: gyms = [], isLoading } = useQuery({
     queryKey: ["gyms", search],
     queryFn: async () => {
-      const res = await fetch(`/api/gymsRoute?search=${search}`);
+      const res = await fetch(
+        `/api/gymsRoute?search=${search}&locale=${locale}`,
+      );
       const json = await res.json();
       // console.log(json.docs);
       return json.docs;
     },
     initialData: initialGyms,
   });
-  // console.log("gyms", gyms);
+
   return (
     <>
       <div className="relative z-0 flex h-screen max-h-screen min-h-[800px] w-full items-center justify-center overflow-hidden">

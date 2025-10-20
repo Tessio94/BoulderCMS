@@ -8,7 +8,7 @@ import { getTranslations } from "next-intl/server";
 
 const Landing = async () => {
   const user = await getUser();
-  console.log(user);
+  // console.log(user);
   const t = await getTranslations("Landing");
 
   return (

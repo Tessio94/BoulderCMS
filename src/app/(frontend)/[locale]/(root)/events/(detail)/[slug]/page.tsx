@@ -13,9 +13,14 @@ import Image from "next/image";
 import { getPayload } from "payload";
 import { cache } from "react";
 
-const Page = async ({ params }: { params: { slug: string } }) => {
-  const { slug } = await params;
-  const event = await queryEventsBySlug({ slug });
+const Page = async ({
+  params,
+}: {
+  params: Promise<{ locale: string; slug: string }>;
+}) => {
+  const { locale, slug } = await params;
+
+  const event = await queryEventsBySlug({ locale, slug });
 
   const { id: eventId } = event;
 
@@ -169,22 +174,25 @@ const Page = async ({ params }: { params: { slug: string } }) => {
 
 export default Page;
 
-const queryEventsBySlug = cache(async ({ slug }: { slug: string }) => {
-  const payload = await getPayload({ config });
+const queryEventsBySlug = cache(
+  async ({ locale, slug }: { locale: string; slug: string }) => {
+    const payload = await getPayload({ config });
 
-  const result = await payload.find({
-    collection: "events",
-    limit: 1,
-    pagination: false,
-    where: {
-      slug: {
-        equals: slug,
+    const result = await payload.find({
+      collection: "events",
+      limit: 1,
+      pagination: false,
+      locale: locale,
+      where: {
+        slug: {
+          equals: slug,
+        },
       },
-    },
-  });
+    });
 
-  return result.docs?.[0] || null;
-});
+    return result.docs?.[0] || null;
+  },
+);
 
 const queryJoinedInUser = cache(async (eventId: number, memberId: number) => {
   const payload = await getPayload({ config });

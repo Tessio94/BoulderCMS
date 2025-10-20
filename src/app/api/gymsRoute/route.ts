@@ -8,6 +8,7 @@ export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
 
   const search = searchParams.get("search") || "";
+  const locale = searchParams.get("locale") || "en";
 
   const query: { where: Where } = {
     where: {
@@ -17,6 +18,7 @@ export async function GET(req: NextRequest) {
 
   const gyms = await payload.find({
     collection: "gyms",
+    locale,
     ...query,
   });
 

@@ -64,7 +64,7 @@ const registerForEvent = async ({
 };
 
 const getJoinedUser = async (eventId: number, memberId: number) => {
-  console.log(eventId, memberId);
+  // console.log(eventId, memberId);
   const res = await fetch(
     `/api/joinEvent?eventId=${eventId}&memberId=${memberId}`,
   );
@@ -89,7 +89,7 @@ const EventButton = ({
   const { id: eventId, slug, timeframe, category, registration } = event;
 
   const categories = category?.docs ?? [];
-  console.log("categories", categories);
+  // console.log("categories", categories);
 
   const queryClient = useQueryClient();
 
@@ -112,7 +112,7 @@ const EventButton = ({
     queryKey: ["joinedUser", eventId, memberId],
     queryFn: () => {
       if (!memberId) return Promise.resolve(null);
-      console.log(eventId, memberId);
+      // console.log(eventId, memberId);
       return getJoinedUser(eventId, memberId);
     },
     enabled: !!memberId,
@@ -180,7 +180,7 @@ const EventButton = ({
   };
 
   const handleJoinCategory = (categoryId: number) => {
-    console.log("categoryId", categoryId);
+    // console.log("categoryId", categoryId);
     if (memberId && eventId && categoryId) {
       mutation.mutate({ eventId, memberId, categoryId });
     }

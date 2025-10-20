@@ -15,7 +15,7 @@ interface customProps extends ToasterProps {
 
 const Toast = (props: customProps) => {
   const { type, title, description, button, id } = props;
-  console.log(title, description, button, id);
+  // console.log(title, description, button, id);
   return (
     <div
       className={cn(
