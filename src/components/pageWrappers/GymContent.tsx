@@ -37,21 +37,21 @@ const GymContent = ({ initialGyms, locale }) => {
           sizes="100vw"
         />
         <Image
-          className="absolute top-0 right-0 z-0 hidden rounded-bl-[40%] lg:block lg:h-auto lg:object-contain"
+          className="absolute top-0 right-0 z-0 hidden rounded-bl-[40%] border-l-10 border-l-cyan-900 lg:block lg:h-auto lg:object-contain"
           src="/gyms/gyms_1.jpg"
           alt="climber on boulder"
           width={640}
           height={960}
         />
         <Image
-          className="absolute bottom-[-40px] left-0 z-0 hidden max-h-[45%] rounded-tr-[40%] object-cover lg:h-auto xl:block"
+          className="absolute bottom-[-40px] left-0 z-0 hidden max-h-[45%] rounded-tr-[40%] border-r-10 border-r-cyan-900 object-cover lg:h-auto xl:block"
           src="/gyms/gyms_2.jpg"
           alt="climber on boulder"
           width={640}
           height={480}
         />
         <Image
-          className="absolute top-[-40px] left-0 z-0 hidden max-h-[45%] rounded-br-[40%] object-cover lg:h-auto xl:block"
+          className="absolute top-[-40px] left-0 z-0 hidden max-h-[45%] rounded-br-[40%] border-b-10 border-b-cyan-900 object-cover lg:h-auto xl:block"
           src="/gyms/gyms_3.jpg"
           alt="climber on boulder"
           width={640}

@@ -3,13 +3,14 @@ import createNextIntlPlugin from "next-intl/plugin";
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-	// Your Next.js config here
+  // Your Next.js config here
+  output: "standalone",
 };
 
 const withNextIntl = createNextIntlPlugin();
 
 export default withNextIntl(
-	withPayload(nextConfig, {
-		devBundleServerPackages: false,
-	})
+  withPayload(nextConfig, {
+    devBundleServerPackages: false,
+  }),
 );
