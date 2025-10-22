@@ -26,9 +26,11 @@ const GymContent = ({ initialGyms, locale }) => {
     initialData: initialGyms,
   });
 
+  // background-image: radial-gradient(oklch(82.8% .189 84.429), #cefafecc, oklch(39.8% .07 227.392));
+
   return (
     <>
-      <div className="relative z-0 flex h-screen max-h-screen min-h-[800px] w-full items-center justify-center overflow-hidden">
+      <div className="relative z-0 flex h-screen max-h-screen min-h-[800px] w-full items-center justify-center overflow-hidden bg-radial from-amber-400 via-cyan-100 to-cyan-900">
         <Image
           src="/gyms/gyms_1024.jpg"
           alt="climber on boulder"
