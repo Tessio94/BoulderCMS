@@ -2,7 +2,10 @@ version: "3"
 
 services:
   payload:
-    image: node:18-alpine
+    image: payload-boulder
+    build:
+      context: ./
+      dockerfile: Dockerfile
     ports:
       - "3000:3000"
     volumes:
@@ -11,11 +14,11 @@ services:
     working_dir: /home/node/app/
     command: sh -c "corepack enable && corepack prepare pnpm@latest --activate && pnpm install && pnpm dev"
     depends_on:
-      - postgres
+      - db-boulder
     env_file:
       - .env
 
-  postgres:
+  db-boulder:
     restart: always
     image: postgres:latest
     volumes:
