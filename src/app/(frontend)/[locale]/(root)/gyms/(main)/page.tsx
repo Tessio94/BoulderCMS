@@ -1,8 +1,13 @@
 import config from "@payload-config";
 import { getPayload } from "payload";
 import GymContent from "@/components/pageWrappers/GymContent";
+import { LocaleType } from "@/types";
 
-const Gyms = async ({ params }: { params: Promise<{ locale: string }> }) => {
+const Gyms = async ({
+  params,
+}: {
+  params: Promise<{ locale: LocaleType }>;
+}) => {
   const payload = await getPayload({ config });
   const { locale } = await params;
 
@@ -10,7 +15,7 @@ const Gyms = async ({ params }: { params: Promise<{ locale: string }> }) => {
 
   const gyms = await payload.find({
     collection: "gyms",
-    locale: locale,
+    locale,
   });
   // console.log(gyms);
   // console.log(gyms.docs.map((doc) => console.log(doc.workingHours)));

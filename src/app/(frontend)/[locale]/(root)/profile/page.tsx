@@ -47,7 +47,7 @@ const Page = async () => {
 
 export default Page;
 
-const getEventsVisited = async (memberId) => {
+const getEventsVisited = async (memberId: number) => {
   const payload = await getPayload({ config });
 
   const results = await payload.find({

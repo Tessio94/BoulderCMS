@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getPayload } from "payload";
 import config from "@payload-config";
-import { members, results, stages } from "@/payload-generated-schema";
-import { and, eq } from "@payloadcms/db-postgres/drizzle";
+// import { members, results, stages } from "@/payload-generated-schema";
+// import { and, eq } from "@payloadcms/db-postgres/drizzle";
 
 export async function GET(req: NextRequest) {
   try {

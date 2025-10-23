@@ -2,12 +2,13 @@ import React, { cache } from "react";
 import { getPayload } from "payload";
 import config from "@payload-config";
 import ResultsForm from "@/components/ResultsForm";
+import { Category } from "@/payload-types";
 
-const page = async ({ params }: { params: { slug: string } }) => {
+const page = async ({ params }: { params: Promise<{ slug: string }> }) => {
   const { slug } = await params;
   const event = await queryEventsBySlug({ slug });
   const { id: eventId } = event;
-  const categories = event.category?.docs ?? [];
+  const categories = (event.category?.docs as Category[]) ?? [];
 
   // napraviti provjeru sa typeof Category
 
@@ -47,7 +48,7 @@ const queryEventsBySlug = cache(async ({ slug }: { slug: string }) => {
   return result.docs?.[0] || null;
 });
 
-const getAllResult = async (eventId, categoryId) => {
+const getAllResult = async (eventId: any, categoryId: any) => {
   const baseUrl = process.env.NEXT_PUBLIC_URL || "http://localhost:3000";
 
   const res = await fetch(

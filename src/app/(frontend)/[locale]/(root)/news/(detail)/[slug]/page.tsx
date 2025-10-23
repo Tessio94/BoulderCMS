@@ -5,10 +5,13 @@ import config from "@payload-config";
 import Image from "next/image";
 import { RenderHTML } from "@/components/RenderHTML";
 import { EventGallery } from "@/components/EventGallery";
+import { Media, News } from "@/payload-types";
 
-const Page = async ({ params }: { params: { slug: string } }) => {
+const Page = async ({ params }: { params: Promise<{ slug: string }> }) => {
   const { slug } = await params;
-  const post = await queryPostsBySlug({ slug });
+  const post = (await queryPostsBySlug({ slug })) as News;
+  const postHeroImage = post.newsImage as Media;
+  // console.log(post);
 
   return (
     <main className="xsm:px-3 flex min-h-[calc(100vh-187px)] flex-col gap-16 px-6 py-10 pb-20 shadow-xl shadow-cyan-500/50 sm:px-10 lg:px-15 xl:mx-40">
@@ -22,18 +25,20 @@ const Page = async ({ params }: { params: { slug: string } }) => {
           <p className="mb-5 text-2xl text-cyan-900">{post.intro}</p>
           <RenderHTML data={post.content} />
         </div>
-        <div className="3xl:w-[40%] order-0 xl:order-1 xl:w-[45%]">
-          {/* later add placeholder image if this is not added */}
-          <Image
-            src={post.newsImage.url}
-            alt={post.newsImage.alt}
-            width={post.newsImage.width}
-            height={post.newsImage.height}
-            className="mx-auto rounded-xl"
-          />
-        </div>
+        {postHeroImage && (
+          <div className="3xl:w-[40%] order-0 xl:order-1 xl:w-[45%]">
+            {/* later add placeholder image if this is not added */}
+            <Image
+              src={postHeroImage.url || "/image_placeholder.png"}
+              alt={postHeroImage.alt || "Default article image"}
+              width={postHeroImage.width || 1920}
+              height={postHeroImage.height || 1200}
+              className="mx-auto rounded-xl"
+            />
+          </div>
+        )}
       </div>
-      {post.gallery.length > 0 && (
+      {post.gallery && post.gallery.length > 0 && (
         <div className="pb-20">
           <h2 className="my-text-stroke2 mx-10 mb-5 text-2xl font-extrabold text-amber-400">
             Images from past event:

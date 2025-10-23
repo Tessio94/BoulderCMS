@@ -1,15 +1,31 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getPayload } from "payload";
 import config from "@payload-config";
+import { LocaleType } from "@/types";
+
+type queryType = {
+  where: {
+    from?: {
+      greater_than_equal?: string | null;
+      less_than_equal?: string | null;
+    };
+    gym?: { equals: string | null };
+    or?: Array<{
+      title?: { like: string | null };
+      description?: { like: string | null };
+    }>;
+  };
+  sort: "from" | "-from";
+};
 
 export async function GET(req: NextRequest) {
   const payload = await getPayload({ config });
 
   const { searchParams } = new URL(req.url);
 
-  const locale = searchParams.get("locale");
+  const locale = searchParams.get("locale") as LocaleType;
 
-  const query: any = {
+  const query: queryType = {
     where: {},
     sort: searchParams.get("sort") === "asc" ? "from" : "-from",
   };
@@ -26,7 +42,7 @@ export async function GET(req: NextRequest) {
   }
 
   if (searchParams.get("hall")) {
-    console.log(searchParams.get("hall"));
+    // console.log(searchParams.get("hall"));
     query.where.gym = { equals: searchParams.get("hall") };
   }
 
@@ -39,7 +55,7 @@ export async function GET(req: NextRequest) {
 
   const events = await payload.find({
     collection: "events",
-    locale: locale,
+    locale,
     ...query,
   });
 

@@ -2,13 +2,14 @@
 
 import { Link } from "@/i18n/navigation";
 import { useState } from "react";
-import { useLocale, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 import { MdVisibility, MdVisibilityOff } from "react-icons/md";
 import { useMutation } from "@tanstack/react-query";
 import { z } from "zod";
 import { toast } from "sonner";
 import Toast from "@/components/sonner/Toast";
 import { useRouter } from "next/navigation";
+// import { useLocale } from "next-intl";
 // import { cn } from "@/lib/utils";
 // import { FaFacebook } from "react-icons/fa";
 // import { FcGoogle } from "react-icons/fc";
@@ -33,7 +34,9 @@ const registerSchema = z
   })
   .required();
 
-const registerMember = async (formData: any) => {
+type RegisterFormData = z.infer<typeof registerSchema>;
+
+const registerMember = async (formData: RegisterFormData) => {
   const res = await fetch(`/api/members`, {
     method: "POST",
     headers: {
@@ -92,7 +95,7 @@ function Register() {
       ));
       router.push("/login");
     },
-    onError: (error: any) => {
+    onError: (error) => {
       console.error(error.message);
       toast.custom((id) => (
         <Toast
@@ -138,6 +141,7 @@ function Register() {
 
     setErrors({});
 
+    // @ts-expect-error terms is boolean at UI layer, schema requires literal true
     mutation.mutate(formData);
   };
 
@@ -300,7 +304,7 @@ function Register() {
             </div>
 
             <button className="cursor-pointer rounded-2xl border-[2px] border-transparent bg-cyan-900 px-5 py-2 text-cyan-200 transition-all duration-500 hover:border-cyan-900 hover:bg-cyan-200 hover:text-cyan-900">
-              {mutation.isLoading ? "..." : t("register")}
+              {mutation.isPending ? "..." : t("register")}
             </button>
           </form>
 

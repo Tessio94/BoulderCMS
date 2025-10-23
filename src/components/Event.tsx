@@ -1,10 +1,10 @@
 import Image from "next/image";
-import { EventType } from "@/types";
 // import Link from "next/link";
 import { eventDateFormat } from "@/lib/utils";
 import MotionClientWrapper from "./motion/MotionClientWrapper";
 import { cardsVariants } from "@/lib/animation";
 import { TransitionLink } from "./TransitionLink";
+import { EventType } from "@/types";
 
 const Event = ({ title, from, until, description, slug }: EventType) => {
   return (

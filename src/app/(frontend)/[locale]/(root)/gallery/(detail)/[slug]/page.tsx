@@ -4,14 +4,15 @@ import config from "@payload-config";
 import { eventDateFormat } from "@/lib/utils";
 import FancyboxWrapper from "@/components/fancybox/FancyBoxWrapper";
 import MasonryGrid from "@/components/masonry/MasonryWrapper";
+import { Gym } from "@/payload-types";
 
-const Page = async ({ params }) => {
+const Page = async ({ params }: { params: Promise<{ slug: string }> }) => {
   const { slug } = await params;
   console.log(slug);
 
   const event = await queryEventsBySlug({ slug });
-  console.log("event :", event);
-
+  const eventGym = event.gym as Gym;
+  // console.log("event :", event);
   return (
     <main className="xsm:px-3 relative flex min-h-[calc(100vh-187px)] w-full max-w-[1920px] flex-col items-start px-6 pt-3 pb-10 sm:px-10 lg:px-15 xl:px-55">
       <div className="my-15">
@@ -19,7 +20,7 @@ const Page = async ({ params }) => {
           {event.title}
         </h1>
         <p className="text-2xl text-cyan-900">{eventDateFormat(event.from)}</p>
-        <p className="text-2xl text-cyan-900">{event.gym?.location}</p>
+        <p className="text-2xl text-cyan-900">{eventGym.location}</p>
       </div>
 
       <FancyboxWrapper>

@@ -2,7 +2,12 @@ import { NextRequest, NextResponse } from "next/server";
 import { getPayload } from "payload";
 import config from "@payload-config";
 
-import { categories, events, results } from "@/payload-generated-schema";
+import {
+  categories,
+  events,
+  events_locales,
+  results,
+} from "@/payload-generated-schema";
 import { desc, eq, sum } from "@payloadcms/db-postgres/drizzle";
 
 export async function GET(req: NextRequest) {
@@ -21,7 +26,7 @@ export async function GET(req: NextRequest) {
     const totals = await payload.db.drizzle
       .select({
         event: results.event,
-        eventName: events.title,
+        eventName: events_locales.title,
         category: results.category,
         categoryName: categories.name,
         member: results.member,
@@ -29,24 +34,27 @@ export async function GET(req: NextRequest) {
       })
       .from(results)
       .leftJoin(events, eq(results.event, events.id))
+      .leftJoin(events_locales, eq(events.id, events_locales._parentID))
       .leftJoin(categories, eq(results.category, categories.id))
       .where(eq(results.member, memberId))
       .groupBy(
         results.event,
         results.category,
-        events.title,
+        events_locales.title,
         categories.name,
         results.member,
       );
     //   .orderBy(desc(results.createdAt));
+    console.log("totals", totals);
 
     return NextResponse.json({ totals }, { status: 200 });
   } catch (error) {
-    return NextResponse.json(
-      {
-        error: error.message || "Something went wrong",
-      },
-      { status: 5000 },
-    );
+    // return NextResponse.json(
+    //   {
+    //     error: error.message || "Something went wrong",
+    //   },
+    //   { status: 500 },
+    // );
+    console.log(error);
   }
 }

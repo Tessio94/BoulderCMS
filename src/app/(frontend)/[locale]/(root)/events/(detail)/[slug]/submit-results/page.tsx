@@ -3,8 +3,11 @@ import { getPayload } from "payload";
 import config from "@payload-config";
 import SubmitResultsForm from "@/components/SubmitResultsForm";
 import { getUser } from "@/lib/serverFunctions/getUserAction";
+import { joinedMemberType } from "@/types";
+import { Stage } from "@/payload-types";
+// import { Category, Member, Stage } from "@/payload-types";
 
-const page = async ({ params }: { params: { slug: string } }) => {
+const page = async ({ params }: { params: Promise<{ slug: string }> }) => {
   const { slug } = await params;
   const event = await queryEventsBySlug({ slug });
   const { id: eventId } = event;
@@ -16,12 +19,15 @@ const page = async ({ params }: { params: { slug: string } }) => {
   // napraviti ovo da nije conditional u stranicama gdje cemo stavit guard clause (ako je logged in mos uci, ko ne ne mozes i onda ne treba guard clause, druga funkcija)
   if (user) {
     const { id: memberId } = user;
-    joinedUser = await queryJoinedInUser(eventId, memberId);
+    joinedUser = (await queryJoinedInUser(
+      eventId,
+      memberId,
+    )) as joinedMemberType;
   }
 
   const {
     member: { userName },
-  } = joinedUser;
+  } = joinedUser as joinedMemberType;
 
   // console.log("event :", event);
   // avoid getUser being undefined (make another server function if needed)
@@ -35,7 +41,10 @@ const page = async ({ params }: { params: { slug: string } }) => {
         <span className="font-bold underline">{userName}</span> select your
         score for different routes:
       </p>
-      <SubmitResultsForm event={event} joinedUser={joinedUser} />
+      <SubmitResultsForm
+        event={event}
+        joinedUser={joinedUser as joinedMemberType}
+      />
     </main>
   );
 };
@@ -55,12 +64,13 @@ const queryEventsBySlug = cache(async ({ slug }: { slug: string }) => {
       },
     },
   });
-
+  // console.log("result", result);
   const event = result.docs?.[0] || null;
-
-  if (event?.stages?.docs) {
+  const stages = event.stages?.docs as Stage[];
+  // console.log("stageeeeeeeeeees", stages);
+  if (stages) {
     // Sort stages by createdAt ascending
-    event.stages.docs.sort(
+    stages.sort(
       (a, b) =>
         new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime(),
     );

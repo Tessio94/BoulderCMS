@@ -3,6 +3,25 @@ import { getUser } from "@/lib/serverFunctions/getUserAction";
 import { redirect } from "next/navigation";
 import React from "react";
 
+type ResultType = {
+  event: number;
+  eventName: string;
+  category: number;
+  categoryName: string;
+  member: number;
+  points: string;
+};
+
+type StageResultType = {
+  member: number;
+  name: string;
+  points: string;
+};
+
+type DataType = { totals: ResultType[] };
+
+type AllResultsType = { totals: StageResultType[] };
+
 const page = async () => {
   const user = await getUser();
   if (!user) {
@@ -10,7 +29,8 @@ const page = async () => {
   }
 
   const data = await getUserResults(user.id);
-  const { totals: results } = data;
+
+  const { totals: results } = data as DataType;
 
   return (
     <main className="xsm:px-3 flex min-h-[calc(100vh-184px)] flex-col gap-10 px-6 py-10 pb-20 sm:px-10 lg:px-15 xl:mx-40">
@@ -37,10 +57,10 @@ const page = async () => {
             </tr>
           </thead>
           {results?.map(async (userResult, i) => {
-            const allResults = await getAllResult(
+            const allResults = (await getAllResult(
               userResult.event,
               userResult.category,
-            );
+            )) as AllResultsType;
 
             const index = allResults.totals.findIndex(
               (doc) => doc.member === userResult.member,
@@ -59,7 +79,7 @@ const page = async () => {
 
 export default page;
 
-const getUserResults = async (userId) => {
+const getUserResults = async (userId: number) => {
   const baseUrl = process.env.NEXT_PUBLIC_URL || "http://localhost:3000";
 
   const res = await fetch(`${baseUrl}/api/userProfile?memberId=${userId}`);
@@ -69,7 +89,7 @@ const getUserResults = async (userId) => {
   return results;
 };
 
-const getAllResult = async (eventId, categoryId) => {
+const getAllResult = async (eventId: number, categoryId: number) => {
   const baseUrl = process.env.NEXT_PUBLIC_URL || "http://localhost:3000";
 
   const res = await fetch(

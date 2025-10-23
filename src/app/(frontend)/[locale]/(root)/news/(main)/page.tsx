@@ -4,16 +4,20 @@ import React from "react";
 import NewsPost from "@/components/NewsPost";
 import { TransitionLink } from "@/components/TransitionLink";
 
-const Page = async ({ searchParams }: { searchParams: { page?: string } }) => {
+const Page = async ({
+  searchParams,
+}: {
+  searchParams: Promise<{ page?: string }>;
+}) => {
   const sParam = await searchParams;
-  console.log("sParam", sParam);
+  // console.log("sParam", sParam);
   const currentPage = parseInt(sParam.page || "1", 10);
   const limit = 4;
 
   const { news, totalPages } = await getAllNews(currentPage, limit);
 
-  console.log(news);
-  console.log("totalPages", totalPages);
+  // console.log(news);
+  // console.log("totalPages", totalPages);
   return (
     <main className="min-h-[calc(100vh-620px)] px-[20px] py-3 pt-[125px] sm:px-[50px] lg:px-[60px] xl:min-h-[calc(100vh-403px)] 2xl:px-[160px]">
       <div className="pt-15 pb-10">

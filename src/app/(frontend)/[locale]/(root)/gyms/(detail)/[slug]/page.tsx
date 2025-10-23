@@ -10,15 +10,18 @@ import { IoMdMail } from "react-icons/io";
 import { TbWorld } from "react-icons/tb";
 import { FaLocationDot } from "react-icons/fa6";
 import { cn } from "@/lib/utils";
+import { Event as EventType, Media } from "@/payload-types";
+import { LocaleType } from "@/types";
 
 const Page = async ({
   params,
 }: {
-  params: Promise<{ locale: string; slug: string }>;
+  params: Promise<{ locale: LocaleType; slug: string }>;
 }) => {
   const { locale, slug } = await params;
 
   const gym = await queryGymsBySlug({ locale, slug });
+  const gymHeroImage = gym.heroImage as Media;
 
   // console.log("gymDetail", gym);
   return (
@@ -28,10 +31,9 @@ const Page = async ({
         <div
           className="absolute inset-0 z-0 scale-110 blur-sm"
           style={{
-            backgroundImage:
-              typeof gym.heroImage === "object" && gym.heroImage?.url
-                ? `url(${gym.heroImage.url})`
-                : "url('/homepage/gallery.jpg')",
+            backgroundImage: gymHeroImage.url
+              ? `url(${gymHeroImage.url})`
+              : "url('/homepage/gallery.jpg')",
             backgroundSize: "cover",
             backgroundPosition: "center",
           }}
@@ -39,24 +41,23 @@ const Page = async ({
         <div
           className={cn(
             "z-10 w-fit",
-            gym.heroImage.backgroundColor
-              ? `${gym.heroImage.backgroundColor}`
+            gymHeroImage.backgroundColor
+              ? `${gymHeroImage.backgroundColor}`
               : "bg-white",
           )}
         >
           <Image
             className="z-10 max-h-[600px] w-fit shadow-[0px_0px_15px_15px_#859ca3] ring-4"
             style={{
-              aspectRatio: gym.heroImage.width / gym.heroImage.height,
+              aspectRatio:
+                gymHeroImage.width && gymHeroImage.height
+                  ? gymHeroImage.width / gymHeroImage.height
+                  : 16 / 9,
             }}
-            src={
-              typeof gym.heroImage === "object" && gym.heroImage?.url
-                ? gym.heroImage.url
-                : "/homepage/gallery.jpg"
-            }
-            alt={gym.name}
-            width={gym.heroImage.width}
-            height={gym.heroImage.height}
+            src={gymHeroImage.url || "/homepage/gallery.jpg"}
+            alt={gymHeroImage.alt || "Boulder gym poster"}
+            width={gymHeroImage.width || 1200}
+            height={gymHeroImage.height || 456}
           />
         </div>
       </div>
@@ -150,7 +151,18 @@ const Page = async ({
             {gym.relatedEvents?.docs && gym.relatedEvents?.docs.length > 0 && (
               <motion.ul className="mb-[50px] flex flex-col gap-12 md:mb-[80px]">
                 {gym.relatedEvents.docs.map((event, index) => {
-                  return <Event key={index} {...event} />;
+                  console.log("eventsaaah", event);
+                  const relatedEvent = event as EventType;
+                  return (
+                    <Event
+                      key={index}
+                      title={relatedEvent.title}
+                      description={relatedEvent.description}
+                      from={relatedEvent.from}
+                      until={relatedEvent.until}
+                      slug={relatedEvent.slug}
+                    />
+                  );
                 })}
               </motion.ul>
             )}
@@ -176,14 +188,14 @@ const Page = async ({
 export default Page;
 
 const queryGymsBySlug = cache(
-  async ({ locale, slug }: { locale: string; slug: string }) => {
+  async ({ locale, slug }: { locale: LocaleType; slug: string }) => {
     const payload = await getPayload({ config });
 
     const result = await payload.find({
       collection: "gyms",
       limit: 1,
       pagination: false,
-      locale: locale,
+      locale,
       where: {
         slug: {
           equals: slug,

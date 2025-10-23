@@ -12,6 +12,8 @@ import Image from "next/image";
 // import Link from "next/link";
 import { getPayload } from "payload";
 import { cache } from "react";
+import { Gym, Media } from "@/payload-types";
+import { LocaleType } from "@/types";
 
 const Page = async ({
   params,
@@ -21,8 +23,12 @@ const Page = async ({
   const { locale, slug } = await params;
 
   const event = await queryEventsBySlug({ locale, slug });
-
+  console.log(event);
   const { id: eventId } = event;
+
+  const eventHeroImage = event.heroImage as Media;
+  const eventGym = event.gym as Gym;
+  console.log("imageee", eventHeroImage);
 
   const user = await getUser();
 
@@ -50,10 +56,9 @@ const Page = async ({
         <div
           className="absolute inset-0 z-0 scale-110 blur-sm"
           style={{
-            backgroundImage:
-              typeof event.heroImage === "object" && event.heroImage?.url
-                ? `url(${event.heroImage.url})`
-                : "url('/homepage/gallery.jpg')",
+            backgroundImage: eventHeroImage.url
+              ? `url(${eventHeroImage.url})`
+              : "url('/homepage/gallery.jpg')",
             backgroundSize: "cover",
             backgroundPosition: "center",
           }}
@@ -61,24 +66,23 @@ const Page = async ({
         <div
           className={cn(
             "z-10 w-fit",
-            event.heroImage.backgroundColor
-              ? `${event.heroImage.backgroundColor}`
+            eventHeroImage.backgroundColor
+              ? `${eventHeroImage.backgroundColor}`
               : "bg-white",
           )}
         >
           <Image
             className="z-10 max-h-[600px] w-fit object-contain shadow-[0px_0px_15px_15px_#859ca3] ring-4"
             style={{
-              aspectRatio: event.heroImage.width / event.heroImage.height,
+              aspectRatio:
+                eventHeroImage.width && eventHeroImage.height
+                  ? eventHeroImage.width / eventHeroImage.height
+                  : 16 / 9,
             }}
-            src={
-              typeof event.heroImage === "object" && event.heroImage?.url
-                ? event.heroImage.url
-                : "/homepage/gallery.jpg"
-            }
-            alt={event.title}
-            width={event.heroImage.width}
-            height={event.heroImage.height}
+            src={eventHeroImage.url || "/homepage/gallery.jpg"}
+            alt={eventHeroImage.alt || "Boulder event poster"}
+            width={eventHeroImage.width || 1200}
+            height={eventHeroImage.height || 456}
           />
         </div>
       </div>
@@ -94,10 +98,10 @@ const Page = async ({
             <div className="mt-4 flex items-center gap-2">
               <p className="my-text-stroke2 text-xl">Location: </p>
               <TransitionLink
-                href={`/gyms/${event.gym.slug}`}
+                href={`/gyms/${eventGym.slug}`}
                 className="my-text-stroke2 relative text-xl font-extrabold text-amber-400 text-shadow-cyan-900 text-shadow-lg after:absolute after:top-[100%] after:left-0 after:h-[3px] after:w-[100%] after:rounded-2xl after:border-[1px] after:border-cyan-900 after:bg-amber-400 after:transition-all after:duration-300 after:content-[''] hover:after:bg-cyan-900"
               >
-                {event.gym.name}
+                {eventGym.name}
               </TransitionLink>
             </div>
             <p className="my-text-stroke2 mt-10 text-2xl">
@@ -158,7 +162,7 @@ const Page = async ({
           </div>
         </div>
       </main>
-      {event.gallery.length > 0 && (
+      {event.gallery && event.gallery.length > 0 && (
         <div className="xsm:px-3 px-6 pb-20 sm:px-10 lg:px-15">
           <h2 className="my-text-stroke2 mx-10 mb-5 text-2xl font-extrabold text-amber-400">
             Images from past event:
@@ -182,7 +186,7 @@ const queryEventsBySlug = cache(
       collection: "events",
       limit: 1,
       pagination: false,
-      locale: locale,
+      locale: locale as LocaleType,
       where: {
         slug: {
           equals: slug,

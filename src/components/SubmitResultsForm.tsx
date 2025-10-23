@@ -6,12 +6,13 @@ import { useQuery } from "@tanstack/react-query";
 import React, { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import Toast from "./sonner/Toast";
-import { Event, EventRegistration } from "@/payload-types";
+import { Event, EventRegistration, Stage } from "@/payload-types";
 import FrontendPagination from "./FrontendPagination";
+import { joinedMemberType } from "@/types";
 
 type SubmitResultsFormTypes = {
   event: Event;
-  joinedUser: EventRegistration | undefined;
+  joinedUser: joinedMemberType;
 };
 
 const STAGES_PER_PAGE = 5;
@@ -19,7 +20,7 @@ const STAGES_PER_PAGE = 5;
 const SubmitResultsForm = ({ event, joinedUser }: SubmitResultsFormTypes) => {
   const [page, setPage] = useState(1);
   const [scores, setScores] = useState<Record<string, number>>({});
-  const [achievedGoals, setAchievedGoals] = useState<Record<string, number[]>>(
+  const [achievedGoals, setAchievedGoals] = useState<Record<string, string[]>>(
     {},
   );
   const [user, setUser] = useState(null);
@@ -33,7 +34,7 @@ const SubmitResultsForm = ({ event, joinedUser }: SubmitResultsFormTypes) => {
 
   const { id: eventId, stages } = event;
 
-  const stagesList = stages?.docs || [];
+  const stagesList = (stages?.docs as Stage[]) || [];
 
   const totalPages = Math.ceil(stagesList.length / STAGES_PER_PAGE);
   const startIndex = (page - 1) * STAGES_PER_PAGE;
@@ -127,7 +128,7 @@ const SubmitResultsForm = ({ event, joinedUser }: SubmitResultsFormTypes) => {
   );
 
   // console.log("stages", stages);
-  // console.log("achievedGoals", achievedGoals);
+  console.log("achievedGoals", achievedGoals);
   return (
     <div
       className="xsm:w-full flex w-[90%] flex-col gap-10 rounded-xl border-1 border-cyan-900 px-2 py-5 shadow-xl shadow-cyan-900 sm:w-[85%] sm:px-5 sm:py-10 md:mr-auto md:w-[80%] lg:w-[75%] xl:w-[70%] 2xl:w-[60%]"
@@ -161,14 +162,15 @@ const SubmitResultsForm = ({ event, joinedUser }: SubmitResultsFormTypes) => {
                     </th>
                   </tr>
                 </thead>
-                {stage.goals.map((goal, i) => {
+                {stage.goals?.map((goal, i) => {
                   // console.log("goal", goal);
+                  const goalId = goal.id as string;
                   return (
                     <tbody key={i}>
                       <tr
                         className={cn(
                           "cursor-pointer transition-all duration-300",
-                          achievedGoals[stage.id]?.includes(goal.id)
+                          achievedGoals[stage.id]?.includes(goalId)
                             ? "bg-green-200"
                             : "hover:bg-gray-200",
                         )}

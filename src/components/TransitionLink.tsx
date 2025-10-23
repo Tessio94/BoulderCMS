@@ -11,6 +11,7 @@ interface TransitionLinkProps extends LinkProps {
   type?: string;
   children: ReactNode;
   href: string;
+  className: string;
 }
 
 type PathKey = "home" | "events" | "gyms" | "gallery" | "login" | "register";

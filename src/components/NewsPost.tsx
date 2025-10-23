@@ -3,13 +3,15 @@ import { TransitionLink } from "./TransitionLink";
 import Image from "next/image";
 import { eventDateFormat } from "@/lib/utils";
 import { FaArrowRight } from "react-icons/fa6";
-import { News } from "@/payload-types";
+import { Media, News } from "@/payload-types";
 
 type NewsPostProps = {
   post: News;
 };
 
 const NewsPost = ({ post }: NewsPostProps) => {
+  const postHeroImage = post.newsImage as Media;
+
   return (
     <div className="group shadow-cards-dark overflow-hidden rounded-2xl shadow-lg lg:w-[45%] 2xl:w-[40%]">
       <TransitionLink
@@ -18,13 +20,13 @@ const NewsPost = ({ post }: NewsPostProps) => {
         className="flex h-full flex-col"
       >
         <div className="overflow-hidden">
-          {post.newsImage ? (
+          {postHeroImage ? (
             <Image
               className="h-[300px] w-full max-w-full object-cover object-center transition-all duration-300 group-hover:scale-105"
-              src={post.newsImage?.url}
-              alt={post.newsImage?.alt}
-              width={post.newsImage?.width}
-              height={post.newsImage?.height}
+              src={postHeroImage.url || "/image_placeholder.png"}
+              alt={postHeroImage.alt}
+              width={postHeroImage.width || 200}
+              height={postHeroImage.height || 200}
             />
           ) : (
             <div className="bg-cards-dark/30 flex h-[300px] w-full items-center justify-center">
