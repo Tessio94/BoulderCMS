@@ -2,12 +2,13 @@
 
 import { useTranslations } from "next-intl";
 import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 // import { Link } from "@/i18n/navigation";
 import { TransitionLink } from "./TransitionLink";
 import { usePathname } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import { getUser } from "@/lib/serverFunctions/getUserAction";
+import { cn } from "@/lib/utils";
 
 const LoginBanner = () => {
   const t = useTranslations("LoginBanner");
@@ -32,6 +33,14 @@ const LoginBanner = () => {
   if (data && !isLoading) {
     ({ userName } = data);
   }
+
+  function useHasMounted() {
+    const [mounted, setMounted] = useState(false);
+    useEffect(() => setMounted(true), []);
+    return mounted;
+  }
+
+  const mounted = useHasMounted();
 
   return (
     <div className="relative flex h-[800px] w-full items-center justify-center overflow-hidden bg-[url('/homepage/boulder_1920.jpg')]">
@@ -60,15 +69,21 @@ const LoginBanner = () => {
               : "hidden"
           }
         >
-          <TransitionLink
-            type="i18n"
-            href="/register"
-            className="b-cyan-900 group xsm:px-2 cursor-pointer rounded-lg border-2 border-cyan-900 bg-amber-400 px-4 py-2 text-cyan-900 transition-all duration-500 hover:border-amber-400 hover:bg-cyan-900 hover:text-amber-400 focus:border-amber-400 focus:bg-cyan-900 focus:text-amber-400 active:border-amber-400 active:bg-cyan-900 active:text-amber-400"
-          >
-            <span className="xsm:text-lg relative text-xl after:absolute after:top-[100%] after:left-0 after:h-0.5 after:w-0 after:bg-amber-400 after:transition-all after:duration-500 after:content-[''] group-hover:after:w-full group-focus:after:w-full group-active:after:w-full sm:text-2xl">
-              {userName ? t("results") : t("button1")}
-            </span>
-          </TransitionLink>
+          {mounted && (
+            <TransitionLink
+              type="i18n"
+              href={cn(userName ? "/results" : "/register")}
+              className="b-cyan-900 group xsm:px-2 cursor-pointer rounded-lg border-2 border-cyan-900 bg-amber-400 px-4 py-2 text-cyan-900 transition-all duration-500 hover:border-amber-400 hover:bg-cyan-900 hover:text-amber-400 focus:border-amber-400 focus:bg-cyan-900 focus:text-amber-400 active:border-amber-400 active:bg-cyan-900 active:text-amber-400"
+            >
+              <span className="xsm:text-lg relative text-xl after:absolute after:top-[100%] after:left-0 after:h-0.5 after:w-0 after:bg-amber-400 after:transition-all after:duration-500 after:content-[''] group-hover:after:w-full group-focus:after:w-full group-active:after:w-full sm:text-2xl">
+                {isLoading
+                  ? t("button1")
+                  : userName
+                    ? t("results")
+                    : t("button1")}
+              </span>
+            </TransitionLink>
+          )}
           <TransitionLink
             type="i18n"
             href="/events"
