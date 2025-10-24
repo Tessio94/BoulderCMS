@@ -29,7 +29,7 @@ type Header2Props = {
 
 const Header2 = ({ user }: Header2Props) => {
   const [scrolled, setScrolled] = useState(false);
-  const [_, setHambActive] = useState(false);
+  const [hambActive, setHambActive] = useState(false);
   const [showSidebar, setShowSidebar] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
 

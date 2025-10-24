@@ -4,11 +4,23 @@ import React, { useEffect, useState } from "react";
 import ResultsInfo from "./ResultsInfo";
 import { createPortal } from "react-dom";
 
-const UserResultsForm = ({ userResult, place }) => {
-  const [showResultInfo, setShowResultInfo] = useState(false);
-  const [userData, setUserData] = useState(null);
+interface UserResultsFormProps {
+  userResult: {
+    event: number;
+    eventName: string;
+    category: number;
+    categoryName: string;
+    member: number;
+    points: string;
+  };
+  place: number | string;
+}
 
-  const handleUserResult = async (eventId, memberId) => {
+const UserResultsForm = ({ userResult, place }: UserResultsFormProps) => {
+  const [showResultInfo, setShowResultInfo] = useState(false);
+  const [userData, setUserData] = useState([]);
+
+  const handleUserResult = async (eventId: number, memberId: number) => {
     try {
       const res = await fetch(
         `/api/userResults?eventId=${eventId}&memberId=${memberId}`,
@@ -18,7 +30,8 @@ const UserResultsForm = ({ userResult, place }) => {
 
       const data = await res.json();
 
-      setUserData(data);
+      const { userResult } = data;
+      setUserData(userResult);
       setShowResultInfo((prev) => !prev);
     } catch (error) {
       console.error("Failed to fetch user result:", error);

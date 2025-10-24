@@ -8,12 +8,19 @@ import {
   events_locales,
   results,
 } from "@/payload-generated-schema";
-import { eq, sum } from "@payloadcms/db-postgres/drizzle";
+import { eq, sum, and } from "@payloadcms/db-postgres/drizzle";
+import { LocaleType } from "@/types";
 
 export async function GET(req: NextRequest) {
   try {
-    const url = new URL(req.url);
-    const memberIdParam = url.searchParams.get("memberId");
+    const { searchParams } = new URL(req.url);
+    const memberIdParam = searchParams.get("memberId");
+    const localeParam = searchParams.get("locale");
+
+    if (localeParam !== "en" && localeParam !== "de") {
+      throw new Error("Invalid locale");
+    }
+    const locale: LocaleType = localeParam;
 
     if (!memberIdParam) {
       return NextResponse.json({ error: "Missing user id" }, { status: 400 });
@@ -36,7 +43,9 @@ export async function GET(req: NextRequest) {
       .leftJoin(events, eq(results.event, events.id))
       .leftJoin(events_locales, eq(events.id, events_locales._parentID))
       .leftJoin(categories, eq(results.category, categories.id))
-      .where(eq(results.member, memberId))
+      .where(
+        and(eq(results.member, memberId), eq(events_locales._locale, locale)),
+      )
       .groupBy(
         results.event,
         results.category,
@@ -44,8 +53,6 @@ export async function GET(req: NextRequest) {
         categories.name,
         results.member,
       );
-    //   .orderBy(desc(results.createdAt));
-    // console.log("totals", totals);
 
     return NextResponse.json({ totals }, { status: 200 });
   } catch (error) {

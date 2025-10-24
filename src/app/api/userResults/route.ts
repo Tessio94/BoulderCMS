@@ -22,7 +22,7 @@ export async function GET(req: NextRequest) {
     const memberId = Number(memberIdParam);
 
     const payload = await getPayload({ config });
-    const userResult = await payload.find({
+    const result = await payload.find({
       collection: "results",
       where: {
         and: [
@@ -49,6 +49,8 @@ export async function GET(req: NextRequest) {
       depth: 1,
       sort: "createdAt",
     });
+
+    const userResult = result.docs;
 
     return NextResponse.json({ userResult }, { status: 200 });
   } catch (error) {

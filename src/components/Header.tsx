@@ -14,7 +14,7 @@ import { RiLoginBoxFill } from "react-icons/ri";
 
 const Header = () => {
   const [scrolled, setScrolled] = useState(false);
-  const [_, setHambActive] = useState(false);
+  const [hambActive, setHambActive] = useState(false);
   const [showSidebar, setShowSidebar] = useState(false);
 
   const pathname = usePathname();

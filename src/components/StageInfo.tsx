@@ -1,11 +1,28 @@
+import { Media } from "@/payload-types";
 import Image from "next/image";
 import React from "react";
 
-const StageInfo = ({ setShowStageInfo, stageData }) => {
+type stageDataType = {
+  achievedCount: string;
+  baseScore: number;
+  coefficient: number;
+  id: string;
+  name: string;
+  stageImage?: Media;
+  stageLocation?: string;
+  stageName: string;
+};
+
+interface StageInfoProps {
+  setShowStageInfo: React.Dispatch<React.SetStateAction<boolean>>;
+  stageData: stageDataType[];
+}
+
+const StageInfo = ({ setShowStageInfo, stageData }: StageInfoProps) => {
   const stageName = stageData[0]?.stageName;
   const stageLocation = stageData[0]?.stageLocation;
-  const stageImage = stageData[0]?.stageImage;
-  console.log("stageData", stageData);
+  const stageImage = stageData[0]?.stageImage?.url;
+
   return (
     <div className="absolute inset-0 top-[50%] left-[50%] z-50 flex h-[80%] min-w-fit -translate-1/2 flex-col justify-between rounded-xl bg-white px-2 py-5 sm:min-w-[80%] sm:p-5">
       <div>

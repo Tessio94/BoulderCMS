@@ -7,13 +7,20 @@ import { useTranslations } from "next-intl";
 import GymsResults from "@/components/GymsResults";
 import { FaArrowDownLong } from "react-icons/fa6";
 import { SlMagnifier } from "react-icons/sl";
+import { Gym } from "@/payload-types";
+import { LocaleType } from "@/types";
 
-const GymContent = ({ initialGyms, locale }) => {
+interface GymContentProps {
+  initialGyms: Gym[];
+  locale: LocaleType;
+}
+
+const GymContent = ({ initialGyms, locale }: GymContentProps) => {
   const t = useTranslations("Gym");
 
   const [search, setSearch] = useState("");
 
-  const { data: gyms = [], isLoading } = useQuery({
+  const { data: gyms = [] } = useQuery({
     queryKey: ["gyms", search],
     queryFn: async () => {
       const res = await fetch(

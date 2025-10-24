@@ -3,21 +3,30 @@
 import { cn } from "@/lib/utils";
 import React, { useState } from "react";
 import StageInfo from "./StageInfo";
+import { Member, Stage } from "@/payload-types";
+
+type dataProps = {
+  createdAt: string;
+  goal: string;
+  id: number;
+  member: Member;
+  points: number;
+  stage: Stage;
+};
 
 type ResultInfoProps = {
   setShow: React.Dispatch<React.SetStateAction<boolean>>;
-  data: any;
-  eventId: string;
+  data: dataProps[];
+  eventId: number;
 };
 
 const ResultsInfo = ({ setShow, data, eventId }: ResultInfoProps) => {
   const [showStageInfo, setShowStageInfo] = useState(false);
-  const [stageData, setStageData] = useState(null);
-  // console.log(data);
-  const { userResult } = data;
-  const name = userResult.docs[0].member.fullName;
+  const [stageData, setStageData] = useState([]);
 
-  const handleStageInfo = async (stageId) => {
+  const name = data[0].member.fullName;
+
+  const handleStageInfo = async (stageId: number) => {
     // console.log("eventId3", eventId);
     try {
       const res = await fetch(
@@ -35,7 +44,7 @@ const ResultsInfo = ({ setShow, data, eventId }: ResultInfoProps) => {
       console.error("Failed to fetch user result:", error);
     }
   };
-  // console.log("eventId2", eventId);
+
   return (
     <div className="fixed inset-0 backdrop-blur-xs">
       <div className="bg-cards-dark/50 xsm:max-w-[95%] absolute top-[50%] left-[50%] h-[650px] max-h-[700px] min-h-[60vh] w-[650px] max-w-[90%] translate-x-[-50%] translate-y-[-50%] rounded-xl backdrop-blur-sm">
@@ -60,11 +69,11 @@ const ResultsInfo = ({ setShow, data, eventId }: ResultInfoProps) => {
                   </tr>
                 </thead>
                 <tbody>
-                  {userResult.docs.map((result, i) => {
-                    const matchedGoal = result.stage.goals.find(
+                  {data.map((result, i) => {
+                    const matchedGoal = result.stage.goals?.find(
                       (goal) => goal.id === result.goal,
                     );
-                    // console.log(matchedGoal);
+
                     return (
                       <tr
                         key={i}
@@ -75,7 +84,9 @@ const ResultsInfo = ({ setShow, data, eventId }: ResultInfoProps) => {
                         onClick={() => handleStageInfo(result.stage.id)}
                       >
                         <td className="py-1 text-start">{result.stage.name}</td>
-                        <td className="text-start">{matchedGoal.name}</td>
+                        <td className="text-start">
+                          {matchedGoal?.name ?? "N/A"}
+                        </td>
                         <td className="w-[15%] text-center">{result.points}</td>
                       </tr>
                     );

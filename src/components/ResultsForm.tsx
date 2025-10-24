@@ -18,7 +18,13 @@ type ResultProps = {
   categories: Category[];
 };
 
-const getAllResult = async ({ eventId, categoryId }) => {
+const getAllResult = async ({
+  eventId,
+  categoryId,
+}: {
+  eventId: number;
+  categoryId: number;
+}) => {
   const res = await fetch(
     `/api/usersResults?eventId=${eventId}&categoryId=${categoryId}`,
   );
@@ -71,7 +77,7 @@ const ResultsForm = ({ event, eventResults, categories }: ResultProps) => {
     },
   });
 
-  const handleUserResult = async (memberId) => {
+  const handleUserResult = async (memberId: number) => {
     try {
       const res = await fetch(
         `/api/userResults?eventId=${eventId}&memberId=${memberId}`,
@@ -100,7 +106,8 @@ const ResultsForm = ({ event, eventResults, categories }: ResultProps) => {
     };
   }, [showResultInfo]);
 
-  const handleCategoryResults = (categoryId) => {
+  const handleCategoryResults = (categoryId: number, categoryName: string) => {
+    console.log(categoryName);
     mutation.mutate({ eventId, categoryId });
     // setCategoryHeading(categoryName);
     setShowCategories((prev) => !prev);

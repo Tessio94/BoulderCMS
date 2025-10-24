@@ -1,5 +1,6 @@
 import UserResultsForm from "@/components/UserResultsForm";
 import { getUser } from "@/lib/serverFunctions/getUserAction";
+import { LocaleType } from "@/types";
 import { redirect } from "next/navigation";
 import React from "react";
 
@@ -22,13 +23,19 @@ type DataType = { totals: ResultType[] };
 
 type AllResultsType = { totals: StageResultType[] };
 
-const page = async () => {
+const page = async ({
+  params,
+}: {
+  params: Promise<{ locale: LocaleType }>;
+}) => {
+  const { locale } = await params;
+
   const user = await getUser();
   if (!user) {
     redirect("/");
   }
 
-  const data = await getUserResults(user.id);
+  const data = await getUserResults(user.id, locale);
 
   const { totals: results } = data as DataType;
 
@@ -56,7 +63,7 @@ const page = async () => {
               </th>
             </tr>
           </thead>
-          {results?.map(async (userResult, i) => {
+          {results.map(async (userResult, i) => {
             const allResults = (await getAllResult(
               userResult.event,
               userResult.category,
@@ -67,6 +74,7 @@ const page = async () => {
             );
 
             const place = index >= 0 ? index + 1 : "N/A";
+
             return (
               <UserResultsForm key={i} userResult={userResult} place={place} />
             );
@@ -79,10 +87,12 @@ const page = async () => {
 
 export default page;
 
-const getUserResults = async (userId: number) => {
+const getUserResults = async (userId: number, locale: LocaleType) => {
   const baseUrl = process.env.NEXT_PUBLIC_URL || "http://localhost:3000";
 
-  const res = await fetch(`${baseUrl}/api/userProfile?memberId=${userId}`);
+  const res = await fetch(
+    `${baseUrl}/api/userProfile?memberId=${userId}&locale=${locale}`,
+  );
 
   const results = await res.json();
 
