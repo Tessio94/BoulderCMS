@@ -4,9 +4,10 @@ import { eventDateFormat } from "@/lib/utils";
 import MotionClientWrapper from "./motion/MotionClientWrapper";
 import { cardsVariants } from "@/lib/animation";
 import { TransitionLink } from "./TransitionLink";
-import { EventType } from "@/types";
+// import { EventType } from "@/types";
+import { Event } from "@/payload-types";
 
-const Event = ({ title, from, until, description, slug }: EventType) => {
+const EventCard = ({ title, from, until, description, slug }: Event) => {
   return (
     <MotionClientWrapper
       type="li"
@@ -41,4 +42,4 @@ const Event = ({ title, from, until, description, slug }: EventType) => {
   );
 };
 
-export default Event;
+export default EventCard;

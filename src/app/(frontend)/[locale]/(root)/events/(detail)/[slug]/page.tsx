@@ -23,12 +23,12 @@ const Page = async ({
   const { locale, slug } = await params;
 
   const event = await queryEventsBySlug({ locale, slug });
-  console.log(event);
+  // console.log(event);
   const { id: eventId } = event;
 
   const eventHeroImage = event.heroImage as Media;
   const eventGym = event.gym as Gym;
-  console.log("imageee", eventHeroImage);
+  // console.log("imageee", eventHeroImage);
 
   const user = await getUser();
 

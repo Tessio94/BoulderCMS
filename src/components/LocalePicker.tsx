@@ -32,7 +32,7 @@ const LocalePicker = ({ type }: { type: string }) => {
 
   const otherLocales = useMemo(
     () => languages.filter((l) => l !== currentLocale),
-    [currentLocale],
+    [currentLocale, languages],
   );
 
   return (

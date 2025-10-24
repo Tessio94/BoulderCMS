@@ -1,4 +1,4 @@
-import { delay, easeInOut, easeOut } from "motion";
+import { easeInOut } from "motion";
 
 export const containerVariants = (delayChildren = 0) => ({
   // initial state

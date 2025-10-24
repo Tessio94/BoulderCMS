@@ -8,7 +8,7 @@ import {
   events_locales,
   results,
 } from "@/payload-generated-schema";
-import { desc, eq, sum } from "@payloadcms/db-postgres/drizzle";
+import { eq, sum } from "@payloadcms/db-postgres/drizzle";
 
 export async function GET(req: NextRequest) {
   try {
@@ -45,16 +45,19 @@ export async function GET(req: NextRequest) {
         results.member,
       );
     //   .orderBy(desc(results.createdAt));
-    console.log("totals", totals);
+    // console.log("totals", totals);
 
     return NextResponse.json({ totals }, { status: 200 });
   } catch (error) {
-    // return NextResponse.json(
-    //   {
-    //     error: error.message || "Something went wrong",
-    //   },
-    //   { status: 500 },
-    // );
-    console.log(error);
+    let message = "Something went wrong";
+    if (error instanceof Error) {
+      message = error.message;
+    }
+    return NextResponse.json(
+      {
+        error: message,
+      },
+      { status: 500 },
+    );
   }
 }

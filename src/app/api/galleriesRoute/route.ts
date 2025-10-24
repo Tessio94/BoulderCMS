@@ -6,7 +6,7 @@ export async function GET(req: NextRequest) {
   const payload = await getPayload({ config });
 
   const { searchParams } = new URL(req.url);
-  console.log(searchParams);
+  // console.log(searchParams);
   const search = searchParams.get("search") || "";
 
   const query: { where: Where } = {

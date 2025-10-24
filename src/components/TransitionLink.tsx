@@ -11,7 +11,7 @@ interface TransitionLinkProps extends LinkProps {
   type?: string;
   children: ReactNode;
   href: string;
-  className: string;
+  className?: string;
 }
 
 type PathKey = "home" | "events" | "gyms" | "gallery" | "login" | "register";
@@ -59,9 +59,9 @@ export const TransitionLink = ({
     newPathname = "register";
   }
 
-  const handleTransition = async (e) => {
+  const handleTransition = async (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
-    console.log("new pathname", newPathname);
+
     if (
       newPathname &&
       (allPathnames[newPathname][0] + searchParams.toString() === href ||
@@ -82,6 +82,7 @@ export const TransitionLink = ({
   };
 
   return type === "i18n" ? (
+    // @ts-expect-error translateLink type narrower than next/link’s Link type
     <TranslateLink onClick={handleTransition} href={href} {...props}>
       {children}
     </TranslateLink>

@@ -15,7 +15,7 @@ export async function POST(req: NextRequest) {
         { status: 400 },
       );
     }
-    console.log("categoryID", categoryId);
+    // console.log("categoryID", categoryId);
     const existingRegistration = await payload.find({
       collection: "event-registrations",
       where: {
@@ -53,10 +53,13 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json(registeredMember);
   } catch (error) {
-    console.error(error);
+    let message = "Something went wrong";
+    if (error instanceof Error) {
+      message = error.message;
+    }
     return NextResponse.json(
       {
-        error: error.message || "Something went wrong",
+        error: message,
       },
       { status: 500 },
     );
@@ -88,9 +91,15 @@ export async function GET(req: NextRequest) {
 
     return NextResponse.json({ alreadyRegistered: existing.totalDocs > 0 });
   } catch (error) {
-    console.log(error);
-    return NextResponse.json({
-      error: error.message || "Something went wrong",
-    });
+    let message = "Something went wrong";
+    if (error instanceof Error) {
+      message = error.message;
+    }
+    return NextResponse.json(
+      {
+        error: message,
+      },
+      { status: 500 },
+    );
   }
 }

@@ -1,8 +1,20 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import React, { RefObject, useEffect, useRef } from "react";
 
-const FrontendPagination = ({ page, setPage, totalPages, scrollTo }) => {
+interface FrontendPaginationProps {
+  page: number;
+  setPage: React.Dispatch<React.SetStateAction<number>>;
+  totalPages: number;
+  scrollTo: RefObject<HTMLElement | null>;
+}
+
+const FrontendPagination = ({
+  page,
+  setPage,
+  totalPages,
+  scrollTo,
+}: FrontendPaginationProps) => {
   const isFirstRender = useRef(true);
 
   useEffect(() => {

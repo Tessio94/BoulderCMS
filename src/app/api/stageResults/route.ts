@@ -69,12 +69,15 @@ export async function GET(req: NextRequest) {
 
     return NextResponse.json({ stageInfo }, { status: 200 });
   } catch (error) {
-    console.error(error);
+    let message = "Something went wrong";
+    if (error instanceof Error) {
+      message = error.message;
+    }
     return NextResponse.json(
       {
-        error: error.message || "Something went wrong",
+        error: message,
       },
-      { status: 5000 },
+      { status: 500 },
     );
   }
 }

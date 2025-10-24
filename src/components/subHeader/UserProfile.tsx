@@ -33,9 +33,8 @@ const UserProfile = ({ user }: UserProfileProps) => {
 
   let firstName: string | undefined;
   let lastName: string | undefined;
-  let userName: string | undefined;
 
-  const { data, isLoading } = useQuery({
+  const { data } = useQuery({
     queryKey: ["user", pathname],
     queryFn: getUser,
     refetchOnWindowFocus: false,
@@ -44,7 +43,7 @@ const UserProfile = ({ user }: UserProfileProps) => {
   });
 
   if (data) {
-    ({ userName, firstName, lastName } = data);
+    ({ firstName, lastName } = data);
   }
 
   const handleLogout = async () => {

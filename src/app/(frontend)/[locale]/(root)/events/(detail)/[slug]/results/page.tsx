@@ -10,9 +10,8 @@ const page = async ({ params }: { params: Promise<{ slug: string }> }) => {
   const { id: eventId } = event;
   const categories = (event.category?.docs as Category[]) ?? [];
 
-  // napraviti provjeru sa typeof Category
-
   const firstCategoryId = categories[0].id;
+
   const data = await getAllResult(eventId, firstCategoryId);
   const { totals: eventResults } = data;
 
@@ -48,7 +47,7 @@ const queryEventsBySlug = cache(async ({ slug }: { slug: string }) => {
   return result.docs?.[0] || null;
 });
 
-const getAllResult = async (eventId: any, categoryId: any) => {
+const getAllResult = async (eventId: number, categoryId: number) => {
   const baseUrl = process.env.NEXT_PUBLIC_URL || "http://localhost:3000";
 
   const res = await fetch(

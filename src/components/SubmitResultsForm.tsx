@@ -1,12 +1,10 @@
 "use client";
 
-import { getUser } from "@/lib/serverFunctions/getUserAction";
 import { cn } from "@/lib/utils";
-import { useQuery } from "@tanstack/react-query";
 import React, { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import Toast from "./sonner/Toast";
-import { Event, EventRegistration, Stage } from "@/payload-types";
+import { Event, Stage } from "@/payload-types";
 import FrontendPagination from "./FrontendPagination";
 import { joinedMemberType } from "@/types";
 
@@ -23,13 +21,12 @@ const SubmitResultsForm = ({ event, joinedUser }: SubmitResultsFormTypes) => {
   const [achievedGoals, setAchievedGoals] = useState<Record<string, string[]>>(
     {},
   );
-  const [user, setUser] = useState(null);
 
   const scrollTo = useRef(null);
 
   const {
     category: { id: categoryId },
-    member: { id: memberId, userName },
+    member: { id: memberId },
   } = joinedUser;
 
   const { id: eventId, stages } = event;
@@ -61,7 +58,12 @@ const SubmitResultsForm = ({ event, joinedUser }: SubmitResultsFormTypes) => {
     localStorage.setItem("achievedGoals", JSON.stringify(achievedGoals));
   }, [achievedGoals]);
 
-  const handleGoalClick = (stageId, goalId, baseScore, coefficient) => {
+  const handleGoalClick = (
+    stageId: number,
+    goalId: string,
+    baseScore: number,
+    coefficient: number,
+  ) => {
     const points = baseScore * coefficient;
 
     // Update scores for the stage
@@ -128,7 +130,7 @@ const SubmitResultsForm = ({ event, joinedUser }: SubmitResultsFormTypes) => {
   );
 
   // console.log("stages", stages);
-  console.log("achievedGoals", achievedGoals);
+  // console.log("achievedGoals", achievedGoals);
   return (
     <div
       className="xsm:w-full flex w-[90%] flex-col gap-10 rounded-xl border-1 border-cyan-900 px-2 py-5 shadow-xl shadow-cyan-900 sm:w-[85%] sm:px-5 sm:py-10 md:mr-auto md:w-[80%] lg:w-[75%] xl:w-[70%] 2xl:w-[60%]"
@@ -177,9 +179,9 @@ const SubmitResultsForm = ({ event, joinedUser }: SubmitResultsFormTypes) => {
                         onClick={() =>
                           handleGoalClick(
                             stage.id,
-                            goal.id,
+                            goal.id as string,
                             goal.baseScore,
-                            goal.coefficient,
+                            goal.coefficient as number,
                           )
                         }
                       >

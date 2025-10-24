@@ -17,7 +17,7 @@ const Gallery = async () => {
       heroImage: true,
     },
   });
-  // console.log(gallery);
+
   return <GalleryContent initialGalleries={gallery.docs} />;
 };
 

@@ -1,10 +1,15 @@
 "use client";
 
-import { createContext, useContext, useState } from "react";
+import { createContext, ReactNode, useContext, useState } from "react";
 
-const ProjectContext = createContext(false);
+type ProjectContextType = {
+  showSpinner: boolean;
+  setShowSpinner: React.Dispatch<React.SetStateAction<boolean>>;
+};
 
-export const ProjectProvider = ({ children }) => {
+const ProjectContext = createContext<ProjectContextType | null>(null);
+
+export const ProjectProvider = ({ children }: { children: ReactNode }) => {
   const [showSpinner, setShowSpinner] = useState(true);
 
   return (

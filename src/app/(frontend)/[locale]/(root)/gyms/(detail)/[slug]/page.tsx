@@ -4,7 +4,7 @@ import config from "@payload-config";
 import Image from "next/image";
 import * as motion from "motion/react-client";
 import { EventGallery } from "@/components/EventGallery";
-import Event from "@/components/Event";
+import EventCard from "@/components/EventCard";
 import { FaPhoneAlt } from "react-icons/fa";
 import { IoMdMail } from "react-icons/io";
 import { TbWorld } from "react-icons/tb";
@@ -150,19 +150,10 @@ const Page = async ({
             </p>
             {gym.relatedEvents?.docs && gym.relatedEvents?.docs.length > 0 && (
               <motion.ul className="mb-[50px] flex flex-col gap-12 md:mb-[80px]">
-                {gym.relatedEvents.docs.map((event, index) => {
-                  console.log("eventsaaah", event);
-                  const relatedEvent = event as EventType;
-                  return (
-                    <Event
-                      key={index}
-                      title={relatedEvent.title}
-                      description={relatedEvent.description}
-                      from={relatedEvent.from}
-                      until={relatedEvent.until}
-                      slug={relatedEvent.slug}
-                    />
-                  );
+                {gym.relatedEvents.docs.map((ev) => {
+                  // console.log("eventsaaah", ev);
+                  const relatedEvent = ev as EventType;
+                  return <EventCard key={relatedEvent.id} {...relatedEvent} />;
                 })}
               </motion.ul>
             )}

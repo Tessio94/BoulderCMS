@@ -83,8 +83,8 @@ function Register() {
 
   const mutation = useMutation({
     mutationFn: registerMember,
-    onSuccess: (data) => {
-      console.log("Registered:", data);
+    onSuccess: () => {
+      // console.log("Registered:", data);
       toast.custom((id) => (
         <Toast
           id={id}

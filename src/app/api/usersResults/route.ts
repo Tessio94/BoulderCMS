@@ -2,11 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { getPayload } from "payload";
 import config from "@payload-config";
 
-import {
-  event_registrations,
-  members,
-  results,
-} from "@/payload-generated-schema";
+import { members, results } from "@/payload-generated-schema";
 import { and, desc, eq, sum } from "@payloadcms/db-postgres/drizzle";
 
 export async function GET(req: NextRequest) {
@@ -36,16 +32,18 @@ export async function GET(req: NextRequest) {
       .groupBy(results.member, members.fullName)
       .orderBy(desc(sum(results.points)));
 
-    console.log("server scores", totals);
-
     return NextResponse.json({ totals }, { status: 200 });
-  } catch (error) {
-    console.error(error);
+  } catch (error: unknown) {
+    let message = "Something went wrong";
+    if (error instanceof Error) {
+      message = error.message;
+    }
+
     return NextResponse.json(
       {
-        error: error.message || "Something went wrong",
+        error: message,
       },
-      { status: 5000 },
+      { status: 500 },
     );
   }
 }

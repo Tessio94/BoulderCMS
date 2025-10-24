@@ -3,7 +3,7 @@
 import { useTranslations } from "next-intl";
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { containerVariants, cardsGalleryVariants } from "@/lib/animation";
+import { cardsGalleryVariants } from "@/lib/animation";
 
 const Cards = () => {
   const t = useTranslations("Cards");

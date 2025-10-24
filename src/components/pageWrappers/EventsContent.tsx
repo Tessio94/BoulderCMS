@@ -5,8 +5,16 @@ import EventsLanding from "@/components/EventsLanding";
 import EventsSection from "@/components/EventsSection";
 import { useState } from "react";
 import Image from "next/image";
+import { LocaleType } from "@/types";
+import { Event } from "@/payload-types";
 
-export const EventsContent = ({ initialEvents, locale }) => {
+export const EventsContent = ({
+  initialEvents,
+  locale,
+}: {
+  initialEvents: Event[];
+  locale: LocaleType;
+}) => {
   const [filters, setFilters] = useState({
     from: "",
     to: "",
@@ -19,7 +27,9 @@ export const EventsContent = ({ initialEvents, locale }) => {
   const { data: events = [], isLoading } = useQuery({
     queryKey: ["events", filters],
     queryFn: async () => {
-      const query = new URLSearchParams(filters).toString();
+      const query = new URLSearchParams(
+        filters as Record<string, string>,
+      ).toString();
       const res = await fetch(`/api/eventsRoute?${query}`);
       const json = await res.json();
       // console.log(json.docs);
@@ -48,7 +58,7 @@ export const EventsContent = ({ initialEvents, locale }) => {
         events={events}
         filters={filters}
         onChange={(f) => setFilters({ ...filters, ...f })}
-        locale={locale}
+        // locale={locale}
       />
     </>
   );

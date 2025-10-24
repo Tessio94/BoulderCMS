@@ -1,9 +1,9 @@
 "use client";
 
 import { Link } from "@/i18n/navigation";
-// import { cn } from "@/lib/utils";
 import { useState } from "react";
-import { useLocale, useTranslations } from "next-intl";
+// import { cn } from "@/lib/utils";
+import { useTranslations } from "next-intl";
 // import { FaFacebook } from "react-icons/fa";
 // import { FcGoogle } from "react-icons/fc";
 import { MdVisibility, MdVisibilityOff } from "react-icons/md";
@@ -93,7 +93,7 @@ const LoginForm = ({ user }: UserProfileProps) => {
           />
         ));
       }
-    } catch (err) {
+    } catch {
       setLoading(false);
       toast.custom((id) => (
         <Toast

@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { getUser } from "@/lib/serverFunctions/getUserAction";
-import { Event } from "@/payload-types";
+import { Category, Event } from "@/payload-types";
 import { toast } from "sonner";
 import Toast from "../sonner/Toast";
 
@@ -88,7 +88,7 @@ const EventButton = ({
 
   const { id: eventId, slug, timeframe, category, registration } = event;
 
-  const categories = category?.docs ?? [];
+  const categories = (category?.docs as Category[]) ?? [];
   // console.log("categories", categories);
 
   const queryClient = useQueryClient();
@@ -205,7 +205,7 @@ const EventButton = ({
         />
       ));
     },
-    onError: (error: any) => {
+    onError: (error: unknown) => {
       if (error instanceof HttpError && error.status === 409) {
         toast.custom((id) => (
           <Toast
@@ -263,7 +263,7 @@ const EventButton = ({
     <>
       <button
         // onClick={type === "join" ? handleJoinEvent : handleSubmitEvent}
-        // disabled={disabledButton()}
+        disabled={disabledButton()}
         onClick={handleJoinEvent}
         className="w-full cursor-pointer rounded-2xl bg-cyan-100/80 py-2 text-cyan-900 uppercase transition-all duration-500 hover:bg-cyan-900/40 disabled:cursor-not-allowed disabled:bg-gray-300 disabled:text-cyan-900/50"
       >

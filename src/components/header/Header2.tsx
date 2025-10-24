@@ -29,7 +29,7 @@ type Header2Props = {
 
 const Header2 = ({ user }: Header2Props) => {
   const [scrolled, setScrolled] = useState(false);
-  const [hambActive, setHambActive] = useState(false);
+  const [_, setHambActive] = useState(false);
   const [showSidebar, setShowSidebar] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
 
@@ -103,16 +103,16 @@ const Header2 = ({ user }: Header2Props) => {
 
   let firstName: string | undefined;
   let lastName: string | undefined;
-  let userName: string | undefined;
+  // let userName: string | undefined;
 
-  const { data, isLoading } = useQuery({
+  const { data } = useQuery({
     queryKey: ["user", pathname],
     queryFn: getUser,
     initialData: user,
   });
 
   if (data) {
-    ({ userName, firstName, lastName } = data);
+    ({ firstName, lastName } = data);
   }
 
   const handleLogout = async () => {
@@ -245,7 +245,7 @@ const Header2 = ({ user }: Header2Props) => {
             </div>
             {showProfile && (
               <div className="absolute top-[100%] z-20 flex flex-col rounded-xl bg-cyan-900 text-amber-400">
-                <div className="cursor-pointer rounded-t-xl border-2 border-b-[1px] border-amber-400 transition-all duration-300 hover:border-cyan-900 hover:border-b-amber-400 hover:bg-amber-400 hover:text-cyan-900">
+                <div className="cursor-pointer rounded-t-xl border-2 border-b border-amber-400 transition-all duration-300 hover:border-cyan-900 hover:border-b-amber-400 hover:bg-amber-400 hover:text-cyan-900">
                   <TransitionLink
                     type="i18n"
                     href="/profile"
@@ -254,7 +254,7 @@ const Header2 = ({ user }: Header2Props) => {
                     Profile
                   </TransitionLink>
                 </div>
-                <div className="cursor-pointer border-2 border-t-[1px] border-b-[1px] border-amber-400 transition-all duration-300 hover:border-cyan-900 hover:border-t-amber-400 hover:border-b-amber-400 hover:bg-amber-400 hover:text-cyan-900">
+                <div className="cursor-pointer border-2 border-t border-b border-amber-400 transition-all duration-300 hover:border-cyan-900 hover:border-t-amber-400 hover:border-b-amber-400 hover:bg-amber-400 hover:text-cyan-900">
                   <TransitionLink
                     type="i18n"
                     href="/results"
@@ -265,7 +265,7 @@ const Header2 = ({ user }: Header2Props) => {
                 </div>
                 <div
                   onClick={handleLogout}
-                  className="cursor-pointer rounded-b-xl border-2 border-t-[1px] border-amber-400 px-10 py-3 duration-300 hover:border-cyan-900 hover:border-t-amber-400 hover:bg-amber-400 hover:text-cyan-900"
+                  className="cursor-pointer rounded-b-xl border-2 border-t border-amber-400 px-10 py-3 duration-300 hover:border-cyan-900 hover:border-t-amber-400 hover:bg-amber-400 hover:text-cyan-900"
                 >
                   Logout
                 </div>

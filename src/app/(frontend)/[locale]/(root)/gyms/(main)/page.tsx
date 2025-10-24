@@ -11,7 +11,7 @@ const Gyms = async ({
   const payload = await getPayload({ config });
   const { locale } = await params;
 
-  console.log("localeDe", locale);
+  // console.log("localeDe", locale);
 
   const gyms = await payload.find({
     collection: "gyms",

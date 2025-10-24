@@ -24,16 +24,19 @@ export async function POST(req: NextRequest) {
           data: r,
         });
         saved.push(created);
-      } catch (err: any) {
+      } catch (err: unknown) {
         // If unique constraint fails, surface error
-        if (err.message?.includes("duplicate key")) {
-          return NextResponse.json(
-            {
-              error: `Result already exists for member ${r.member}, event ${r.event}, stage ${r.stage}`,
-            },
-            { status: 409 },
-          );
+        if (err instanceof Error) {
+          if (err.message?.includes("duplicate key")) {
+            return NextResponse.json(
+              {
+                error: `Result already exists for member ${r.member}, event ${r.event}, stage ${r.stage}`,
+              },
+              { status: 409 },
+            );
+          }
         }
+
         throw err;
       }
     }
@@ -43,12 +46,15 @@ export async function POST(req: NextRequest) {
       { status: 201 },
     );
   } catch (error) {
-    console.error(error);
+    let message = "Something went wrong";
+    if (error instanceof Error) {
+      message = error.message;
+    }
     return NextResponse.json(
       {
-        error: error.message || "Something went wrong",
+        error: message,
       },
-      { status: 5000 },
+      { status: 500 },
     );
   }
 }

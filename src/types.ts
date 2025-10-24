@@ -16,3 +16,12 @@ export type joinedMemberType = {
   member: Member;
   category: Category;
 };
+
+export type Filters = {
+  from: string;
+  to: string;
+  hall: string;
+  term: string;
+  sort: string;
+  locale: LocaleType;
+};

@@ -3,12 +3,19 @@
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { IoMdArrowDropdown } from "react-icons/io";
+import { Gym } from "@/payload-types";
+import { Filters } from "@/types";
 
-const EventsForm = ({ filters, onChange }) => {
+interface EventsFormProps {
+  filters: Filters;
+  onChange: (patch: Partial<Filters>) => void;
+}
+
+const EventsForm = ({ filters, onChange }: EventsFormProps) => {
   const [showSort, setShowSort] = useState(false);
   const [showGyms, setShowGyms] = useState(false);
 
-  const { data: gyms = [], isLoading } = useQuery({
+  const { data: gyms = [] } = useQuery<Gym[]>({
     queryKey: ["gyms", filters],
     queryFn: async () => {
       const res = await fetch(`/api/gyms`);
@@ -19,7 +26,7 @@ const EventsForm = ({ filters, onChange }) => {
   });
   // console.log(filters);
   return (
-    <div className="mx-[20px] mb-[50px] flex flex-col gap-6 rounded-2xl bg-cyan-900/10 px-[16px] py-[50px] sm:mx-[50px] md:mb-[80px] md:px-[60px] lg:mx-[60px] 2xl:mx-[160px]">
+    <div className="mx-5 mb-[50px] flex flex-col gap-6 rounded-2xl bg-cyan-900/10 px-4 py-[50px] sm:mx-[50px] md:mb-20 md:px-[60px] lg:mx-[60px] 2xl:mx-40">
       <div>
         <div
           className="bg-cards hover:bg-cards-dark active:bg-cards-dark focus:bg-cards-dark w-fit cursor-pointer rounded-2xl px-6 py-2 text-3xl text-cyan-900 transition-all duration-500 hover:text-cyan-800 focus:text-cyan-800 active:text-cyan-800"
@@ -71,7 +78,7 @@ const EventsForm = ({ filters, onChange }) => {
               name="from"
               value={filters.from}
               onChange={(e) => onChange({ from: e.target.value })}
-              className="rounded-2xl border-b-[1px] border-cyan-900 bg-cyan-900/10 px-[20px] py-3 text-2xl text-cyan-900"
+              className="rounded-2xl border-b border-cyan-900 bg-cyan-900/10 px-5 py-3 text-2xl text-cyan-900"
             />
           </div>
           <div className="flex w-full flex-col gap-2 md:w-[unset] md:basis-[45%]">
@@ -87,7 +94,7 @@ const EventsForm = ({ filters, onChange }) => {
               name="to"
               value={filters.to}
               onChange={(e) => onChange({ to: e.target.value })}
-              className="rounded-2xl border-b-[1px] border-cyan-900 bg-cyan-900/10 px-[20px] py-3 text-2xl text-cyan-900"
+              className="rounded-2xl border-b border-cyan-900 bg-cyan-900/10 px-5 py-3 text-2xl text-cyan-900"
             />
           </div>
         </div>
@@ -100,7 +107,7 @@ const EventsForm = ({ filters, onChange }) => {
           </label>
           <div>
             <div
-              className="flex cursor-pointer items-center justify-between rounded-2xl border-b-[1px] border-cyan-900 bg-cyan-900/10 px-[20px] py-3 text-2xl text-cyan-900"
+              className="flex cursor-pointer items-center justify-between rounded-2xl border-b border-cyan-900 bg-cyan-900/10 px-5 py-3 text-2xl text-cyan-900"
               onClick={() => setShowGyms((prev) => !prev)}
             >
               <p className="opacity-50">Select the hall</p>
@@ -108,14 +115,14 @@ const EventsForm = ({ filters, onChange }) => {
             </div>
 
             {showGyms && (
-              <ul className="mt-1 rounded-2xl border-b-[1px] border-cyan-900 bg-cyan-900/10 text-2xl text-cyan-900">
-                {gyms.map((gym, i) => {
+              <ul className="mt-1 rounded-2xl border-b border-cyan-900 bg-cyan-900/10 text-2xl text-cyan-900">
+                {gyms.map((gym) => {
                   return (
                     <li
-                      key={i}
-                      className="hover:bg-cards-dark active:bg-cards-dark focus:bg-cards-dark cursor-pointer rounded-2xl px-[20px] py-3 transition-all duration-500 hover:text-cyan-800 focus:text-cyan-800 active:text-cyan-800"
+                      key={gym.id}
+                      className="hover:bg-cards-dark active:bg-cards-dark focus:bg-cards-dark cursor-pointer rounded-2xl px-5 py-3 transition-all duration-500 hover:text-cyan-800 focus:text-cyan-800 active:text-cyan-800"
                       onClick={() => {
-                        onChange({ hall: gym.id });
+                        onChange({ hall: gym.id.toString() });
                         setShowGyms((prev) => !prev);
                       }}
                     >
@@ -134,7 +141,7 @@ const EventsForm = ({ filters, onChange }) => {
           >
             Search
           </label>
-          <div className="rounded-2xl border-b-[1px] border-cyan-900 bg-cyan-900/10 px-[20px] py-3 text-2xl text-cyan-900">
+          <div className="rounded-2xl border-b border-cyan-900 bg-cyan-900/10 px-5 py-3 text-2xl text-cyan-900">
             <input
               type="text"
               id="term"
