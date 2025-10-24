@@ -4,6 +4,8 @@ import Image from "next/image";
 import { usePathname, useRouter, useParams } from "next/navigation";
 import { useMemo } from "react";
 
+const languages = ["en", "de"];
+
 const LocalePicker = ({ type }: { type: string }) => {
   const router = useRouter();
   const pathname = usePathname();
@@ -14,7 +16,6 @@ const LocalePicker = ({ type }: { type: string }) => {
   // console.log("locale", locale);
 
   const currentLocale = locale as string;
-  const languages = ["en", "de"];
 
   const pickLang = (newLocale: string) => {
     const segments = pathname.split("/");

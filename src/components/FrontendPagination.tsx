@@ -24,7 +24,7 @@ const FrontendPagination = ({
     }
 
     scrollTo.current?.scrollIntoView({ behavior: "smooth" });
-  }, [page]);
+  }, [page, scrollTo]);
 
   return (
     <div className="mt-6 flex justify-center gap-3">
