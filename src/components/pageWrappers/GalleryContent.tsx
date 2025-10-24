@@ -7,18 +7,7 @@ import GalleryGrid from "../GalleryGrid";
 import { FaArrowDownLong } from "react-icons/fa6";
 import { SlMagnifier } from "react-icons/sl";
 import { useQuery } from "@tanstack/react-query";
-import { Gym, Media } from "@/payload-types";
-
-type GalleryType = {
-  id: number;
-  slug?: string | null;
-  title: string;
-  gym: number | Gym;
-  location?: string | null;
-  from: string;
-  gallery?: (number | Media)[] | null;
-  heroImage?: number | Media | null;
-};
+import { GalleryType } from "@/types";
 
 const GalleryContent = ({
   initialGalleries,
@@ -29,7 +18,7 @@ const GalleryContent = ({
 
   const [search, setSearch] = useState("");
 
-  const { data: galleries = [] } = useQuery({
+  const { data: galleries = [] } = useQuery<GalleryType[]>({
     queryKey: ["galleries", search],
     queryFn: async () => {
       const res = await fetch(`/api/galleriesRoute?search=${search}`);

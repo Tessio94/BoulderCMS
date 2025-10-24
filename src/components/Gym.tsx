@@ -4,8 +4,9 @@ import { cardsVariants } from "@/lib/animation";
 import Image from "next/image";
 // import Link from "next/link";
 import { TransitionLink } from "./TransitionLink";
+import { Gym as GymProps } from "@/payload-types";
 
-const Gym = ({ name, location, information, slug }) => {
+const Gym = ({ name, location, information, slug }: GymProps) => {
   return (
     <MotionClientWrapper
       type="li"

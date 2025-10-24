@@ -62,7 +62,7 @@ export const Members: CollectionConfig = {
   hooks: {
     beforeValidate: [
       ({ data }) => {
-        if (data.firstName || data.lastName) {
+        if (data?.firstName || data?.lastName) {
           data.fullName =
             `${data.firstName ?? ""} ${data.lastName ?? ""}`.trim();
         }

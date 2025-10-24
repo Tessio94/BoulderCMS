@@ -11,8 +11,9 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import "swiper/css/thumbs";
+import { Media } from "@/payload-types";
 
-export const EventGallery = ({ gallery }) => {
+export const EventGallery = ({ gallery }: { gallery: Media[] }) => {
   const [thumbsSwiper, setThumbsSwiper] = useState<SwiperType | null>(null);
 
   // console.log(gallery);
@@ -31,10 +32,10 @@ export const EventGallery = ({ gallery }) => {
         }}
         className="bg-cyan-500/10"
       >
-        {gallery?.map((image, i) => (
-          <SwiperSlide key={i} className="my-auto max-h-[70vh]">
+        {gallery?.map((image) => (
+          <SwiperSlide key={image.id} className="my-auto max-h-[70vh]">
             <Image
-              src={image.url}
+              src={image.url || ""}
               alt={image.alt}
               width={1920}
               height={1080}
@@ -57,11 +58,11 @@ export const EventGallery = ({ gallery }) => {
         slidesPerView={4}
         className="m-4!"
       >
-        {gallery?.map((image, i) => {
+        {gallery?.map((image) => {
           return (
-            <SwiperSlide key={i} className="h-fit">
+            <SwiperSlide key={image.id} className="h-fit">
               <Image
-                src={image.url}
+                src={image.url || ""}
                 alt={image.alt}
                 width={300}
                 height={200}

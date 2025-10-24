@@ -1,8 +1,9 @@
 import MotionClientWrapper from "./motion/MotionClientWrapper";
 import { cardsGalleryVariants } from "@/lib/animation";
 import GalleryCardWrapper from "./GalleryCardWrapper";
+import { GalleryType } from "@/types";
 
-const GalleryCard = ({ heroImage, title, from, gym, slug }) => {
+const GalleryCard = ({ heroImage, title, from, gym, slug }: GalleryType) => {
   return (
     // <Link href={`/gallery/${slug}`}>
     <MotionClientWrapper

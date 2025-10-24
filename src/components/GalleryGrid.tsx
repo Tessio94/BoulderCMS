@@ -1,6 +1,7 @@
 import GalleryCard from "./GalleryCard";
+import { GalleryType } from "@/types";
 
-const GalleryGrid = ({ galleries }) => {
+const GalleryGrid = ({ galleries }: { galleries: GalleryType[] }) => {
   // console.log("galleries", galleries);
 
   return (

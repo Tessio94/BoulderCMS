@@ -20,7 +20,7 @@ const GymContent = ({ initialGyms, locale }: GymContentProps) => {
 
   const [search, setSearch] = useState("");
 
-  const { data: gyms = [] } = useQuery({
+  const { data: gyms = [] } = useQuery<Gym[]>({
     queryKey: ["gyms", search],
     queryFn: async () => {
       const res = await fetch(
@@ -32,8 +32,6 @@ const GymContent = ({ initialGyms, locale }: GymContentProps) => {
     },
     initialData: initialGyms,
   });
-
-  // background-image: radial-gradient(oklch(82.8% .189 84.429), #cefafecc, oklch(39.8% .07 227.392));
 
   return (
     <>

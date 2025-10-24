@@ -5,8 +5,15 @@ import Image from "next/image";
 // import Link from "next/link";
 import React, { useState } from "react";
 import { TransitionLink } from "./TransitionLink";
+import { GalleryType } from "@/types";
 
-const GalleryCardWrapper = ({ heroImage, title, from, gym, slug }) => {
+const GalleryCardWrapper = ({
+  heroImage,
+  title,
+  from,
+  gym,
+  slug,
+}: Omit<GalleryType, "id">) => {
   const [showOverlay, setShowOverlay] = useState(false);
 
   return (
@@ -22,7 +29,10 @@ const GalleryCardWrapper = ({ heroImage, title, from, gym, slug }) => {
           {title}
         </h4>
         <p className="text-xl">{eventDateFormat(from)}</p>
-        <p className="text-xl">{gym.name}</p>
+        <p className="text-xl">
+          {" "}
+          {typeof gym === "object" ? gym.name : `Boulder Gym`}
+        </p>
         <TransitionLink
           href={`/gallery/${slug}`}
           className="group mt-5 cursor-pointer rounded-lg border-2 border-amber-400 bg-cyan-900 px-4 py-2 text-amber-400 transition-all duration-500 hover:border-cyan-900 hover:bg-amber-400 hover:text-cyan-900 focus:border-cyan-900 focus:bg-amber-400 focus:text-cyan-900 active:border-cyan-900 active:bg-amber-400 active:text-cyan-900"

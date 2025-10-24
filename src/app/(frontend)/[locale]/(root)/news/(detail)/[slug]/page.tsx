@@ -44,7 +44,7 @@ const Page = async ({ params }: { params: Promise<{ slug: string }> }) => {
             Images from past event:
           </h2>
           <div className="aspect-auto max-w-full overflow-hidden rounded-xl border-2 border-cyan-900/30 shadow-xl shadow-cyan-900/40 lg:max-w-[60%] xl:max-w-[60%]">
-            <EventGallery gallery={post.gallery} />
+            <EventGallery gallery={post.gallery as Media[]} />
           </div>
         </div>
       )}

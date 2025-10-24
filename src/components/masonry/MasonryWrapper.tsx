@@ -3,9 +3,18 @@
 import Image from "next/image";
 import { Masonry } from "@/components/lib/Masonry";
 import { useState } from "react";
+import { Gym, Media } from "@/payload-types";
 
-export default function MasonryGrid({ event }) {
+type EventType = {
+  title: string;
+  from: string;
+  gallery: Media[];
+  gym: Gym;
+};
+
+export default function MasonryGrid({ event }: { event: EventType }) {
   const [loaded, setLoaded] = useState(false);
+
   const items = event.gallery.map((photo) => photo);
   // console.log(items);
   return (
@@ -20,16 +29,16 @@ export default function MasonryGrid({ event }) {
         return (
           <a
             key={index}
-            href={item.url}
+            href={item.url || ""}
             data-fancybox="gallery"
             data-caption={item.alt}
             className="group relative block"
           >
             <Image
-              src={item.url}
+              src={item.url || ""}
               alt={item.alt}
-              width={item.width}
-              height={item.height}
+              width={item.width || 250}
+              height={item.height || 170}
               style={{ width: "100%", height: "auto" }}
               className="rounded-xl"
               onLoad={() => setLoaded(true)}

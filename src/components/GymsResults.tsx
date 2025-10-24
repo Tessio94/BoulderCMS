@@ -1,7 +1,8 @@
 import * as motion from "motion/react-client";
 import Gym from "@/components/Gym";
+import { Gym as GymProps } from "@/payload-types";
 
-const GymsResults = ({ gyms }) => {
+const GymsResults = ({ gyms }: { gyms: GymProps[] }) => {
   return (
     <main
       id="gyms"

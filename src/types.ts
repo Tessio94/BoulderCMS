@@ -1,4 +1,4 @@
-import { Category, Member } from "./payload-types";
+import { Category, Gym, Media, Member } from "./payload-types";
 
 export type EventType = {
   title: string;
@@ -24,4 +24,15 @@ export type Filters = {
   term: string;
   sort: string;
   locale: LocaleType;
+};
+
+export type GalleryType = {
+  id: number;
+  slug?: string | null;
+  title: string;
+  gym: number | Gym;
+  location?: string | null;
+  from: string;
+  gallery?: (number | Media)[] | null;
+  heroImage?: number | Media | null;
 };

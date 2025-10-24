@@ -166,7 +166,7 @@ const Page = async ({
                 Images from {gym.name}:
               </h2>
               <div className="aspect-auto overflow-hidden rounded-xl border-2 border-cyan-900/30 shadow-xl shadow-cyan-900/40">
-                <EventGallery gallery={gym.gallery} />
+                <EventGallery gallery={gym.gallery as Media[]} />
               </div>
             </>
           )}

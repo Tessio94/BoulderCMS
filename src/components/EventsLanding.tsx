@@ -4,8 +4,9 @@ import { containerVariants, listItemVariants } from "@/lib/animation";
 import { useTranslations } from "next-intl";
 import { eventDateFormat } from "@/lib/utils";
 import Image from "next/image";
+import { Event } from "@/payload-types";
 
-const EventsLanding = ({ event }) => {
+const EventsLanding = ({ event }: { event: Event }) => {
   const t = useTranslations("EventsLanding");
 
   return (
