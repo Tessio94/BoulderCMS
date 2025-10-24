@@ -21,7 +21,6 @@ type LandingIntro = {
 };
 
 const LandingIntro = ({ user }: LandingIntro) => {
-  console.log("user2", user);
   const t = useTranslations("Landing");
   const pathname = usePathname();
 

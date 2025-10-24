@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getPayload } from "payload";
 import config from "@payload-config";
+import { Stage } from "@/payload-types";
 // import { members, results, stages } from "@/payload-generated-schema";
 // import { and, eq } from "@payloadcms/db-postgres/drizzle";
 
@@ -48,15 +49,15 @@ export async function GET(req: NextRequest) {
 
     const data = result.docs;
 
-    const stage = data[0].stage;
-    const goals = data[0].stage.goals;
+    const stage = data[0].stage as Stage;
+    const goals = stage.goals;
 
-    const counts = data.reduce((acc, item) => {
+    const counts = data.reduce<Record<string, number>>((acc, item) => {
       acc[item.goal] = (acc[item.goal] || 0) + 1;
       return acc;
     }, {});
 
-    const stageInfo = goals.map((goal) => ({
+    const stageInfo = goals?.map((goal) => ({
       stageName: stage.name,
       stageLocation: stage.location,
       stageImage: stage.image,
@@ -64,7 +65,7 @@ export async function GET(req: NextRequest) {
       name: goal.name,
       baseScore: goal.baseScore,
       coefficient: goal.coefficient,
-      achievedCount: counts[goal.id] || 0,
+      achievedCount: counts[goal.id ?? ""] || 0,
     }));
 
     return NextResponse.json({ stageInfo }, { status: 200 });
