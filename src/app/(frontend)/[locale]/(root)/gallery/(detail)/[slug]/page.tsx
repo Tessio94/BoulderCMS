@@ -4,13 +4,20 @@ import config from "@payload-config";
 import { eventDateFormat } from "@/lib/utils";
 import FancyboxWrapper from "@/components/fancybox/FancyBoxWrapper";
 import MasonryGrid from "@/components/masonry/MasonryWrapper";
-import { Gym } from "@/payload-types";
+import { Gym, Media } from "@/payload-types";
+
+type EventType = {
+  title: string;
+  from: string;
+  gallery: Media[];
+  gym: Gym;
+};
 
 const Page = async ({ params }: { params: Promise<{ slug: string }> }) => {
   const { slug } = await params;
   console.log(slug);
 
-  const event = await queryEventsBySlug({ slug });
+  const event = (await queryEventsBySlug({ slug })) as EventType;
   const eventGym = event.gym as Gym;
   // console.log("event :", event);
   return (

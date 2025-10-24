@@ -86,7 +86,7 @@ export const users = pgTable(
     }),
     salt: varchar("salt"),
     hash: varchar("hash"),
-    loginAttempts: numeric("login_attempts", { mode: "number" }).default("0"),
+    loginAttempts: numeric("login_attempts", { mode: "number" }).default(0),
     lockUntil: timestamp("lock_until", {
       mode: "string",
       withTimezone: true,
@@ -451,7 +451,7 @@ export const members = pgTable(
     }),
     salt: varchar("salt"),
     hash: varchar("hash"),
-    loginAttempts: numeric("login_attempts", { mode: "number" }).default("0"),
+    loginAttempts: numeric("login_attempts", { mode: "number" }).default(0),
     lockUntil: timestamp("lock_until", {
       mode: "string",
       withTimezone: true,
@@ -558,7 +558,7 @@ export const stages_goals = pgTable(
     id: varchar("id").primaryKey(),
     name: varchar("name").notNull(),
     baseScore: numeric("base_score", { mode: "number" }).notNull(),
-    coefficient: numeric("coefficient", { mode: "number" }).default("1"),
+    coefficient: numeric("coefficient", { mode: "number" }).default(1),
   },
   (columns) => [
     index("stages_goals_order_idx").on(columns._order),
