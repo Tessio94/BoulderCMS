@@ -1,31 +1,54 @@
-version: "3"
+# version: "3"
 
+# services:
+#   payload:
+#     image: payload-boulder
+#     build:
+#       context: ./
+#       dockerfile: Dockerfile
+#     ports:
+#       - "3000:3000"
+#     depends_on:
+#       # - migrate
+#       - db-boulder
+#     env_file:
+#       - .env
+
+#   db-boulder:
+#     restart: always
+#     image: postgres:latest
+#     volumes:
+#       - pgdata:/var/lib/postgresql
+#     ports:
+#       - "5432:5432"
+#     env_file:
+#       - .env
+
+# volumes:
+#   pgdata:
+#   node_modules:
 services:
   payload:
-    image: payload-boulder
     build:
-      context: ./
+      context: .
       dockerfile: Dockerfile
+    volumes:
+      - ./media:/app/media
     ports:
       - "3000:3000"
-    volumes:
-      - .:/home/node/app
-      - node_modules:/home/node/app/node_modules
-    working_dir: /home/node/app/
-    command: sh -c "corepack enable && corepack prepare pnpm@latest --activate && pnpm install && pnpm dev"
     depends_on:
       - db-boulder
-    env_file:
-      - .env
 
   db-boulder:
-    restart: always
     image: postgres:latest
-    volumes:
-      - pgdata:/var/lib/postgresql/data
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: dellas113
     ports:
       - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql
 
 volumes:
   pgdata:
-  node_modules:
