@@ -92,4 +92,4 @@ EXPOSE 3000
 
 ENV PORT 3000
 
-CMD ["sh", "-c", "npm run payload migrate && npm run build:generate && node server.js"]
+CMD ["sh", "-c", "npm run payload:migrate && npm run build:generate && node server.js"]
