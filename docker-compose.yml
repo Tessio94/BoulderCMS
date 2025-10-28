@@ -1,37 +1,12 @@
-# version: "3"
-
-# services:
-#   payload:
-#     image: payload-boulder
-#     build:
-#       context: ./
-#       dockerfile: Dockerfile
-#     ports:
-#       - "3000:3000"
-#     depends_on:
-#       # - migrate
-#       - db-boulder
-#     env_file:
-#       - .env
-
-#   db-boulder:
-#     restart: always
-#     image: postgres:latest
-#     volumes:
-#       - pgdata:/var/lib/postgresql
-#     ports:
-#       - "5432:5432"
-#     env_file:
-#       - .env
-
-# volumes:
-#   pgdata:
-#   node_modules:
 services:
   payload:
+    image: payload-boulder
     build:
       context: .
       dockerfile: Dockerfile
+      args:
+        PAYLOAD_SECRET: ${PAYLOAD_SECRET}
+        DATABASE_URL: ${DATABASE_URL}
     volumes:
       - ./media:/app/media
     ports:

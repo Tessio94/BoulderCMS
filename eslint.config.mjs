@@ -19,6 +19,12 @@ const eslintConfig = [
       // "react/no-unescaped-entities": "off",
     },
   },
+  {
+    files: ["src/migrations/**/*"],
+    rules: {
+      "@typescript-eslint/no-unused-vars": "off",
+    },
+  },
 ];
 
 export default eslintConfig;

@@ -18,6 +18,7 @@ import { Categories } from "./collections/Categories";
 import { News } from "./collections/News";
 import { en } from "@payloadcms/translations/languages/en";
 import { de } from "@payloadcms/translations/languages/de";
+import { migrations } from "./migrations";
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -51,6 +52,7 @@ export default buildConfig({
       connectionString: process.env.DATABASE_URI || "",
     },
     push: false,
+    prodMigrations: migrations,
   }),
   sharp,
   localization: {
