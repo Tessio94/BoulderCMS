@@ -4,11 +4,11 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-      args:
-        PAYLOAD_SECRET: ${PAYLOAD_SECRET}
-        DATABASE_URL: ${DATABASE_URL}
+    environment:
+      DATABASE_URL: postgres://postgres:dellas113@db-boulder:5432/payload_test
+      PAYLOAD_SECRET: x/EEol7+ilIDCjPgI/G5kV5ggXEskKCHvNu0RBoervA=
     volumes:
-      - ./media:/app/media
+      - payload-media:/app/media
     ports:
       - "3000:3000"
     depends_on:
@@ -27,3 +27,4 @@ services:
 
 volumes:
   pgdata:
+  payload-media:
