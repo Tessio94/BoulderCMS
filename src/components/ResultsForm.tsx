@@ -42,12 +42,8 @@ const ResultsForm = ({ event, eventResults, categories }: ResultProps) => {
 
   const { id: eventId } = event;
 
-  // console.log("categories", categories);
-
   // const categories = category.docs;
   // const firstCategoryId = categories[0].id;
-  // console.log("categories", categories);
-  // console.log("firstCategory", firstCategoryId);
 
   // let eventResults: undefined | TotalResult[];
 
@@ -59,11 +55,11 @@ const ResultsForm = ({ event, eventResults, categories }: ResultProps) => {
   // });
 
   // if (data) {
-  //   // console.log(data);
+  //
   //   ({ totals: eventResults } = data);
   //   // ({ id: memberId } = data);
   // }
-  // console.log("eventId", eventId);
+  //
   // let userResultDetails: undefined |
 
   const mutation = useMutation({
@@ -86,8 +82,9 @@ const ResultsForm = ({ event, eventResults, categories }: ResultProps) => {
       if (!res.ok) throw new Error("Network response was not ok");
 
       const data = await res.json();
+      const { userResult } = data;
 
-      setUserResult(data);
+      setUserResult(userResult);
       setShowResultInfo((prev) => !prev);
     } catch (error) {
       console.error("Failed to fetch user result:", error);
@@ -130,7 +127,6 @@ const ResultsForm = ({ event, eventResults, categories }: ResultProps) => {
             )}
           >
             {categories?.map((group, i) => {
-              // console.log("group", group);
               return (
                 <div
                   onClick={() => handleCategoryResults(group.id, group.name)}
@@ -153,7 +149,6 @@ const ResultsForm = ({ event, eventResults, categories }: ResultProps) => {
             </tr>
           </thead>
           {result?.map((memberResult, i) => {
-            // console.log(person);
             return (
               <tbody
                 key={i}
