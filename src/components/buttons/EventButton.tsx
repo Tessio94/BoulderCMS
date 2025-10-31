@@ -128,7 +128,7 @@ const EventButton = ({
     if (!userName && type !== "results") {
       toast.custom((id) => (
         <Toast
-          id={id}
+          id={id.toString()}
           type="not"
           title={"You are not logged in."}
           description={
@@ -160,7 +160,7 @@ const EventButton = ({
     if (userName && type === "submit" && memberId && isJoined === false) {
       toast.custom((id) => (
         <Toast
-          id={id}
+          id={id.toString()}
           type="not"
           title={"You must join the event."}
           description={"Join in to submit your results!"}
@@ -195,7 +195,7 @@ const EventButton = ({
       });
       toast.custom((id) => (
         <Toast
-          id={id}
+          id={id.toString()}
           type="yes"
           title={"You have successfully joined event!"}
           button={{
@@ -209,7 +209,7 @@ const EventButton = ({
       if (error instanceof HttpError && error.status === 409) {
         toast.custom((id) => (
           <Toast
-            id={id}
+            id={id.toString()}
             type="info"
             title={"You are already registered for this event!"}
             button={{
@@ -221,7 +221,7 @@ const EventButton = ({
       } else {
         toast.custom((id) => (
           <Toast
-            id={id}
+            id={id.toString()}
             title={"Something went wrong please try again!"}
             button={{
               label: "Homepage",

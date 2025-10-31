@@ -75,7 +75,7 @@ const LoginForm = ({ user }: UserProfileProps) => {
         setLoading(false);
         toast.custom((id) => (
           <Toast
-            id={id}
+            id={id.toString()}
             type="yes"
             title={"You are logged in."}
             description={`Welcome to boulder app ${res.user.userName}!`}
@@ -86,7 +86,7 @@ const LoginForm = ({ user }: UserProfileProps) => {
       } else {
         toast.custom((id) => (
           <Toast
-            id={id}
+            id={id.toString()}
             type="not"
             title="Something went wrong."
             description="Please type in correct email and password"
@@ -97,7 +97,7 @@ const LoginForm = ({ user }: UserProfileProps) => {
       setLoading(false);
       toast.custom((id) => (
         <Toast
-          id={id}
+          id={id.toString()}
           type="not"
           title={"Something went wrong."}
           description={"Please type in correct email and password"}
@@ -121,7 +121,7 @@ const LoginForm = ({ user }: UserProfileProps) => {
       queryClient.invalidateQueries({ queryKey: ["user"] });
       toast.custom((id) => (
         <Toast
-          id={id}
+          id={id.toString()}
           type="info"
           title={"You are logged out."}
           description={"Login back using the login form below"}

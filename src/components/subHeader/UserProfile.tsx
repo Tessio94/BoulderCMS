@@ -62,7 +62,7 @@ const UserProfile = ({ user }: UserProfileProps) => {
       queryClient.invalidateQueries({ queryKey: ["user"] });
       toast.custom((id) => (
         <Toast
-          id={id}
+          id={id.toString()}
           type="info"
           title={"You are logged out."}
           description={"Login back using the login page"}

@@ -87,7 +87,7 @@ function Register() {
       // console.log("Registered:", data);
       toast.custom((id) => (
         <Toast
-          id={id}
+          id={id.toString()}
           type="yes"
           title="You have successfully registered."
           description="Use the login form below to log in with your account."
@@ -99,7 +99,7 @@ function Register() {
       console.error(error.message);
       toast.custom((id) => (
         <Toast
-          id={id}
+          id={id.toString()}
           type="not"
           title="Something went wrong."
           description="Please try again with correct informations."

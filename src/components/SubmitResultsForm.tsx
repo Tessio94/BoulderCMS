@@ -88,7 +88,7 @@ const SubmitResultsForm = ({ event, joinedUser }: SubmitResultsFormTypes) => {
     if (missing.length > 0) {
       toast.custom((id) => (
         <Toast
-          id={id}
+          id={id.toString()}
           type="not"
           title={"Select all route results."}
           description={
