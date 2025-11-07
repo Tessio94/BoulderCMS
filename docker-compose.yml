@@ -1,30 +1,56 @@
 services:
   payload:
-    image: payload-boulder
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: tessio94/boulder-payloadcms:v1.0.1
     environment:
-      DATABASE_URL: postgres://postgres:dellas113@db-boulder:5432/payload_test
-      PAYLOAD_SECRET: x/EEol7+ilIDCjPgI/G5kV5ggXEskKCHvNu0RBoervA=
+      DATABASE_URL_FILE: /run/secrets/db_url
+      PAYLOAD_SECRET_FILE: /run/secrets/payload_secret
     volumes:
       - payload-media:/app/media
-    ports:
-      - "3000:3000"
+      - static-assets:/app/.next/static
+    expose:
+      - "3000"
     depends_on:
       - db-boulder
+
+  nginx:
+    build:
+      context: .
+      dockerfile: Dockerfile.nx
+    ports:
+      - "80:80"
+    volumes:
+      - payload-media:/usr/share/nginx/html/media:ro
+      - static-assets:/usr/share/nginx/html/_next/static:ro
+    depends_on:
+      - payload
 
   db-boulder:
     image: postgres:latest
     restart: always
     environment:
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: dellas113
+      POSTGRES_PASSWORD_FILE: /run/secrets/postgres-passwd
     ports:
       - "5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql
 
+  watchtower:
+    image: containrrr/watchtower
+    restart: always
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: --cleanup --interval 300
+
 volumes:
   pgdata:
   payload-media:
+  static-assets:
+
+secrets:
+  db_url:
+    external: true
+  payload_secret:
+    external: true
+  postgres_passwd:
+    external: true

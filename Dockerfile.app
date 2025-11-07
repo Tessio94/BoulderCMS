@@ -60,16 +60,4 @@ ENV PORT 3000
 
 CMD ["node", "server.js"]
 
-FROM nginx:alpine AS nginx
 
-# Copy custom Nginx config
-COPY nginx.conf /etc/nginx/conf.d/default.conf
-
-# Copy static and media assets from the app
-COPY --from=runner /app/.next/static /usr/share/nginx/html/_next/static
-COPY --from=runner /app/media /usr/share/nginx/html/media
-
-EXPOSE 80
-
-# Nginx is the default process
-CMD ["nginx", "-g", "daemon off;"]

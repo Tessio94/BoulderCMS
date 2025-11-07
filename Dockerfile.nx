@@ -1,9 +1,11 @@
 # Dockerfile.nginx
 FROM nginx:alpine
 
-# Copy custom Nginx config
+# Copy custom nginx config
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
-# Copy public assets from the built app (for static serving)
-COPY --from=payload-boulder /app/.next/static /usr/share/nginx/html/_next/static
-COPY --from=payload-boulder /app/media /usr/share/nginx/html/media
+# These paths will be mounted from volumes
+RUN mkdir -p /usr/share/nginx/html/media /usr/share/nginx/html/_next/static
+
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
