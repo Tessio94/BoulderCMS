@@ -3,7 +3,7 @@ name: Build and Push PayloadCMS Docker Image
 on:
   push:
     branches:
-      - github-action
+      - deploy@v2
 
 jobs:
   build-and-push:
