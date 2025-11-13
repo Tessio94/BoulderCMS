@@ -1,9 +1,12 @@
 services:
   payload:
-    image: tessio94/boulder-payloadcms:v1.0.1
+    image: tessio94/boulder-payloadcms:latest
     environment:
       DATABASE_URL_FILE: /run/secrets/db_url
       PAYLOAD_SECRET_FILE: /run/secrets/payload_secret
+    secrets:
+      - db_url
+      - payload_secret
     volumes:
       - payload-media:/app/media
       - static-assets:/app/.next/static
@@ -13,9 +16,7 @@ services:
       - db-boulder
 
   nginx:
-    build:
-      context: .
-      dockerfile: Dockerfile.nx
+    image: tessio94/boulder-nginx:latest
     ports:
       - "80:80"
     volumes:
@@ -30,6 +31,8 @@ services:
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD_FILE: /run/secrets/postgres-passwd
+    secrets:
+      - postgres_passwd
     ports:
       - "5432:5432"
     volumes:

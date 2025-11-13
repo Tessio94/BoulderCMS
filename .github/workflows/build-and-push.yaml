@@ -21,9 +21,18 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build and push image
+      - name: Build and Push PayloadCMS image
         uses: docker/build-push-action@v6
         with:
           context: .
+          file: ./Dockerfile
           push: true
-          tags: tessio94/boulder-payloadcms:v1.0.1
+          tags: tessio94/boulder-payloadcms:latest
+
+      - name: Build and Push Nginx image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: ./Dockerfile.nx
+          push: true
+          tags: tessio94/boulder-nginx:latest
