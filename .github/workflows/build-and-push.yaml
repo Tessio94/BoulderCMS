@@ -27,6 +27,7 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
+          platforms: linux/amd64,linux/arm64
           tags: tessio94/boulder-payloadcms:latest
 
       - name: Build and Push Nginx image
@@ -35,4 +36,5 @@ jobs:
           context: .
           file: ./Dockerfile.nx
           push: true
+          platforms: linux/amd64,linux/arm64
           tags: tessio94/boulder-nginx:latest
