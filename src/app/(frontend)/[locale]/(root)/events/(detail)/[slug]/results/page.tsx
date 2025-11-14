@@ -33,7 +33,7 @@ const page = async ({ params }: { params: Promise<{ slug: string }> }) => {
       ) : (
         <div className="flex w-full flex-col items-center gap-10 rounded-2xl bg-linear-to-b from-cyan-200/50 via-cyan-200/60 to-amber-400/50 px-3 py-5 shadow-2xl shadow-amber-400/40 backdrop-blur-md sm:w-auto sm:px-10">
           <p className="text-center text-3xl text-cyan-900 sm:text-5xl">
-            Result haven't been submitted yet
+            Result haven&apos;t been submitted yet
           </p>
           <Image
             src="/header/logo3.svg"
