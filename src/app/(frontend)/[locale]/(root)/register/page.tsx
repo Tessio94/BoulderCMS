@@ -1,6 +1,7 @@
 "use client";
 
-import { Link } from "@/i18n/navigation";
+import { Link as Link18 } from "@/i18n/navigation";
+import Link from "next/link";
 import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { MdVisibility, MdVisibilityOff } from "react-icons/md";
@@ -153,12 +154,12 @@ function Register() {
         </h5>
 
         <div className="flex justify-between px-3 sm:px-10">
-          <Link
+          <Link18
             href="/login"
             className="relative cursor-pointer text-cyan-900 after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-cyan-900 after:transition-all after:duration-500 hover:after:w-full"
           >
             {t("login")}
-          </Link>
+          </Link18>
           <button className="relative cursor-pointer text-cyan-900 after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-cyan-900 after:transition-all after:duration-500 hover:after:w-full">
             {t("help")}
           </button>
@@ -295,9 +296,17 @@ function Register() {
                   onChange={handleChange}
                 />
                 <label className="cursor-pointer text-cyan-900" htmlFor="terms">
-                  {t("terms")}
+                  {t("terms")}{" "}
+                  <Link
+                    href="/privacy-policy"
+                    onClick={(e) => e.stopPropagation()} // prevents checkbox toggle
+                    className="text-cyan-950 underline transition-colors duration-300 hover:text-cyan-600"
+                  >
+                    {t("terms2")}
+                  </Link>
                 </label>
               </div>
+              <small className="text-cyan-900 italic">*Required</small>
               {errors.terms && (
                 <p className="mt-1 text-red-600">{errors.terms}</p>
               )}

@@ -7,17 +7,17 @@ import { routing } from "./i18n/routing";
 const intlMiddleware = createMiddleware(routing);
 
 export default function middleware(request: NextRequest) {
-	const { pathname } = request.nextUrl;
+  const { pathname } = request.nextUrl;
 
-	// Exclude /admin from locale detection/redirection
-	if (pathname.startsWith("/admin")) {
-		return NextResponse.next();
-	}
+  // Exclude /admin from locale detection/redirection
+  if (pathname.startsWith("/admin")) {
+    return NextResponse.next();
+  }
 
-	// All other routes use next-intl's locale-aware middleware
-	return intlMiddleware(request);
+  // All other routes use next-intl's locale-aware middleware
+  return intlMiddleware(request);
 }
 
 export const config = {
-	matcher: "/((?!api|trpc|_next|_vercel|.*\\..*).*)",
+  matcher: "/((?!api|trpc|_next|_vercel|.*\\..*).*)",
 };

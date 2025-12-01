@@ -73,7 +73,8 @@
     "results": "Your results"
   },
   "Footer": {
-    "text1": "© 2025 BoulderApp. All rights reserved."
+    "text1": "© 2025 BoulderApp. All rights reserved.",
+    "text2": "Privacy Policy"
   },
   "EventsLanding": {
     "heading": "Last event",
@@ -133,9 +134,188 @@
     "phone": "Phone number",
     "password": "Password",
     "repeatPassword": "Repeat password",
-    "terms": "I agree to the terms and conditions.",
+    "terms": "I agree to the",
+    "terms2": "terms and conditions",
     "register": "Register",
     "facebook": "Facebook login",
     "google": "Google login"
+  },
+  "Privacy": {
+    "heading": "Privacy Policy",
+    "policies": {
+      "policy1": {
+        "title": "1. Introduction",
+        "text1": "This Privacy Policy explains which personal data we collect when you use the website bouldermeet.com, for which purposes, on what legal basis, and what rights you have under the General Data Protection Regulation (GDPR).",
+        "text2": "We take the protection of your personal data very seriously and process it exclusively in accordance with the GDPR and this document."
+      },
+      "policy2": {
+        "title": "2. Data Controller",
+        "text1": "For the purposes of the General Data Protection Regulation (GDPR), the data controller is:",
+        "text2": "LITO, Obrt za iznajmljivanje opreme za rekreaciju i ostale specijalizirane građevinske djelatnosti",
+        "text3": "Owner: Dino Dokoza-Nikpalj",
+        "text4": "Ulica Dinka Šimunovića 9, 23000 Zadar, Croatia",
+        "text5": "support@bouldermeet.com"
+      },
+      "policy3": {
+        "title": "3. Hosting and Technical Infrastructure",
+        "text1": "The website is hosted by:",
+        "text2": "Netcup GmbH – VPS hosting",
+        "text3": "Data processing takes place exclusively within the EU.",
+        "text4": "The application runs in Docker containers; the backend is developed in a Next.js / PayloadCMS environment and executed exclusively on our servers.",
+        "text5": "There is no data transfer to Google or third parties."
+      },
+      "policy4": {
+        "title": "4. Data We Collect",
+        "title1": "4.1. User Account (Registration and Login)",
+        "text": "When you register, we collect and process the following data:",
+        "text1_0": {
+          "text1_1": "First name",
+          "text1_2": "Last name",
+          "text1_3": "Username",
+          "text1_4": "Email address",
+          "text1_5": "Mobile phone number (optional, if provided)",
+          "text1_6": "Password (hashed and never stored in plain text)"
+        },
+        "text1": "This data is required so users can:",
+        "text1_1": {
+          "text1_1": "create a profile",
+          "text1_2": "log in to their account",
+          "text1_3": "enter results from bouldering events",
+          "text1_4": "view their event and result history"
+        },
+        "title2": "4.2. Technical Data",
+        "text2": "When you visit our website, our server automatically stores minimal technical data in so-called server log files, including:",
+        "text2_1": {
+          "text2_1": "IP address",
+          "text2_2": "Date and time of the request",
+          "text2_3": "Browser type",
+          "text2_4": "Operating system",
+          "text2_5": "Loaded URL"
+        },
+        "text3": "These logs are used solely for system security, abuse prevention, and technical diagnostics."
+      },
+      "policy5": {
+        "title": "5. Cookies and Tracking Technologies",
+        "text1": "We do not use cookies.",
+        "text2": "We do not use analytics tools.",
+        "text3": "We do not use Google Analytics, Facebook Pixel, Matomo, or any other tracking technologies.",
+        "text4": "All website functionalities are available without the use of third-party or tracking cookies."
+      },
+      "policy6": {
+        "title": "6. Purposes of Data Processing",
+        "text1": "We process your data exclusively for the following purposes:",
+        "text2": {
+          "text2_1": "Creating and managing user accounts",
+          "text2_2": "Authentication and secure login",
+          "text2_3": "Managing results from bouldering events",
+          "text2_4": "Providing access to personal event history",
+          "text2_5": "Maintaining system security and stability"
+        },
+        "text3": "We do not process data for marketing purposes and do not send newsletters."
+      },
+      "policy7": {
+        "title": "7. Legal Basis for Processing",
+        "text1": "Your data is processed on the basis of:",
+        "text2": {
+          "text2_1": "Art. 6(1)(b) GDPR – performance of a contract / provision of a service",
+          "text2_2": "(creating accounts and enabling the use of the application)",
+          "text2_3": "Art. 6(1)(f) GDPR – legitimate interest",
+          "text2_4": "(server security, preventing system abuse)"
+        },
+        "text3": "We do not process special categories of personal data (Art. 9 GDPR)."
+      },
+      "policy8": {
+        "title": "8. Transfer of Data to Third Parties",
+        "text1": "Your personal data is:",
+        "text2": {
+          "text2_1": "not sold,",
+          "text2_2": "not shared with third parties,",
+          "text2_3": "not sent to advertisers,",
+          "text2_4": "not transferred outside the EU/EEA."
+        },
+        "text3": "The only exception:",
+        "text4": "mandatory transfers to competent authorities if required by law."
+      },
+      "policy9": {
+        "title": "9. Data Security",
+        "text1": "We have implemented technical and organizational measures to protect your data, including:",
+        "text3": {
+          "text3_1": "HTTPS / SSL encryption",
+          "text3_2": "Password hashing (bcrypt / scrypt / argon2 — depending on implementation)",
+          "text3_3": "Isolated Docker environments",
+          "text3_4": "Role-based access control (PayloadCMS)",
+          "text3_5": "Regular security updates"
+        }
+      },
+      "policy10": {
+        "title": "10. Data Retention Period",
+        "text1": "We store your data:",
+        "text2": {
+          "text2_1": "as long as you have an active user account,",
+          "text2_2": "or until you request deletion."
+        },
+        "text3": "After account deletion:",
+        "text4": {
+          "text3_1": "all personal data is deleted or anonymized",
+          "text3_2": "server logs are automatically deleted after a maximum of 30 days"
+        }
+      },
+      "policy11": {
+        "title": "11. User Rights (GDPR)",
+        "text1": "As a user, you have the right to:",
+        "text2": {
+          "text2_1": "access your personal data",
+          "text2_2": "rectify incorrect data",
+          "text2_3": "deletion (“right to be forgotten”)",
+          "text2_4": "restrict processing",
+          "text2_5": "data portability",
+          "text2_6": "object to processing",
+          "text2_7": "withdraw consent (if ever given)"
+        },
+        "text3": "To exercise your rights, contact us at:",
+        "text4": "support@bouldermeet.com",
+        "text5": "You also have the right to lodge a complaint with a competent supervisory authority in the EU."
+      },
+      "policy12": {
+        "title": "12. Contact",
+        "text1": "For all data protection–related questions:",
+        "text2": "Obrt za iznajmljivanje opreme za rekreaciju i ostale specijalizirane građevinske djelatnosti",
+        "text3": "Email: support@bouldermeet.com"
+      },
+      "policy13": {
+        "title": "13. Changes to This Privacy Policy",
+        "text1": "We reserve the right to update this Privacy Policy to remain compliant with applicable laws. The latest version is always available on this page."
+      }
+    }
+  },
+  "Impressum": {
+    "heading": "Impressum",
+    "impressum": {
+      "title1": "Service Provider / Data Controller",
+      "text1": {
+        "text1_1": "Lito, Obrt za iznajmljivanje opreme za rekreaciju i ostale specijalizirane građevinske djelatnosti",
+        "text1_2": "Owner: Dino Dokoza-Nikpalj",
+        "text1_3": "Ulica Dinka Šimunovića 9",
+        "text1_4": "23000 Zadar",
+        "text1_5": "Croatia"
+      },
+      "title2": "Technical Hosting & Data Processing (Art. 28 GDPR)",
+      "text2": {
+        "text2_1": "Ive Ivić",
+        "text2_2": "Zadar, Croatia"
+      },
+      "title3": "Purpose of processing:",
+      "text3": {
+        "text3_1": "Server hosting, maintenance, and technical operation on behalf of the controller."
+      },
+      "title4": "Responsible for Content (per § 18 Abs. 2 MStV)",
+      "text4": {
+        "text4_1": "Dino Dokoza-Nikpalj"
+      },
+      "title5": "EU VAT ID",
+      "text5": {
+        "text4_1": "HR70463597634"
+      }
+    }
   }
 }
