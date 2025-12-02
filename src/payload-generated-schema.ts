@@ -722,12 +722,9 @@ export const news = pgTable(
   {
     id: serial("id").primaryKey(),
     _order: varchar("_order"),
-    title: varchar("title").notNull(),
-    intro: varchar("intro"),
     newsImage: integer("news_image_id").references(() => media.id, {
       onDelete: "set null",
     }),
-    content: jsonb("content").notNull(),
     slug: varchar("slug"),
     updatedAt: timestamp("updated_at", {
       mode: "string",
@@ -750,6 +747,29 @@ export const news = pgTable(
     uniqueIndex("news_slug_idx").on(columns.slug),
     index("news_updated_at_idx").on(columns.updatedAt),
     index("news_created_at_idx").on(columns.createdAt),
+  ],
+);
+
+export const news_locales = pgTable(
+  "news_locales",
+  {
+    title: varchar("title").notNull(),
+    intro: varchar("intro"),
+    content: jsonb("content").notNull(),
+    id: serial("id").primaryKey(),
+    _locale: enum__locales("_locale").notNull(),
+    _parentID: integer("_parent_id").notNull(),
+  },
+  (columns) => [
+    uniqueIndex("news_locales_locale_parent_id_unique").on(
+      columns._locale,
+      columns._parentID,
+    ),
+    foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [news.id],
+      name: "news_locales_parent_id_fk",
+    }).onDelete("cascade"),
   ],
 );
 
@@ -1228,6 +1248,13 @@ export const relations_categories = relations(categories, ({ one, many }) => ({
     relationName: "_rels",
   }),
 }));
+export const relations_news_locales = relations(news_locales, ({ one }) => ({
+  _parentID: one(news, {
+    fields: [news_locales._parentID],
+    references: [news.id],
+    relationName: "_locales",
+  }),
+}));
 export const relations_news_rels = relations(news_rels, ({ one }) => ({
   parent: one(news, {
     fields: [news_rels.parent],
@@ -1245,6 +1272,9 @@ export const relations_news = relations(news, ({ one, many }) => ({
     fields: [news.newsImage],
     references: [media.id],
     relationName: "newsImage",
+  }),
+  _locales: many(news_locales, {
+    relationName: "_locales",
   }),
   _rels: many(news_rels, {
     relationName: "_rels",
@@ -1376,6 +1406,7 @@ type DatabaseSchema = {
   categories: typeof categories;
   categories_rels: typeof categories_rels;
   news: typeof news;
+  news_locales: typeof news_locales;
   news_rels: typeof news_rels;
   payload_locked_documents: typeof payload_locked_documents;
   payload_locked_documents_rels: typeof payload_locked_documents_rels;
@@ -1402,6 +1433,7 @@ type DatabaseSchema = {
   relations_event_registrations: typeof relations_event_registrations;
   relations_categories_rels: typeof relations_categories_rels;
   relations_categories: typeof relations_categories;
+  relations_news_locales: typeof relations_news_locales;
   relations_news_rels: typeof relations_news_rels;
   relations_news: typeof relations_news;
   relations_payload_locked_documents_rels: typeof relations_payload_locked_documents_rels;

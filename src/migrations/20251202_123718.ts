@@ -1,4 +1,4 @@
-import { MigrateUpArgs, MigrateDownArgs, sql } from "@payloadcms/db-postgres";
+import { MigrateUpArgs, MigrateDownArgs, sql } from '@payloadcms/db-postgres'
 
 export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   await db.execute(sql`
@@ -220,13 +220,19 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE TABLE "news" (
   	"id" serial PRIMARY KEY NOT NULL,
   	"_order" varchar,
-  	"title" varchar NOT NULL,
-  	"intro" varchar,
   	"news_image_id" integer,
-  	"content" jsonb NOT NULL,
   	"slug" varchar,
   	"updated_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
   	"created_at" timestamp(3) with time zone DEFAULT now() NOT NULL
+  );
+  
+  CREATE TABLE "news_locales" (
+  	"title" varchar NOT NULL,
+  	"intro" varchar,
+  	"content" jsonb NOT NULL,
+  	"id" serial PRIMARY KEY NOT NULL,
+  	"_locale" "_locales" NOT NULL,
+  	"_parent_id" integer NOT NULL
   );
   
   CREATE TABLE "news_rels" (
@@ -316,6 +322,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   ALTER TABLE "categories_rels" ADD CONSTRAINT "categories_rels_parent_fk" FOREIGN KEY ("parent_id") REFERENCES "public"."categories"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "categories_rels" ADD CONSTRAINT "categories_rels_event_registrations_fk" FOREIGN KEY ("event_registrations_id") REFERENCES "public"."event_registrations"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "news" ADD CONSTRAINT "news_news_image_id_media_id_fk" FOREIGN KEY ("news_image_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;
+  ALTER TABLE "news_locales" ADD CONSTRAINT "news_locales_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."news"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "news_rels" ADD CONSTRAINT "news_rels_parent_fk" FOREIGN KEY ("parent_id") REFERENCES "public"."news"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "news_rels" ADD CONSTRAINT "news_rels_media_fk" FOREIGN KEY ("media_id") REFERENCES "public"."media"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "payload_locked_documents_rels" ADD CONSTRAINT "payload_locked_documents_rels_parent_fk" FOREIGN KEY ("parent_id") REFERENCES "public"."payload_locked_documents"("id") ON DELETE cascade ON UPDATE no action;
@@ -406,6 +413,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE UNIQUE INDEX "news_slug_idx" ON "news" USING btree ("slug");
   CREATE INDEX "news_updated_at_idx" ON "news" USING btree ("updated_at");
   CREATE INDEX "news_created_at_idx" ON "news" USING btree ("created_at");
+  CREATE UNIQUE INDEX "news_locales_locale_parent_id_unique" ON "news_locales" USING btree ("_locale","_parent_id");
   CREATE INDEX "news_rels_order_idx" ON "news_rels" USING btree ("order");
   CREATE INDEX "news_rels_parent_idx" ON "news_rels" USING btree ("parent_id");
   CREATE INDEX "news_rels_path_idx" ON "news_rels" USING btree ("path");
@@ -435,14 +443,10 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE INDEX "payload_preferences_rels_users_id_idx" ON "payload_preferences_rels" USING btree ("users_id");
   CREATE INDEX "payload_preferences_rels_members_id_idx" ON "payload_preferences_rels" USING btree ("members_id");
   CREATE INDEX "payload_migrations_updated_at_idx" ON "payload_migrations" USING btree ("updated_at");
-  CREATE INDEX "payload_migrations_created_at_idx" ON "payload_migrations" USING btree ("created_at");`);
+  CREATE INDEX "payload_migrations_created_at_idx" ON "payload_migrations" USING btree ("created_at");`)
 }
 
-export async function down({
-  db,
-  payload,
-  req,
-}: MigrateDownArgs): Promise<void> {
+export async function down({ db, payload, req }: MigrateDownArgs): Promise<void> {
   await db.execute(sql`
    DROP TABLE "users_sessions" CASCADE;
   DROP TABLE "users" CASCADE;
@@ -465,6 +469,7 @@ export async function down({
   DROP TABLE "categories" CASCADE;
   DROP TABLE "categories_rels" CASCADE;
   DROP TABLE "news" CASCADE;
+  DROP TABLE "news_locales" CASCADE;
   DROP TABLE "news_rels" CASCADE;
   DROP TABLE "payload_locked_documents" CASCADE;
   DROP TABLE "payload_locked_documents_rels" CASCADE;
@@ -473,5 +478,5 @@ export async function down({
   DROP TABLE "payload_migrations" CASCADE;
   DROP TYPE "public"."_locales";
   DROP TYPE "public"."enum_gyms_working_hours_days";
-  DROP TYPE "public"."enum_categories_gender";`);
+  DROP TYPE "public"."enum_categories_gender";`)
 }

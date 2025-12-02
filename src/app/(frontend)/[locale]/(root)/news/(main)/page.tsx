@@ -3,18 +3,23 @@ import config from "@payload-config";
 import React from "react";
 import NewsPost from "@/components/NewsPost";
 import { TransitionLink } from "@/components/TransitionLink";
+import { LocaleType } from "@/types";
 
 const Page = async ({
+  params,
   searchParams,
 }: {
+  params: Promise<{ locale: LocaleType }>;
   searchParams: Promise<{ page?: string }>;
 }) => {
+  const { locale } = await params;
+
   const sParam = await searchParams;
   // console.log("sParam", sParam);
   const currentPage = parseInt(sParam.page || "1", 10);
   const limit = 4;
 
-  const { news, totalPages } = await getAllNews(currentPage, limit);
+  const { news, totalPages } = await getAllNews(currentPage, limit, locale);
 
   // console.log(news);
   // console.log("totalPages", totalPages);
@@ -90,7 +95,11 @@ const Page = async ({
 
 export default Page;
 
-const getAllNews = async (page = 1, limit = 10) => {
+const getAllNews = async (
+  page: number = 1,
+  limit: number = 10,
+  locale: LocaleType,
+) => {
   const payload = await getPayload({ config });
 
   const results = await payload.find({
@@ -98,6 +107,7 @@ const getAllNews = async (page = 1, limit = 10) => {
     limit,
     page,
     sort: "-createdAt",
+    locale,
   });
 
   return {

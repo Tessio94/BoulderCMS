@@ -21,10 +21,12 @@ export const News: CollectionConfig = {
     {
       name: "title",
       type: "text",
+      localized: true,
       required: true,
     },
     {
       name: "intro",
+      localized: true,
       type: "text",
     },
     {
@@ -40,6 +42,7 @@ export const News: CollectionConfig = {
             {
               name: "content",
               type: "richText",
+              localized: true,
               editor: lexicalEditor({
                 features: ({ rootFeatures }) => {
                   return [
