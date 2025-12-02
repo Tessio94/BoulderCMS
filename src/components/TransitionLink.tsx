@@ -14,7 +14,15 @@ interface TransitionLinkProps extends LinkProps {
   className?: string;
 }
 
-type PathKey = "home" | "events" | "gyms" | "gallery" | "login" | "register";
+type PathKey =
+  | "home"
+  | "events"
+  | "gyms"
+  | "gallery"
+  | "login"
+  | "register"
+  | "impressum"
+  | "privacyPolicy";
 
 type AllPathnames = Record<PathKey, [string, string]>;
 
@@ -41,6 +49,8 @@ export const TransitionLink = ({
     gallery: ["/gallery", "/de/galerie"],
     login: ["/login", "/de/login"],
     register: ["/register", "/de/registrieren"],
+    impressum: ["/impressum", "/de/impressum"],
+    privacyPolicy: ["/privacy-policy", "/de/datenschutzerklärung"],
   };
 
   let newPathname: PathKey;
@@ -57,6 +67,13 @@ export const TransitionLink = ({
     newPathname = "login";
   } else if (pathname === "/register" || pathname === "/de/registrieren") {
     newPathname = "register";
+  } else if (pathname === "/impressum" || pathname === "/de/impressum") {
+    newPathname = "impressum";
+  } else if (
+    pathname === "/privacy-policy" ||
+    pathname === "/de/datenschutzerklärung"
+  ) {
+    newPathname = "privacyPolicy";
   }
 
   const handleTransition = async (e: React.MouseEvent<HTMLAnchorElement>) => {

@@ -177,22 +177,69 @@ const page = async () => {
           </div>
         </div>
         <div className="flex flex-col items-start gap-8">
+          <h5 className="font-nunito text-2xl text-cyan-900">
+            {t("policies.policy5.title")}
+          </h5>
           <div className="flex flex-col items-start gap-5">
-            <h5 className="font-nunito text-2xl text-cyan-900">
-              {t("policies.policy5.title")}
+            <h5 className="font-nunito text-xl text-cyan-900">
+              {t("policies.policy5.title1")}
             </h5>
             <p className="font-nunito text-xl text-cyan-900">
               {t("policies.policy5.text1")}
             </p>
-            <p className="font-nunito text-xl text-cyan-900">
-              {t("policies.policy5.text2")}
-            </p>
-            <p className="font-nunito text-xl text-cyan-900">
-              {t("policies.policy5.text3")}
-            </p>
-            <p className="font-nunito text-xl text-cyan-900">
-              {t("policies.policy5.text4")}
-            </p>
+            <table className="w-full">
+              <thead>
+                <tr>
+                  <th className="xsm:text-xs font-nunito border-b border-cyan-900/40 p-1 text-start text-sm text-cyan-900 sm:px-3 sm:py-2 sm:text-lg">
+                    {t("policies.policy5.cookie.key1")}
+                  </th>
+                  <th className="font-nunito border-b border-cyan-900/40 p-1 text-start text-sm text-cyan-900 sm:px-3 sm:py-2 sm:text-lg">
+                    {t("policies.policy5.cookie.key2")}
+                  </th>
+                  <th className="font-nunito border-b border-cyan-900/40 p-1 text-start text-sm text-cyan-900 sm:px-3 sm:py-2 sm:text-lg">
+                    {t("policies.policy5.cookie.key3")}
+                  </th>
+                  <th className="font-nunito border-b border-cyan-900/40 p-1 text-start text-sm text-cyan-900 sm:px-3 sm:py-2 sm:text-lg">
+                    {t("policies.policy5.cookie.key4")}
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="cursor-pointer bg-white transition-all duration-300 hover:bg-slate-200">
+                <tr>
+                  <td className="xsm:text-xs font-nunito px-1 py-3 text-start text-sm text-cyan-900 sm:px-3 sm:py-2 sm:text-lg">
+                    {t("policies.policy5.cookie.value1")}
+                  </td>
+                  <td className="xsm:text-xs font-nunito px-1 py-3 text-start text-sm text-cyan-900 sm:px-3 sm:py-2 sm:text-lg">
+                    {t("policies.policy5.cookie.value2")}
+                  </td>
+                  <td className="xsm:text-xs xsm:text-center font-nunito px-1 py-3 text-start text-sm text-cyan-900 sm:px-3 sm:py-2 sm:text-lg">
+                    {t("policies.policy5.cookie.value3")}
+                  </td>
+                  <td className="xsm:text-xs xsm:text-center font-nunito px-1 py-3 text-start text-sm text-cyan-900 sm:px-3 sm:py-2 sm:text-lg">
+                    {t("policies.policy5.cookie.value4")}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div className="flex flex-col items-start gap-5">
+            <h5 className="font-nunito text-xl text-cyan-900">
+              {t("policies.policy5.title2")}
+            </h5>
+            <div>
+              <p className="font-nunito text-xl text-cyan-900">
+                {t("policies.policy5.text2_1")}
+              </p>
+              <p className="font-nunito text-xl text-cyan-900">
+                {t("policies.policy5.text2_2")}
+              </p>
+              <p className="font-nunito text-xl text-cyan-900">
+                {t("policies.policy5.text2_3")}
+              </p>
+              <p className="font-nunito text-xl text-cyan-900">
+                {t("policies.policy5.text2_4")}
+              </p>
+            </div>
           </div>
         </div>
         <div className="flex flex-col items-start gap-8">

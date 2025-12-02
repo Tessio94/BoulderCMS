@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { useTranslations } from "next-intl";
-import Link from "next/link";
+import { TransitionLink } from "./TransitionLink";
 
 const Footer = () => {
   const t = useTranslations("Footer");
@@ -69,20 +69,22 @@ const Footer = () => {
       </div>
       <div className="flex flex-row items-center gap-5 sm:gap-8">
         <div>
-          <Link
-            className="font-nunito font-regular text-2xl text-cyan-900/90 underline"
+          <TransitionLink
+            type="i18n"
             href="/impressum"
+            className="font-nunito font-regular text-2xl text-cyan-900/90 underline"
           >
             Impressum
-          </Link>
+          </TransitionLink>
         </div>
         <div>
-          <Link
-            className="font-nunito font-regular text-2xl text-cyan-900/90 underline"
+          <TransitionLink
+            type="i18n"
             href="/privacy-policy"
+            className="font-nunito font-regular text-2xl text-cyan-900/90 underline"
           >
             {t("text2")}
-          </Link>
+          </TransitionLink>
         </div>
       </div>
     </footer>

@@ -197,11 +197,25 @@
       },
       "policy5": {
         "title": "5. Cookies und Tracking-Technologien",
-        "text1": "Wir verwenden keine Cookies.",
-        "text2": "Wir verwenden keine Analysetools.",
-        "text3": "Wir verwenden weder Google Analytics, Facebook Pixel, Matomo noch andere Tracking-Technologien.",
-        "text4": "Alle Website-Funktionen stehen ohne Drittanbieter- oder Tracking-Cookies zur Verfügung."
+        "title1": "5.1. Von uns verwendete Cookies",
+        "text1": "Wir verwenden nur ein funktionales, unbedingt erforderliches Cookie:",
+        "cookie": {
+          "key1": "Cookie-Name",
+          "key2": "Zweck",
+          "key3": "Speicherdauer",
+          "key4": "Kategorie",
+          "value1": "NEXT_LOCALE",
+          "value2": "Speichert die vom Benutzer ausgewählte Sprache und stellt sicher, dass die Website in der richtigen Sprache angezeigt wird",
+          "value3": "bis zu 1 Jahr",
+          "value4": "Funktional / unbedingt erforderlich"
+        },
+        "title2": "5.2. Cookies, die wir nicht verwenden",
+        "text2_1": "Wir verwenden keine Cookies.",
+        "text2_2": "Wir verwenden keine Analyse-Tools.",
+        "text2_3": "Wir verwenden kein Google Analytics, Facebook Pixel, Matomo oder andere Tracking-Technologien.",
+        "text2_4": "Alle Website-Funktionen stehen ohne den Einsatz von Drittanbieter- oder Tracking-Cookies zur Verfügung."
       },
+
       "policy6": {
         "title": "6. Zwecke der Datenverarbeitung",
         "text1": "Wir verarbeiten Ihre Daten ausschließlich zu folgenden Zwecken:",
@@ -302,7 +316,7 @@
       },
       "title2": "Technisches Hosting & Datenverarbeitung (Art. 28 DSGVO)",
       "text2": {
-        "text2_1": "Ive Ivić",
+        "text2_1": "Šime Klapan",
         "text2_2": "Zadar, Kroatien"
       },
       "title3": "Zweck der Verarbeitung:",

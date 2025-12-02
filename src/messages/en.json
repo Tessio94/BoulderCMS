@@ -196,10 +196,23 @@
       },
       "policy5": {
         "title": "5. Cookies and Tracking Technologies",
-        "text1": "We do not use cookies.",
-        "text2": "We do not use analytics tools.",
-        "text3": "We do not use Google Analytics, Facebook Pixel, Matomo, or any other tracking technologies.",
-        "text4": "All website functionalities are available without the use of third-party or tracking cookies."
+        "title1": "5.1. Cookies We Use",
+        "text1": "We use only one functional, strictly necessary cookie:",
+        "cookie": {
+          "key1": "Cookie name",
+          "key2": "Purpose",
+          "key3": "Duration",
+          "key4": "Category",
+          "value1": "NEXT_LOCALE",
+          "value2": "Stores the user’s selected language and ensures the website is displayed in the correct locale",
+          "value3": "up to 1 year",
+          "value4": "Functional / necessary"
+        },
+        "title2": "5.2. Cookies We Do Not Use",
+        "text2_1": "We do not use cookies.",
+        "text2_2": "We do not use analytics tools.",
+        "text2_3": "We do not use Google Analytics, Facebook Pixel, Matomo, or any other tracking technologies.",
+        "text2_4": "All website functionalities are available without the use of third-party or tracking cookies."
       },
       "policy6": {
         "title": "6. Purposes of Data Processing",
@@ -301,7 +314,7 @@
       },
       "title2": "Technical Hosting & Data Processing (Art. 28 GDPR)",
       "text2": {
-        "text2_1": "Ive Ivić",
+        "text2_1": "Šime Klapan",
         "text2_2": "Zadar, Croatia"
       },
       "title3": "Purpose of processing:",
