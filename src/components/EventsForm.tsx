@@ -5,6 +5,7 @@ import { useState } from "react";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { Gym } from "@/payload-types";
 import { Filters } from "@/types";
+import { useTranslations } from "next-intl";
 
 interface EventsFormProps {
   filters: Filters;
@@ -25,8 +26,9 @@ const EventsForm = ({ filters, onChange }: EventsFormProps) => {
     },
   });
   // console.log(filters);
+  const t = useTranslations("EventsSection.form");
   return (
-    <div className="mx-5 mb-[50px] flex flex-col gap-6 rounded-2xl bg-cyan-900/10 px-4 py-[50px] sm:mx-[50px] md:mb-20 md:px-[60px] lg:mx-[60px] 2xl:mx-40">
+    <div className="mx-5 mb-[50px] flex flex-col gap-6 rounded-2xl bg-cyan-900/10 px-4 py-[50px] max-sm:mx-0 sm:mx-[50px] md:mb-20 md:px-[60px] lg:mx-[60px] 2xl:mx-40">
       <div>
         <div
           className="bg-cards hover:bg-cards-dark active:bg-cards-dark focus:bg-cards-dark w-fit cursor-pointer rounded-2xl px-6 py-2 text-3xl text-cyan-900 transition-all duration-500 hover:text-cyan-800 focus:text-cyan-800 active:text-cyan-800"
@@ -34,7 +36,7 @@ const EventsForm = ({ filters, onChange }: EventsFormProps) => {
             setShowSort((sort) => !sort);
           }}
         >
-          Sort
+          {t("sort")}
         </div>
         {showSort && (
           <div className="">
@@ -47,7 +49,7 @@ const EventsForm = ({ filters, onChange }: EventsFormProps) => {
                 setShowSort(false);
               }}
             >
-              Newest events first
+              {t("newest")}
             </div>
             <div
               className="bg-cards hover:bg-cards-dark active:bg-cards-dark focus:bg-cards-dark mt-1 cursor-pointer rounded-2xl px-6 py-2 text-2xl text-cyan-900 transition-all duration-500 hover:text-cyan-800 focus:text-cyan-800 active:text-cyan-800"
@@ -58,7 +60,7 @@ const EventsForm = ({ filters, onChange }: EventsFormProps) => {
                 setShowSort(false);
               }}
             >
-              Oldest events first
+              {t("oldest")}
             </div>
           </div>
         )}
@@ -70,7 +72,7 @@ const EventsForm = ({ filters, onChange }: EventsFormProps) => {
               htmlFor="from"
               className="pl-6 text-3xl font-extrabold text-cyan-900"
             >
-              From
+              {t("from")}
             </label>
             <input
               type="date"
@@ -86,7 +88,7 @@ const EventsForm = ({ filters, onChange }: EventsFormProps) => {
               htmlFor="to"
               className="pl-6 text-3xl font-extrabold text-cyan-900"
             >
-              To
+              {t("to")}
             </label>
             <input
               type="date"
@@ -103,14 +105,14 @@ const EventsForm = ({ filters, onChange }: EventsFormProps) => {
             htmlFor="to"
             className="pl-6 text-3xl font-extrabold text-cyan-900"
           >
-            Hall
+            {t("hall")}
           </label>
           <div>
             <div
               className="flex cursor-pointer items-center justify-between rounded-2xl border-b border-cyan-900 bg-cyan-900/10 px-5 py-3 text-2xl text-cyan-900"
               onClick={() => setShowGyms((prev) => !prev)}
             >
-              <p className="opacity-50">Select the hall</p>
+              <p className="opacity-50">{t("select1")}</p>
               <IoMdArrowDropdown />
             </div>
 
@@ -139,14 +141,14 @@ const EventsForm = ({ filters, onChange }: EventsFormProps) => {
             htmlFor="term"
             className="pl-6 text-3xl font-extrabold text-cyan-900"
           >
-            Search
+            {t("search")}
           </label>
           <div className="rounded-2xl border-b border-cyan-900 bg-cyan-900/10 px-5 py-3 text-2xl text-cyan-900">
             <input
               type="text"
               id="term"
               name="term"
-              placeholder="Search the term"
+              placeholder={t("search1")}
               value={filters.term}
               onChange={(e) => onChange({ term: e.target.value })}
               className="w-full border-0 outline-0"

@@ -4,12 +4,15 @@ import Image from "next/image";
 import { eventDateFormat } from "@/lib/utils";
 import { FaArrowRight } from "react-icons/fa6";
 import { Media, News } from "@/payload-types";
+import { getTranslations } from "next-intl/server";
 
 type NewsPostProps = {
   post: News;
 };
 
-const NewsPost = ({ post }: NewsPostProps) => {
+const NewsPost = async ({ post }: NewsPostProps) => {
+  const t = await getTranslations("News");
+
   const postHeroImage = post.newsImage as Media;
 
   return (
@@ -44,7 +47,7 @@ const NewsPost = ({ post }: NewsPostProps) => {
           <p className="text-2xl">{post.title}</p>
           <p className="text-xl">{post.intro}</p>
           <button className="flex items-center gap-4 text-xl font-bold">
-            Read more{" "}
+            {t("text1")}{" "}
             <FaArrowRight className="transition-all duration-300 group-hover:translate-x-[6px]" />
           </button>
         </div>

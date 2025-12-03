@@ -70,6 +70,7 @@ const GalleryContent = ({
           </div>
         </div>
       </div>
+
       <GalleryGrid galleries={galleries} />
     </>
   );

@@ -66,6 +66,10 @@ export const metadata: Metadata = {
   icons: {
     icon: "/header/logo3.svg", // or .png, .svg
   },
+  robots: {
+    index: false,
+    follow: false,
+  },
   // description: "Boulder App – Finden Sie alle Kletter-Events in Ihrer Nähe.",
 };
 

@@ -4,6 +4,7 @@ import React from "react";
 import NewsPost from "@/components/NewsPost";
 import { TransitionLink } from "@/components/TransitionLink";
 import { LocaleType } from "@/types";
+import { getTranslations } from "next-intl/server";
 
 const Page = async ({
   params,
@@ -12,6 +13,8 @@ const Page = async ({
   params: Promise<{ locale: LocaleType }>;
   searchParams: Promise<{ page?: string }>;
 }) => {
+  const t = await getTranslations("News");
+
   const { locale } = await params;
 
   const sParam = await searchParams;
@@ -27,7 +30,7 @@ const Page = async ({
     <main className="min-h-[calc(100vh-620px)] px-[20px] py-3 pt-[125px] sm:px-[50px] lg:px-[60px] xl:min-h-[calc(100vh-403px)] 2xl:px-[160px]">
       <div className="pt-15 pb-10">
         <h4 className="my-text-stroke relative mb-16 w-fit pt-7 text-3xl font-extrabold text-cyan-900">
-          News:
+          {t("title")}:
         </h4>
         <div className="flex flex-wrap justify-between gap-y-16 md:px-24 lg:px-0">
           {news.map((post, i) => {
@@ -62,16 +65,16 @@ const Page = async ({
               href={`?page=${currentPage - 1}`}
               className="cursor-pointer rounded-lg border border-cyan-900 px-4 py-2 text-cyan-900 transition-all duration-300 hover:bg-cyan-900/50"
             >
-              Prev
+              {t("prev")}
             </TransitionLink>
           ) : (
             <span className="cursor-not-allowed rounded-lg border border-cyan-900 px-4 py-2 text-cyan-900 opacity-50">
-              Prev
+              {t("prev")}
             </span>
           )}
 
           <span className="px-4 py-2 text-cyan-900">
-            Page {currentPage} of {totalPages}
+            {t("page")} {currentPage} {t("of")} {totalPages}
           </span>
 
           {/* Next button */}
@@ -80,11 +83,11 @@ const Page = async ({
               href={`?page=${currentPage + 1}`}
               className="cursor-pointer rounded-lg border border-cyan-900 px-4 py-2 text-cyan-900 transition-all duration-300 hover:bg-cyan-900/50"
             >
-              Next
+              {t("next")}
             </TransitionLink>
           ) : (
             <span className="cursor-not-allowed rounded-lg border border-cyan-900 px-4 py-2 text-cyan-900 opacity-50">
-              Next
+              {t("next")}
             </span>
           )}
         </div>

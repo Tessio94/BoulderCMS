@@ -19,7 +19,8 @@
     "button1": "Mach mit",
     "button2": "Zu den Events",
     "welcome": "Willkommen",
-    "results": "Ihre Ergebnisse"
+    "results": "Ihre Ergebnisse",
+    "what": "Was ist neu"
   },
   "Cards": {
     "card1": {
@@ -102,17 +103,30 @@
         "date": "26.04.2025",
         "description": "Boulder-Wettkampf mit Musik & Specials"
       }
+    },
+    "form": {
+      "sort": "Sortieren",
+      "newest": "Neueste Ereignisse zuerst",
+      "oldest": "Älteste Ereignisse zuerst",
+      "search": "Suche",
+      "hall": "Halle",
+      "from": "Von",
+      "to": "Bis",
+      "select1": "Halle auswählen",
+      "search1": "Suchbegriff eingeben"
     }
   },
   "Gallery": {
     "heading": "Galerien anzeigen",
     "searchPlaceholder": "Galerien durchsuchen...",
-    "button": "Alle Galerien"
+    "button": "Alle Galerien",
+    "click": "Klicken, um Galerien anzusehen"
   },
   "Gym": {
     "heading": "Liste der Boulderhallen ansehen",
     "searchPlaceholder": "Hallen suchen...",
-    "button": "Alle Hallen"
+    "button": "Alle Hallen",
+    "results": "Fitnessstudio-Ergebnisse"
   },
   "Login": {
     "heading": "Willkommen zurück",
@@ -332,5 +346,14 @@
         "text4_1": "HR70463597634"
       }
     }
+  },
+
+  "News": {
+    "title": "Nachrichten",
+    "page": "Seite",
+    "of": "von",
+    "prev": "Zurück",
+    "next": "Weiter",
+    "text1": "Weiterlesen"
   }
 }

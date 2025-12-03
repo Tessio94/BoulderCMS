@@ -1,7 +1,7 @@
 "use client";
 
 import { Link as Link18 } from "@/i18n/navigation";
-import Link from "next/link";
+// import Link from "next/link";
 import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { MdVisibility, MdVisibilityOff } from "react-icons/md";
@@ -10,6 +10,7 @@ import { z } from "zod";
 import { toast } from "sonner";
 import Toast from "@/components/sonner/Toast";
 import { useRouter } from "next/navigation";
+import { TransitionLink } from "@/components/TransitionLink";
 // import { useLocale } from "next-intl";
 // import { cn } from "@/lib/utils";
 // import { FaFacebook } from "react-icons/fa";
@@ -297,13 +298,14 @@ function Register() {
                 />
                 <label className="cursor-pointer text-cyan-900" htmlFor="terms">
                   {t("terms")}{" "}
-                  <Link
+                  <TransitionLink
+                    type="i18n"
                     href="/privacy-policy"
                     onClick={(e) => e.stopPropagation()} // prevents checkbox toggle
                     className="text-cyan-950 underline transition-colors duration-300 hover:text-cyan-600"
                   >
                     {t("terms2")}
-                  </Link>
+                  </TransitionLink>
                 </label>
               </div>
               <small className="text-cyan-900 italic">*Required</small>

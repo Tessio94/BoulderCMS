@@ -18,7 +18,8 @@
     "button1": "Join Us",
     "button2": "See Events",
     "welcome": "Welcome",
-    "results": "Your results"
+    "results": "Your results",
+    "what": "What's new"
   },
   "Cards": {
     "card1": {
@@ -101,17 +102,30 @@
         "date": "26.04.2025",
         "description": "Bouldering competition with music & specials"
       }
+    },
+    "form": {
+      "sort": "Sort",
+      "newest": "Newest events first",
+      "oldest": "Oldest events first",
+      "search": "Search",
+      "hall": "Hall",
+      "from": "From",
+      "to": "To",
+      "select1": "Select the hall",
+      "search1": "Search the term"
     }
   },
   "Gallery": {
     "heading": "See list of galleries",
     "searchPlaceholder": "Search galleries...",
-    "button": "All galleries"
+    "button": "All galleries",
+    "click": "Click to see galleries"
   },
   "Gym": {
     "heading": "See list of boulder halls",
     "searchPlaceholder": "Search gyms...",
-    "button": "All gyms"
+    "button": "All gyms",
+    "results": "Gym Results"
   },
   "Login": {
     "heading": "Welcome back",
@@ -330,5 +344,13 @@
         "text4_1": "HR70463597634"
       }
     }
+  },
+  "News": {
+    "title": "News",
+    "page": "Page",
+    "of": "of",
+    "prev": "Prev",
+    "next": "Next",
+    "text1": "Read more"
   }
 }
